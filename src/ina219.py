@@ -2,10 +2,12 @@
 This library supports the INA219 sensor from Texas Instruments with
 MicroPython using the I2C bus.
 """
-import logging
+import log
 import time
 from math import trunc
 from periphery import I2C
+
+logger = log.get()
 
 def const(num):
     return num
@@ -109,7 +111,7 @@ class INA219:
     __CURRENT_LSB_FACTOR = 32800
 
     def __init__(self, shunt_ohms, i2c, max_expected_amps=None,
-                 address=__ADDRESS, log_level=logging.ERROR):
+                 address=__ADDRESS):
         """Construct the class.
         At a minimum pass in the resistance of the shunt resistor and I2C
         interface to which the sensor is connected.
@@ -123,8 +125,7 @@ class INA219:
         log_level -- set to logging.DEBUG to see detailed calibration
             calculations (optional).
         """
-        logging.basicConfig(level=log_level)
-        self._log = logging.getLogger("ina219")
+        self._log = logger
         self._i2c = i2c
         self._address = address
         self._shunt_ohms = shunt_ohms
@@ -382,7 +383,7 @@ class INA219:
 
         register_bytes = self.__to_bytes(register_value)
         #self._i2c.writeto_mem(self._address, register, register_bytes)
-        self._i2c.transfer(self._address, [I2C.Message(register_bytes), I2C.Message([0x00], read=False)])
+        self._i2c.transfer(self._address, [I2C.Message(register_bytes, read=False)])
 
     def __to_bytes(self, register_value):
         return bytearray([(register_value >> 8) & 0xFF, register_value & 0xFF])
@@ -390,7 +391,7 @@ class INA219:
     def __read_register(self, register, negative_value_supported=False):
         #register_bytes = self._i2c.readfrom_mem(self._address, register, 2)
         register_bytes = self._i2c.readfrom_mem(self._address, register, 2)
-        self._i2c.transfer(self._address, [I2C.Message(register_bytes), I2C.Message([0x00], read=True)])
+        self._i2c.transfer(self._address, [I2C.Message(register_bytes, read=True)])
         register_value = int.from_bytes(register_bytes, 'big')
         if negative_value_supported:
             # Two's compliment

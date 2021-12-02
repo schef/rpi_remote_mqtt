@@ -19,8 +19,8 @@ dtparam=i2c1=on
 groupadd gpio
 usermod -a -G gpio alarm
 
-/etc/udev/rules.d/10-alarm-gpio.rules
+/etc/udev/rules.d/alarm-gpio.rules
 SUBSYSTEM=="gpio", ACTION=="add", PROGRAM="/bin/sh -c 'chgrp -R gpio /dev/gpiochip* && chmod -R g+rw /dev/gpiochip*'"
 
-/etc/udev/rules.d/10-alarm-i2c.rules
+/etc/udev/rules.d/alarm-i2c.rules
 SUBSYSTEM=="i2c-dev", ACTION=="add", PROGRAM="/bin/sh -c 'chgrp -R gpio /dev/i2c* && chmod -R g+rw /dev/i2c*'"
