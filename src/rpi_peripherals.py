@@ -1,15 +1,18 @@
-import gpiozero
-from gpiozero.pins.mock import MockFactory
-gpiozero.Device.pin_factory = MockFactory()
+from periphery import GPIO
 
 led = None
 
 def set_led(state):
-    if state:
-        led.on()
-    else:
-        led.off()
+    led.write(state)
 
 
 if __name__ == "__main__":
-    led = gpiozero.LED(26)
+    # Open GPIO /dev/gpiochip0 line 10 with input direction
+    #gpio_in = GPIO("/dev/gpiochip0", 10, "in")
+    # Open GPIO /dev/gpiochip0 line 12 with output direction
+    led = GPIO("/dev/gpiochip0", 12, "out")
+
+    #value = gpio_in.read()
+
+    #gpio_in.close()
+    #gpio_out.close()
