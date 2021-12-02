@@ -112,8 +112,8 @@ if __name__ == "__main__":
 
     client.subscribe("device_outdoor/input/#", qos=1)
 
-    rpi_peripherals.init()
     rpi_peripherals.register_on_relay_pressed(on_relay_pressed)
+    rpi_peripherals.init()
     logger.info("[MAIN]: init end")
 
     x = threading.Thread(target=loop, args=(client,))
