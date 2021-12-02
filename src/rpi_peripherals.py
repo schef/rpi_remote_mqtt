@@ -1,4 +1,6 @@
-from gpiozero import LED
+import gpiozero
+from gpiozero.pins.mock import MockFactory
+gpiozero.Device.pin_factory = MockFactory()
 
 led = None
 
@@ -10,4 +12,4 @@ def set_led(state):
 
 
 if __name__ == "__main__":
-    led = LED(26)
+    led = gpiozero.LED(26)
