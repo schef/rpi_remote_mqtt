@@ -26,7 +26,7 @@ def set_relay(num, state):
 
 if __name__ == "__main__":
     button_led = GPIO("/dev/gpiochip0", BUTTON_LED, "out")
-    button_in = GPIO("/dev/gpiochip0", BUTTON_IN, "in", bias="pullup")
+    button_in = GPIO("/dev/gpiochip0", BUTTON_IN, "in", bias="pull_up")
     relays.append(GPIO("/dev/gpiochip0", RELAY_1, "out"))
     relays.append(GPIO("/dev/gpiochip0", RELAY_2, "out"))
     relays.append(GPIO("/dev/gpiochip0", RELAY_3, "out"))
