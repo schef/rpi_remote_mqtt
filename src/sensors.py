@@ -1,5 +1,5 @@
 import re
-from bashcmd import run_bash_cmd
+from common import run_bash_cmd
 
 
 # N11

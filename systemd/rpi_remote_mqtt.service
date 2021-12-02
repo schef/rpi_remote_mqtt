@@ -1,0 +1,14 @@
+[Unit]
+Description=RPI remote mqtt
+StartLimitIntervalSec=0
+
+[Service]
+Type=exec
+Environment=PYTHONUNBUFFERED=true
+ExecStart=/usr/bin/python /home/<USER>/git/rpi_remote_mqtt/src/main.py
+
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=default.target

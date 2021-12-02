@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import json
-from bashcmd import run_bash_cmd
+from common import run_bash_cmd
 
 
 def get_network_devices():
