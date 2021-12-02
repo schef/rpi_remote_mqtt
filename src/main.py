@@ -49,8 +49,14 @@ def loop(client):
         client.publish("device_outdoor/output/uptime", payload=get_uptime(start_timestamp), retain=True, qos=1)
         time.sleep(10)
         if count == 0:
-            client.publish("device_outdoor/output/network", payload=get_ip(), retain=True, qos=1)
-            client.publish("device_outdoor/output/sensors", payload=get_temp(), retain=True, qos=1)
+            try:
+                client.publish("device_outdoor/output/network", payload=get_ip(), retain=True, qos=1)
+            except:
+                logger.info("[LOOP]: cant get ip")
+            try:
+                client.publish("device_outdoor/output/sensors", payload=get_temp(), retain=True, qos=1)
+            except:
+                logger.info("[LOOP]: cant get temp")
         count += 1
         if count == 10:
             count = 0
