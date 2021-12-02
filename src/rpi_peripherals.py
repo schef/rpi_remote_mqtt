@@ -15,14 +15,14 @@ relays = []
 
 
 def set_button_led(state):
-    button_led.write(state)
+    button_led.write(bool(state))
 
 
 def get_button_state():
-    return button_in.read()
+    return int(button_in.read())
 
 def set_relay(num, state):
-    relays[num].write(state)
+    relays[num].write(bool(state))
 
 if __name__ == "__main__":
     button_led = GPIO("/dev/gpiochip0", BUTTON_LED, "out")
