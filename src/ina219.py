@@ -390,7 +390,7 @@ class INA219:
 
     def __read_register(self, register, negative_value_supported=False):
         #register_bytes = self._i2c.readfrom_mem(self._address, register, 2)
-        register_bytes = self._i2c.readfrom_mem(self._address, register, 2)
+        register_bytes = [0x00, 0x00]
         self._i2c.transfer(self._address, [I2C.Message(register_bytes, read=True)])
         register_value = int.from_bytes(register_bytes, 'big')
         if negative_value_supported:
