@@ -7,6 +7,7 @@ import log
 import time
 import network_info
 import sensors
+import rpi_peripherals
 
 logger = log.get()
 light_state = 0
@@ -33,8 +34,10 @@ def set_light(state):
 def get_ip():
     return network_info.get_ip_from_device(network_info.get_network_devices()[0])
 
+
 def get_temp():
     return sensors.get_temperature()
+
 
 def loop(client):
     logger.info("[LOOP]: init begin")
@@ -56,6 +59,14 @@ def loop(client):
 def parse_on_message(topic, payload):
     if topic == "device_outdoor/input/light":
         set_light(int(payload))
+    if topic == "device_outdoor/input/relay0":
+        rpi_peripherals.set_relay(0, int(payload))
+    if topic == "device_outdoor/input/relay1":
+        rpi_peripherals.set_relay(1, int(payload))
+    if topic == "device_outdoor/input/relay2":
+        rpi_peripherals.set_relay(2, int(payload))
+    if topic == "device_outdoor/input/relay3":
+        rpi_peripherals.set_relay(3, int(payload))
 
 
 def on_connect(client, userdata, flags, rc, properties=None):
@@ -75,6 +86,11 @@ def on_message(client, userdata, msg):
     parse_on_message(msg.topic, msg.payload)
 
 
+def on_relay_pressed(num, state):
+    logger.info("[MQTT]: on_relay_pressed num[%s], state[%s], payload[%s]" % (num, state))
+    client.publish("device_outdoor/output/relay_%d" % (num), payload=state, retain=True, qos=1)
+
+
 if __name__ == "__main__":
     logger.info("[MAIN]: init begin")
     client = paho.Client(client_id="", userdata=None, protocol=paho.MQTTv5)
@@ -90,6 +106,8 @@ if __name__ == "__main__":
 
     client.subscribe("device_outdoor/input/#", qos=1)
 
+    rpi_peripherals.init()
+    rpi_peripherals.register_on_relay_pressed(on_relay_pressed)
     logger.info("[MAIN]: init end")
 
     x = threading.Thread(target=loop, args=(client,))
