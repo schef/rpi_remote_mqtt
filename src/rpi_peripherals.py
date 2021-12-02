@@ -1,18 +1,36 @@
 from periphery import GPIO
 
-led = None
+# https://cdn.sparkfun.com/assets/learn_tutorials/6/7/6/PiZero_1.pdf
 
-def set_led(state):
-    led.write(state)
+BUTTON_LED = 12
+BUTTON_IN = 16
+RELAY_1 = 18
+RELAY_2 = 23
+RELAY_3 = 24
+RELAY_4 = 25
 
+button_led = None
+button_in = None
+relays = []
+
+
+def set_button_led(state):
+    button_led.write(state)
+
+
+def get_button_state():
+    return button_in.read()
+
+def set_relay(num, state):
+    relays[num].write(state)
 
 if __name__ == "__main__":
-    # Open GPIO /dev/gpiochip0 line 10 with input direction
-    #gpio_in = GPIO("/dev/gpiochip0", 10, "in")
-    # Open GPIO /dev/gpiochip0 line 12 with output direction
-    led = GPIO("/dev/gpiochip0", 12, "out")
+    button_led = GPIO("/dev/gpiochip0", BUTTON_LED, "out")
+    button_in = GPIO("/dev/gpiochip0", BUTTON_IN, "in", bias="pullup")
+    relays.append(GPIO("/dev/gpiochip0", RELAY_1, "out"))
+    relays.append(GPIO("/dev/gpiochip0", RELAY_2, "out"))
+    relays.append(GPIO("/dev/gpiochip0", RELAY_3, "out"))
+    relays.append(GPIO("/dev/gpiochip0", RELAY_4, "out"))
 
-    #value = gpio_in.read()
-
-    #gpio_in.close()
-    #gpio_out.close()
+    # gpio_in.close()
+    # gpio_out.close()
