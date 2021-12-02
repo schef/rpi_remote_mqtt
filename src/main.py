@@ -94,7 +94,7 @@ def on_message(client, userdata, msg):
 
 def on_relay_pressed(num, state):
     logger.info("[MQTT]: on_relay_pressed num[%s], state[%s]" % (str(num), str(state)))
-    client.publish("device_outdoor/output/relay_%d" % (str(num)), payload=str(state), retain=True, qos=1)
+    client.publish("device_outdoor/output/relay_%s" % (str(num)), payload=str(state), retain=True, qos=1)
 
 
 if __name__ == "__main__":
