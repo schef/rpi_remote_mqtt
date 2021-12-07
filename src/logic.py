@@ -39,7 +39,7 @@ def check_for_agregator():
 
 def loop():
     rpi_peripherals.loop()
-
+    check_for_agregator()
 
 def loop_test():
     init()
