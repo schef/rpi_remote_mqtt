@@ -1,8 +1,6 @@
-import threading
 from periphery import GPIO, I2C
 import ina219
 import log
-import time
 
 logger = log.get()
 
@@ -21,10 +19,6 @@ button_in = None
 relays = []
 i2c = None
 ina = None
-on_relay_pressed = None
-on_led_changed = None
-button_state = None
-on_button_pressed = None
 
 
 # i2cdetect -y 1
@@ -32,8 +26,6 @@ on_button_pressed = None
 
 def set_button_led(state):
     button_led.write(bool(state))
-    if on_led_changed:
-        on_relay_pressed(state)
 
 
 def get_button_state():
@@ -42,11 +34,9 @@ def get_button_state():
 
 def set_relay(num, state):
     relays[num].write(bool(state))
-    if on_relay_pressed:
-        on_relay_pressed(num, state)
 
 
-def get_measure():
+def ina_get_measure():
     voltage = ina.voltage()
     current = ina.current()
     power = ina.power()
@@ -56,36 +46,12 @@ def get_measure():
     return (voltage, current, power)
 
 
-def register_on_relay_pressed(func):
-    global on_relay_pressed
-    on_relay_pressed = func
-
-
-def register_on_led_changed(func):
-    global on_led_changed
-    on_led_changed = func
-
-
-def register_on_button_pressed(func):
-    global on_button_pressed
-    on_button_pressed = func
-
-
 def loop():
-    global button_state
-    logger.info("[RPILOOP]: init begin")
-    logger.info("[RPILOOP]: init end")
-    while True:
-        state = get_button_state()
-        if state != button_state:
-            button_state = state
-            logger.info("[RPILOOP]: button state changed %s" % (state))
-            if on_button_pressed:
-                on_button_pressed(state)
-        time.sleep(0.1)
+    pass
 
 
 def init():
+    logger.info("[RPI]: init begin")
     global button_led, button_in, relays, i2c, ina
     button_led = GPIO("/dev/gpiochip0", BUTTON_LED, "out")
     set_button_led(False)
@@ -99,11 +65,4 @@ def init():
     i2c = I2C("/dev/i2c-1")
     ina = ina219.INA219(SHUNT_OHMS, i2c)
     ina.configure()
-    x = threading.Thread(target=loop)
-    x.start()
-
-
-if __name__ == "__main__":
-    init()
-    # gpio_in.close()
-    # gpio_out.close()
+    logger.info("[RPI]: init end")
