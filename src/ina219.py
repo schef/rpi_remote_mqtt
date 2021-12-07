@@ -397,7 +397,7 @@ class INA219:
         register_bytes = self.__to_bytes(register)
         msg = [I2C.Message(register_bytes), I2C.Message([0x00, 0x00], read=True)]
         self._i2c.transfer(self._address, msg)
-        register_value = int.from_bytes(msg[1].data, 'little')
+        register_value = int.from_bytes(msg[1].data, 'big')
         if negative_value_supported:
             # Two's compliment
             if register_value > 32767:
