@@ -9,8 +9,10 @@ from periphery import I2C
 
 logger = log.get()
 
+
 def const(num):
     return num
+
 
 class INA219:
     """Provides all the functionality to interact with the INA219 sensor."""
@@ -268,16 +270,16 @@ class INA219:
             self._configure_gain(gain)
             # 1ms delay required for new configuration to take effect,
             # otherwise invalid current/power readings can occur.
-            time.sleep(1/1000)
+            time.sleep(1 / 1000)
         else:
             self._log.info('[INA]: Device limit reach, gain cannot be increased')
             raise DeviceRangeError(self.__GAIN_VOLTS[gain], True)
 
     def _configure(self, voltage_range, gain, bus_adc, shunt_adc):
         configuration = (
-            voltage_range << self.__BRNG | gain << self.__PG0 |
-            bus_adc << self.__BADC1 | shunt_adc << self.__SADC1 |
-            self.__CONT_SH_BUS)
+                voltage_range << self.__BRNG | gain << self.__PG0 |
+                bus_adc << self.__BADC1 | shunt_adc << self.__SADC1 |
+                self.__CONT_SH_BUS)
         self._configuration_register(configuration)
 
     def _calibrate(self, bus_volts_max, shunt_volts_max,
@@ -335,7 +337,7 @@ class INA219:
 
     def _calculate_min_current_lsb(self):
         return self.__CALIBRATION_FACTOR / \
-            (self._shunt_ohms * self.__MAX_CALIBRATION_VALUE)
+               (self._shunt_ohms * self.__MAX_CALIBRATION_VALUE)
 
     def _read_gain(self):
         configuration = self._read_configuration()
@@ -381,18 +383,20 @@ class INA219:
     def __write_register(self, register, register_value):
         self.__log_register_operation("write", register, register_value)
 
-        register_bytes = self.__to_bytes(register_value)
-        #self._i2c.writeto_mem(self._address, register, register_bytes)
-        self._log.debug("[INA]: write %s, %s=%s", str(register), str(register_value), str(register_bytes))
-        msg = [I2C.Message(register), I2C.Message(register_bytes)]
+        register_bytes = self.__to_bytes(register)
+        register_value_bytes = self.__to_bytes(register_value)
+        # self._i2c.writeto_mem(self._address, register, register_bytes)
+        self._log.debug("[INA]: write %s, %s", str(register_bytes), str(register_value_bytes))
+        msg = [I2C.Message(register_bytes), I2C.Message(register_value_bytes)]
         self._i2c.transfer(self._address, msg)
 
     def __to_bytes(self, register_value):
         return bytearray([(register_value >> 8) & 0xFF, register_value & 0xFF])
 
     def __read_register(self, register, negative_value_supported=False):
-        #register_bytes = self._i2c.readfrom_mem(self._address, register, 2)
-        msg = [I2C.Message(register), I2C.Message([0x00, 0x00], read=True)]
+        # register_bytes = self._i2c.readfrom_mem(self._address, register, 2)
+        register_bytes = self.__to_bytes(register)
+        msg = [I2C.Message(register_bytes), I2C.Message([0x00, 0x00], read=True)]
         self._i2c.transfer(self._address, msg)
         self._log.debug("[INA]: read %s", str(msg[1].data))
         register_value = int.from_bytes(msg[1].data, 'big')
@@ -406,9 +410,9 @@ class INA219:
 
     def __log_register_operation(self, msg, register, value):
         # performance optimisation
-            binary = '{0:#018b}'.format(value)
-            self._log.debug("[INA]: %s register 0x%02x: 0x%04x %s",
-                            msg, register, value, binary)
+        binary = '{0:#018b}'.format(value)
+        self._log.debug("[INA]: %s register 0x%02x: 0x%04x %s",
+                        msg, register, value, binary)
 
     def __max_expected_amps_to_string(self, max_expected_amps):
         if max_expected_amps is None:
