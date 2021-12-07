@@ -3,6 +3,7 @@ import common
 import log
 import network_info
 import time
+import sensors
 
 logger = log.get()
 agregator_state = False
@@ -13,6 +14,12 @@ start_timestamp = 0
 uptime = 0
 uptime_check_timestamp = 0
 ip_check_timestamp = 0
+usb_ip = None
+wlan_ip = None
+vpn_ip = None
+ip = None
+temperature = None
+temperature_check_timestamp = 0
 
 mqtt_messages = {
     "agregator_state": None,
@@ -20,6 +27,7 @@ mqtt_messages = {
     "agregator_step": None,
     "uptime": None,
     "ip": None,
+    "temperature": None
 }
 
 
@@ -90,16 +98,33 @@ def check_for_agregator_progress():
             agregator_in_progress = False
 
 
-def get_ip():
-    global ip_check_timestamp
+def check_ip():
+    global ip_check_timestamp, usb_ip, vpn_ip, wlan_ip, ip
     if common.millis_passed(ip_check_timestamp) >= 30000 or ip_check_timestamp == 0:
         ip_check_timestamp = common.get_millis()
+        new_usb_ip = network_info.get_ip_from_usb()
+        if new_usb_ip != None:
+            usb_ip = new_usb_ip
+        new_wlan_ip = network_info.get_ip_from_wifi()
+        if new_wlan_ip != None:
+            wlan_ip = new_wlan_ip
+        new_vpn_ip = network_info.get_ip_from_vpn()
+        if new_vpn_ip != None:
+            vpn_ip = new_vpn_ip
         str_ip = ""
-        str_ip += "usb0: %s\n" % (str(network_info.get_ip_from_usb()))
-        str_ip += "wlan0: %s\n" % (str(network_info.get_ip_from_wifi()))
-        str_ip += "tun0: %s\n" % (str(network_info.get_ip_from_vpn()))
-        return str_ip
-    return None
+        str_ip += "usb0: %s\n" % (str(usb_ip))
+        str_ip += "wlan0: %s\n" % (str(wlan_ip))
+        str_ip += "tun0: %s\n" % (str(vpn_ip))
+        ip = str_ip
+
+
+def check_temperature():
+    global temperature, temperature_check_timestamp
+    if common.millis_passed(temperature_check_timestamp) >= 60000 or temperature_check_timestamp == 0:
+        temperature_check_timestamp = common.get_millis()
+        new_temp = sensors.get_temperature()
+        if new_temp != None:
+            temperature = new_temp
 
 
 def get_mqtt():
@@ -115,10 +140,12 @@ def get_mqtt():
     if uptime != mqtt_messages["uptime"]:
         mqtt_messages["uptime"] = uptime
         return "uptime", uptime
-    ip = get_ip()
-    if ip != None and ip != mqtt_messages["ip"]:
+    if ip != mqtt_messages["ip"]:
         mqtt_messages["ip"] = ip
         return "ip", ip
+    if temperature != mqtt_messages["temperature"]:
+        mqtt_messages["temperature"] = temperature
+        return "temperature", temperature
     return None, None
 
 
@@ -143,6 +170,7 @@ def loop():
     rpi_peripherals.loop()
     check_for_agregator_progress()
     check_uptime()
+    check_ip()
 
 
 def loop_test():

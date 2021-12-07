@@ -21,13 +21,20 @@ i2c = None
 ina = None
 button_state = None
 on_button_state_changed = None
+button_led_state = None
 
 
 # i2cdetect -y 1
 
 
 def set_button_led(state):
+    global button_led_state
+    button_led_state = bool(state)
     button_led.write(bool(state))
+
+
+def get_button_led_state():
+    return button_led_state
 
 
 def get_button_state():
