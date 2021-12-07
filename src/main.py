@@ -9,7 +9,7 @@ import logic
 logger = log.get()
 
 DEVICE_NAME = "device_outdoor"
-
+DEVICE_INPUT = "%s/input/" % DEVICE_NAME
 
 def check_mqtt_send(mqtt_client):
     topic, message = logic.get_mqtt()
@@ -40,7 +40,8 @@ def on_subscribe(client, userdata, mid, granted_qos, properties=None):
 
 def on_message(client, userdata, msg):
     logger.info("[MQTT]: on_message topic[%s], qos[%s], payload[%s]" % (msg.topic, str(msg.qos), str(msg.payload)))
-    logic.set_mqtt(msg.topic, msg.payload.decode())
+    if DEVICE_INPUT in msg.topic:
+        logic.set_mqtt(msg.topic[len(DEVICE_INPUT):], msg.payload.decode())
 
 
 def start():
