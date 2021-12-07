@@ -1,7 +1,6 @@
 import rpi_peripherals
 import common
 import log
-from time import sleep
 
 logger = log.get()
 
@@ -11,7 +10,7 @@ inverted_light = False
 led_start_timestamp = 0
 led_timeout = 5000
 
-led_blink_frame = 100
+led_blink_frame = 200
 led_total_frame = 1000
 
 
@@ -57,12 +56,12 @@ def get_number_of_frames():
 
 def loop():
     time = common.millis_passed(led_start_timestamp) % led_timeout
-    logger.info("time %d" % (time))
+    # logger.info("time %d" % (time))
     should_be_on = False
     for frame in range(1, get_number_of_frames() + 1):
         if blink_frames >= frame:
             if is_time_in_timeframe_for_blink(time, frame):
-                logger.info("should be on")
+                # logger.info("should be on")
                 should_be_on = True
 
     if should_be_on:

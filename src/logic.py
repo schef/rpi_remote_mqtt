@@ -2,8 +2,8 @@ import rpi_peripherals
 import common
 import log
 import network_info
-import time
 import sensors
+import led_logic
 
 logger = log.get()
 agregator_state = False
@@ -20,6 +20,10 @@ vpn_ip = None
 ip = None
 temperature = None
 temperature_check_timestamp = 0
+internet_timestamp = 0
+
+init_status = False
+internet_status = False
 
 mqtt_messages = {
     "agregator_state": None,
@@ -48,20 +52,31 @@ def on_button_state_change(state):
         check_for_agregator_toggle()
 
 
-def blink_init_led():
-    for i in range(3):
-        rpi_peripherals.set_button_led(1)
-        time.sleep(0.5)
-        rpi_peripherals.set_button_led(0)
-        time.sleep(0.5)
+def update_led():
+    num = int(init_status) + int(internet_status)
+    led_logic.set_led(num, agregator_state)
+
+
+def check_for_internet():
+    global internet_timestamp, internet_status
+    if common.millis_passed(internet_timestamp) >= 10000 or internet_timestamp == 0:
+        internet_timestamp = common.get_millis()
+        ip = network_info.get_public_ip()
+        if ip:
+            internet_status = True
+        else:
+            internet_status = False
 
 
 def init():
+    global init_status
     logger.info("[LGC]: init begin")
     rpi_peripherals.init()
     rpi_peripherals.register_on_button_state_changed(on_button_state_change)
     global start_timestamp
     start_timestamp = common.get_millis()
+    init_status = True
+    update_led()
     logger.info("[LGC]: init end")
 
 
@@ -72,7 +87,7 @@ def check_for_agregator_progress():
             if agregator_step == 0:
                 logger.info("[LGC]: agregator 0")
                 agregator_timestamp = common.get_millis()
-                rpi_peripherals.set_button_led(1)
+                update_led()
                 rpi_peripherals.set_relay(0, 1)
                 agregator_step += 1
             elif agregator_step == 1 and common.millis_passed(agregator_timestamp) > 5000:
@@ -93,7 +108,7 @@ def check_for_agregator_progress():
                 agregator_in_progress = False
                 agregator_step = 0
         if not agregator_state:
-            rpi_peripherals.set_button_led(0)
+            update_led()
             rpi_peripherals.set_relay(0, 0)
             agregator_in_progress = False
 
@@ -171,6 +186,8 @@ def loop():
     check_for_agregator_progress()
     check_uptime()
     check_ip()
+    led_logic.loop()
+    check_for_internet()
 
 
 def loop_test():

@@ -42,6 +42,24 @@ def get_ip_from_vpn():
     return None
 
 
+def isgoodipv4(s):
+    pieces = s.split('.')
+    if len(pieces) != 4:
+        return False
+    try:
+        return all(0 <= int(p) < 256 for p in pieces)
+    except ValueError:
+        return False
+
+
+def get_public_ip():
+    cmd = "dig +short myip.opendns.com @resolver1.opendns.com"
+    lines = run_bash_cmd(cmd)
+    if len(lines) == 1 and isgoodipv4(lines[0]):
+        return lines[0]
+    return None
+
+
 if __name__ == "__main__":
     import readline
     import rlcompleter
