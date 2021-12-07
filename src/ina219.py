@@ -174,11 +174,12 @@ class INA219:
                 self._auto_gain_enabled = True
                 self._gain = self.GAIN_1_40MV
 
-        self._log.info('[INA]: gain set to %.2fV', self.__GAIN_VOLTS[self._gain])
+        self._log.info('[INA]: gain set to %.2fV' % (self.__GAIN_VOLTS[self._gain]))
 
         self._log.debug("[INA]:",
             self.__LOG_MSG_1,
-            self._shunt_ohms, self.__BUS_RANGE[voltage_range],
+            self._shunt_ohms,
+            self.__BUS_RANGE[voltage_range],
             self.__GAIN_VOLTS[self._gain],
             self.__max_expected_amps_to_string(self._max_expected_amps),
             self.__ADC_CONVERSION[bus_adc], self.__ADC_CONVERSION[shunt_adc])
@@ -259,7 +260,7 @@ class INA219:
         return self.__GAIN_VOLTS.index(gain)
 
     def _increase_gain(self):
-        self._log.info("[INA]:", self.__LOG_MSG_3)
+        self._log.info("[INA]: %s" % (self.__LOG_MSG_3))
         gain = self._read_gain()
         if gain < len(self.__GAIN_VOLTS) - 1:
             gain = gain + 1
@@ -282,31 +283,32 @@ class INA219:
 
     def _calibrate(self, bus_volts_max, shunt_volts_max,
                    max_expected_amps=None):
-        self._log.info("[INA]:", self.__LOG_MSG_2,
-                       bus_volts_max, shunt_volts_max,
+        self._log.info("[INA]:",
+                       self.__LOG_MSG_2,
+                       bus_volts_max,
+                       shunt_volts_max,
                        self.__max_expected_amps_to_string(max_expected_amps))
 
         max_possible_amps = shunt_volts_max / self._shunt_ohms
 
-        self._log.info("[INA]: max possible current: %.3fA", max_possible_amps)
+        self._log.info("[INA]: max possible current: %.3fA" % (max_possible_amps))
 
         self._current_lsb = \
             self._determine_current_lsb(max_expected_amps, max_possible_amps)
-        self._log.info("[INA]: current LSB: %.3e A/bit", self._current_lsb)
+        self._log.info("[INA]: current LSB: %.3e A/bit" % (self._current_lsb))
 
         self._power_lsb = self._current_lsb * 20
-        self._log.info("[INA]: power LSB: %.3e W/bit", self._power_lsb)
+        self._log.info("[INA]: power LSB: %.3e W/bit" % (self._power_lsb))
 
         max_current = self._current_lsb * 32767
-        self._log.info("[INA]: max current before overflow: %.4fA", max_current)
+        self._log.info("[INA]: max current before overflow: %.4fA" % (max_current))
 
         max_shunt_voltage = max_current * self._shunt_ohms
-        self._log.info("[INA]: max shunt voltage before overflow: %.4fmV",
-                       max_shunt_voltage * 1000)
+        self._log.info("[INA]: max shunt voltage before overflow: %.4fmV" % (max_shunt_voltage * 1000))
 
         calibration = trunc(self.__CALIBRATION_FACTOR /
                             (self._current_lsb * self._shunt_ohms))
-        self._log.info("[INA]: calibration: 0x%04x (%d)", calibration, calibration)
+        self._log.info("[INA]: calibration: 0x%04x (%d)" % (calibration, calibration))
         self._calibration_register(calibration)
 
     def _determine_current_lsb(self, max_expected_amps, max_possible_amps):
@@ -314,7 +316,7 @@ class INA219:
             if max_expected_amps > round(max_possible_amps, 3):
                 raise ValueError(self.__AMP_ERR_MSG %
                                  (max_expected_amps, max_possible_amps))
-            self._log.info("[INA]: max expected current: %.3fA", max_expected_amps)
+            self._log.info("[INA]: max expected current: %.3fA" % (max_expected_amps))
             if max_expected_amps < max_possible_amps:
                 current_lsb = max_expected_amps / self.__CURRENT_LSB_FACTOR
             else:
@@ -327,7 +329,7 @@ class INA219:
         return current_lsb
 
     def _configuration_register(self, register_value):
-        self._log.debug("[INA]: configuration: 0x%04x", register_value)
+        self._log.debug("[INA]: configuration: 0x%04x" % (register_value))
         self.__write_register(self.__REG_CONFIG, register_value)
 
     def _read_configuration(self):
@@ -340,7 +342,7 @@ class INA219:
     def _read_gain(self):
         configuration = self._read_configuration()
         gain = (configuration & 0x1800) >> self.__PG0
-        self._log.info("[INA]: gain is currently: %.2fV", self.__GAIN_VOLTS[gain])
+        self._log.info("[INA]: gain is currently: %.2fV" % (self.__GAIN_VOLTS[gain]))
         return gain
 
     def _configure_gain(self, gain):
@@ -351,7 +353,7 @@ class INA219:
         self._log.info("[INA]: gain set to: %.2fV" % self.__GAIN_VOLTS[gain])
 
     def _calibration_register(self, register_value):
-        self._log.debug("[INA]: calibration: 0x%04x" % register_value)
+        self._log.debug("[INA]: calibration: 0x%04x" % (register_value))
         self.__write_register(self.__REG_CALIBRATION, register_value)
 
     def _has_current_overflow(self):
@@ -404,8 +406,7 @@ class INA219:
     def __log_register_operation(self, msg, register, value):
         # performance optimisation
             binary = '{0:#018b}'.format(value)
-            self._log.debug("[INA]: %s register 0x%02x: 0x%04x %s",
-                            msg, register, value, binary)
+            self._log.debug("[INA]: %s register 0x%02x: 0x%04x %s" % (msg, register, value, binary))
 
     def __max_expected_amps_to_string(self, max_expected_amps):
         if max_expected_amps is None:
