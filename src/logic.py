@@ -75,10 +75,10 @@ def check_for_agregator_progress():
 def get_mqtt():
     if agregator_state != mqtt_messages["agregator_state"]:
         mqtt_messages["agregator_state"] = agregator_state
-        return "agregator_state", agregator_state
+        return "agregator_state", int(agregator_state)
     if agregator_in_progress != mqtt_messages["agregator_in_progress"]:
         mqtt_messages["agregator_in_progress"] = agregator_in_progress
-        return "agregator_in_progress", agregator_in_progress
+        return "agregator_in_progress", int(agregator_in_progress)
     if agregator_step != mqtt_messages["agregator_step"]:
         mqtt_messages["agregator_step"] = agregator_step
         return "agregator_step", agregator_step
