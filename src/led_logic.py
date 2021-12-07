@@ -65,12 +65,20 @@ def loop():
                 logger.info("should be on")
                 should_be_on = True
 
-    if should_be_on and not rpi_peripherals.get_button_led_state():
-        logger.info("on")
-        rpi_peripherals.set_button_led(True)
-    elif not should_be_on and rpi_peripherals.get_button_led_state():
-        logger.info("off")
-        rpi_peripherals.set_button_led(False)
+    if should_be_on:
+        if not inverted_light:
+            if not rpi_peripherals.get_button_led_state():
+                rpi_peripherals.set_button_led(True)
+        else:
+            if rpi_peripherals.get_button_led_state():
+                rpi_peripherals.set_button_led(False)
+    else:
+        if not inverted_light:
+            if rpi_peripherals.get_button_led_state():
+                rpi_peripherals.set_button_led(False)
+        else:
+            if not rpi_peripherals.get_button_led_state():
+                rpi_peripherals.set_button_led(True)
 
 
 def test_init():
