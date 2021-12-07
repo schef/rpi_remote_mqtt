@@ -63,9 +63,13 @@ def check_for_internet():
         internet_timestamp = common.get_millis()
         ip = network_info.get_public_ip()
         if ip:
-            internet_status = True
+            if internet_status == False:
+                internet_status = True
+                update_led()
         else:
-            internet_status = False
+            if internet_status == True:
+                internet_status = False
+                update_led()
 
 
 def init():
