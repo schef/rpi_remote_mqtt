@@ -70,10 +70,10 @@ def loop():
                     if rpi_peripherals.get_button_led_state():
                         logger.info("[LED]: turn off inside")
                         rpi_peripherals.set_button_led(False)
-        else:
-            if rpi_peripherals.get_button_led_state():
-                logger.info("[LED]: turn off outside")
-                rpi_peripherals.set_button_led(False)
+    if blink_frames == 0:
+        if rpi_peripherals.get_button_led_state():
+            logger.info("[LED]: turn off outside")
+            rpi_peripherals.set_button_led(False)
     sleep(0.01)
 
 
