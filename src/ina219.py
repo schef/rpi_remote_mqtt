@@ -283,11 +283,7 @@ class INA219:
 
     def _calibrate(self, bus_volts_max, shunt_volts_max,
                    max_expected_amps=None):
-        self._log.info("[INA]:",
-                       self.__LOG_MSG_2,
-                       bus_volts_max,
-                       shunt_volts_max,
-                       self.__max_expected_amps_to_string(max_expected_amps))
+        self._log.info("[INA]: %s %s %s %s" % (self.__LOG_MSG_2, str(bus_volts_max), str(shunt_volts_max), str(self.__max_expected_amps_to_string(max_expected_amps))))
 
         max_possible_amps = shunt_volts_max / self._shunt_ohms
 
