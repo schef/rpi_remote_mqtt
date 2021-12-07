@@ -11,7 +11,7 @@ inverted_light = False
 led_start_timestamp = 0
 led_timeout = 5000
 
-led_blink_frame = 100
+led_blink_frame = 500
 led_total_frame = 1000
 
 
