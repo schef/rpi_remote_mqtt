@@ -176,13 +176,7 @@ class INA219:
 
         self._log.info('[INA]: gain set to %.2fV' % (self.__GAIN_VOLTS[self._gain]))
 
-        self._log.debug("[INA]:",
-            self.__LOG_MSG_1,
-            self._shunt_ohms,
-            self.__BUS_RANGE[voltage_range],
-            self.__GAIN_VOLTS[self._gain],
-            self.__max_expected_amps_to_string(self._max_expected_amps),
-            self.__ADC_CONVERSION[bus_adc], self.__ADC_CONVERSION[shunt_adc])
+        self._log.debug("[INA]: %s %s %s %s %s %s %s" % (self.__LOG_MSG_1, str(self._shunt_ohms), str(self.__BUS_RANGE[voltage_range]), str(self.__GAIN_VOLTS[self._gain]), str(self.__max_expected_amps_to_string(self._max_expected_amps)), str(self.__ADC_CONVERSION[bus_adc]), str(self.__ADC_CONVERSION[shunt_adc])))
 
         self._calibrate(
             self.__BUS_RANGE[voltage_range], self.__GAIN_VOLTS[self._gain],
