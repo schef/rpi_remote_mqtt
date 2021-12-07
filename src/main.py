@@ -11,14 +11,19 @@ logger = log.get()
 DEVICE_NAME = "device_outdoor"
 
 
-def main():
+def check_mqtt_send(mqtt_client):
+    topic, message = logic.get_mqtt()
+    if topic != None:
+        mqtt_client.publish("%s/output/%s" % (DEVICE_NAME, topic), payload=message, retain=True, qos=1)
+
+
+def main(mqtt_client):
     logger.info("[LOOP]: main begin")
-    rpi_peripherals.init()
     logic.init()
     logger.info("[LOOP]: main end")
     while True:
-        rpi_peripherals.loop()
         logic.loop()
+        check_mqtt_send(mqtt_client)
 
 
 def on_connect(client, userdata, flags, rc, properties=None):
@@ -52,7 +57,7 @@ def start():
 
     mqtt_client.subscribe("%s/input/#" % (DEVICE_NAME), qos=1)
 
-    main_thread = threading.Thread(target=main)
+    main_thread = threading.Thread(target=main, args=(mqtt_client,))
     logger.info("[MAIN]: start end")
 
     main_thread.start()

@@ -8,18 +8,28 @@ agregator_in_progress = False
 agregator_step = 0
 timestamp = 0
 
+mqtt_messages = {
+    "agregator_state": None,
+    "agregator_in_progress": None,
+    "agregator_step": None,
+}
+
+
+def check_for_agregator_toggle():
+    global agregator_state, agregator_in_progress
+    if not agregator_in_progress:
+        if agregator_state:
+            agregator_state = False
+            agregator_in_progress = True
+        else:
+            agregator_state = True
+            agregator_in_progress = True
+
 
 def on_button_state_change(state):
     logger.info("[LGC]: on_button_state_change %d" % (state))
-    global agregator_state, agregator_in_progress
     if state:
-        if not agregator_in_progress:
-            if agregator_state:
-                agregator_state = False
-                agregator_in_progress = True
-            else:
-                agregator_state = True
-                agregator_in_progress = True
+        check_for_agregator_toggle()
 
 
 def init():
@@ -29,7 +39,7 @@ def init():
     logger.info("[LGC]: init end")
 
 
-def check_for_agregator():
+def check_for_agregator_progress():
     global agregator_in_progress, agregator_step, timestamp
     if agregator_in_progress:
         if agregator_state:
@@ -62,9 +72,22 @@ def check_for_agregator():
             agregator_in_progress = False
 
 
+def get_mqtt():
+    if agregator_state != mqtt_messages["agregator_state"]:
+        mqtt_messages["agregator_state"] = agregator_state
+        return "agregator_state", agregator_state
+    if agregator_in_progress != mqtt_messages["agregator_in_progress"]:
+        mqtt_messages["agregator_in_progress"] = agregator_in_progress
+        return "agregator_in_progress", agregator_in_progress
+    if agregator_step != mqtt_messages["agregator_step"]:
+        mqtt_messages["agregator_step"] = agregator_step
+        return "agregator_step", agregator_step
+    return None, None
+
+
 def loop():
     rpi_peripherals.loop()
-    check_for_agregator()
+    check_for_agregator_progress()
 
 
 def loop_test():
