@@ -59,13 +59,13 @@ def loop():
     for frame in range(get_number_of_frames() + 1):
         if is_time_in_timeframe(time, frame):
             logger.info("[LED]: is_time_in_timeframe %d, %d" % (time, frame))
-            if not rpi_peripherals.get_button_led_state() and is_time_in_timeframe_for_blink(time, frame):
+            if blink_frames >= frame and not rpi_peripherals.get_button_led_state() and is_time_in_timeframe_for_blink(time, frame):
                 logger.info("[LED]: time for blink")
                 if inverted_light:
                     rpi_peripherals.set_button_led(True)
                 else:
                     rpi_peripherals.set_button_led(False)
-            if rpi_peripherals.get_button_led_state() and not is_time_in_timeframe_for_blink(time, frame):
+            if blink_frames >= frame and rpi_peripherals.get_button_led_state() and not is_time_in_timeframe_for_blink(time, frame):
                 logger.info("[LED]: time for off")
                 if (inverted_light):
                     rpi_peripherals.set_button_led(True)
