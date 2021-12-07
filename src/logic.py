@@ -85,6 +85,11 @@ def get_mqtt():
     return None, None
 
 
+def set_mqtt(topic, message):
+    if topic == "agregator_toggle":
+        check_for_agregator_toggle()
+
+
 def loop():
     rpi_peripherals.loop()
     check_for_agregator_progress()
