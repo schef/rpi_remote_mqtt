@@ -58,15 +58,19 @@ def get_number_of_frames():
 def loop():
     time = common.millis_passed(led_start_timestamp) % led_timeout
     logger.info("time %d" % (time))
+    should_be_on = False
     for frame in range(1, get_number_of_frames() + 1):
-        if blink_frames >= frame and is_time_in_timeframe_for_blink(time, frame):
-            if not rpi_peripherals.get_button_led_state():
-                logger.info("on")
-                rpi_peripherals.set_button_led(True)
-        else:
-            if rpi_peripherals.get_button_led_state():
-                logger.info("off")
-                rpi_peripherals.set_button_led(False)
+        if blink_frames >= frame:
+            if is_time_in_timeframe_for_blink(time, frame):
+                logger.info("should be on")
+                should_be_on = True
+
+    if should_be_on and not rpi_peripherals.get_button_led_state():
+        logger.info("on")
+        rpi_peripherals.set_button_led(True)
+    elif not should_be_on and rpi_peripherals.get_button_led_state():
+        logger.info("off")
+        rpi_peripherals.set_button_led(False)
 
 
 def test_init():
