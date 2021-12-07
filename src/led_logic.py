@@ -1,11 +1,11 @@
 import rpi_peripherals
 import common
-import time
 import log
+from time import sleep
 
 logger = log.get()
 
-blink_frames = 1
+blink_frames = 0
 inverted_light = False
 
 led_start_timestamp = 0
@@ -71,14 +71,13 @@ def loop():
                     rpi_peripherals.set_button_led(True)
                 else:
                     rpi_peripherals.set_button_led(False)
-    time.sleep(0.5)
+    sleep(0.1)
 
-
-def init_test():
+def test_init():
     rpi_peripherals.init()
 
 
-def loop_test():
+def test_loop():
     while True:
         loop()
 
