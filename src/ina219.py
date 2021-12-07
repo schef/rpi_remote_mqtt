@@ -174,7 +174,7 @@ class INA219:
                 self._auto_gain_enabled = True
                 self._gain = self.GAIN_1_40MV
 
-        self._log.info('gain set to %.2fV', self.__GAIN_VOLTS[self._gain])
+        self._log.info('[INA]: gain set to %.2fV', self.__GAIN_VOLTS[self._gain])
 
         self._log.debug("[INA]:",
             self.__LOG_MSG_1,
@@ -259,7 +259,7 @@ class INA219:
         return self.__GAIN_VOLTS.index(gain)
 
     def _increase_gain(self):
-        self._log.info(self.__LOG_MSG_3)
+        self._log.info("[INA]:", self.__LOG_MSG_3)
         gain = self._read_gain()
         if gain < len(self.__GAIN_VOLTS) - 1:
             gain = gain + 1
@@ -270,7 +270,7 @@ class INA219:
             # otherwise invalid current/power readings can occur.
             time.sleep(1/1000)
         else:
-            self._log.info('Device limit reach, gain cannot be increased')
+            self._log.info('[INA]: Device limit reach, gain cannot be increased')
             raise DeviceRangeError(self.__GAIN_VOLTS[gain], True)
 
     def _configure(self, voltage_range, gain, bus_adc, shunt_adc):
@@ -282,7 +282,7 @@ class INA219:
 
     def _calibrate(self, bus_volts_max, shunt_volts_max,
                    max_expected_amps=None):
-        self._log.info(self.__LOG_MSG_2,
+        self._log.info("[INA]:", self.__LOG_MSG_2,
                        bus_volts_max, shunt_volts_max,
                        self.__max_expected_amps_to_string(max_expected_amps))
 
