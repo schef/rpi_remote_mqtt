@@ -10,12 +10,13 @@ agregator_in_progress = False
 def on_button_state_change(state):
     logger.info("[LGC]: on_button_state_change %d" % (state))
     global agregator_state, agregator_in_progress
-    if not agregator_state and not agregator_in_progress:
-        agregator_state = True
-        agregator_in_progress = True
-    if agregator_state and not agregator_in_progress:
-        agregator_state = False
-        agregator_in_progress = True
+    if state:
+        if not agregator_state and not agregator_in_progress:
+            agregator_state = True
+            agregator_in_progress = True
+        if agregator_state and not agregator_in_progress:
+            agregator_state = False
+            agregator_in_progress = True
 
 
 def init():
