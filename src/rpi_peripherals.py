@@ -77,12 +77,16 @@ def loop():
     check_button_state()
 
 
+def loop_test():
+    init()
+    while True:
+        loop()
+
+
 if __name__ == "__main__":
     import readline
     import rlcompleter
     import code
-
-    init()
 
     readline.parse_and_bind("tab: complete")
     code.interact(local=locals())
