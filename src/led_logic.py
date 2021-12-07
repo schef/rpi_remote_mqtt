@@ -59,11 +59,11 @@ def loop():
     time = common.millis_passed(led_start_timestamp) % led_timeout
     for frame in range(get_number_of_frames() + 1):
         if blink_frames >= frame and is_time_in_timeframe_for_blink(time, frame):
-            if not rpi_peripherals.get_button_led_state():
-                rpi_peripherals.set_button_led(True)
-        else:
             if rpi_peripherals.get_button_led_state():
                 rpi_peripherals.set_button_led(False)
+        else:
+            if not rpi_peripherals.get_button_led_state():
+                rpi_peripherals.set_button_led(True)
 
 
 def test_init():
