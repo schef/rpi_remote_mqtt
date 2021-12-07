@@ -56,33 +56,24 @@ def get_number_of_frames():
 
 def loop():
     time = common.millis_passed(led_start_timestamp) % led_timeout
-    logger.info("[LED]: time %d" % (time))
+    logger.debug("[LED]: time %d" % (time))
     for frame in range(get_number_of_frames() + 1):
         if blink_frames >= frame:
             if is_time_in_timeframe(time, frame):
-                logger.info("[LED]: in frame %d" % (frame))
+                logger.debug("[LED]: in frame %d" % (frame))
                 if is_time_in_timeframe_for_blink(time, frame):
-                    logger.info("[LED]: time for blink")
+                    logger.debug("[LED]: time for blink")
                     if not rpi_peripherals.get_button_led_state():
                         logger.info("[LED]: turn on")
-                        if inverted_light:
-                            rpi_peripherals.set_button_led(True)
-                        else:
-                            rpi_peripherals.set_button_led(False)
+                        rpi_peripherals.set_button_led(True)
                 else:
                     if rpi_peripherals.get_button_led_state():
                         logger.info("[LED]: turn off inside")
-                        if (inverted_light):
-                            rpi_peripherals.set_button_led(True)
-                        else:
-                            rpi_peripherals.set_button_led(False)
+                        rpi_peripherals.set_button_led(False)
         else:
             if rpi_peripherals.get_button_led_state():
                 logger.info("[LED]: turn off outside")
-                if (inverted_light):
-                    rpi_peripherals.set_button_led(True)
-                else:
-                    rpi_peripherals.set_button_led(False)
+                rpi_peripherals.set_button_led(False)
     sleep(0.1)
 
 
