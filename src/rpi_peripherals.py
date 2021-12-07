@@ -19,6 +19,7 @@ button_in = None
 relays = []
 i2c = None
 ina = None
+button_state = None
 
 
 # i2cdetect -y 1
@@ -62,6 +63,18 @@ def init():
     ina = ina219.INA219(SHUNT_OHMS, i2c)
     ina.configure()
     logger.info("[RPI]: init end")
+
+
+def check_button_state():
+    global button_state
+    current_state = get_button_state()
+    if current_state != button_state:
+        logger.info("[RPI]: button state changed %d" % (button_state))
+        button_state = current_state
+
+
+def loop():
+    check_button_state()
 
 
 if __name__ == "__main__":

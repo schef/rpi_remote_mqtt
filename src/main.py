@@ -4,6 +4,7 @@ import credentials
 import threading
 import log
 import rpi_peripherals
+import logic
 
 logger = log.get()
 
@@ -13,9 +14,11 @@ DEVICE_NAME = "device_outdoor"
 def main():
     logger.info("[LOOP]: main begin")
     rpi_peripherals.init()
+    logic.init()
     logger.info("[LOOP]: main end")
     while True:
         rpi_peripherals.loop()
+        logic.loop()
 
 
 def on_connect(client, userdata, flags, rc, properties=None):
