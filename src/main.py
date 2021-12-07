@@ -11,6 +11,7 @@ logger = log.get()
 DEVICE_NAME = "device_outdoor"
 DEVICE_INPUT = "%s/input/" % DEVICE_NAME
 
+
 def check_mqtt_send(mqtt_client):
     topic, message = logic.get_mqtt()
     if topic != None:

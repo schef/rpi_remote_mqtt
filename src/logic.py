@@ -1,17 +1,24 @@
 import rpi_peripherals
 import common
 import log
+import network_info
 
 logger = log.get()
 agregator_state = False
 agregator_in_progress = False
 agregator_step = 0
-timestamp = 0
+agregator_timestamp = 0
+start_timestamp = 0
+uptime = 0
+uptime_check_timestamp = 0
+ip_check_timestamp = 0
 
 mqtt_messages = {
     "agregator_state": None,
     "agregator_in_progress": None,
     "agregator_step": None,
+    "uptime": None,
+    "ip": None,
 }
 
 
@@ -36,33 +43,35 @@ def init():
     logger.info("[LGC]: init begin")
     rpi_peripherals.init()
     rpi_peripherals.register_on_button_state_changed(on_button_state_change)
+    global start_timestamp
+    start_timestamp = common.get_millis()
     logger.info("[LGC]: init end")
 
 
 def check_for_agregator_progress():
-    global agregator_in_progress, agregator_step, timestamp
+    global agregator_in_progress, agregator_step, agregator_timestamp
     if agregator_in_progress:
         if agregator_state:
             if agregator_step == 0:
                 logger.info("[LGC]: agregator 0")
-                timestamp = common.get_millis()
+                agregator_timestamp = common.get_millis()
                 rpi_peripherals.set_button_led(1)
                 rpi_peripherals.set_relay(0, 1)
                 agregator_step += 1
-            elif agregator_step == 1 and common.millis_passed(timestamp) > 5000:
+            elif agregator_step == 1 and common.millis_passed(agregator_timestamp) > 5000:
                 logger.info("[LGC]: agregator 1")
-                timestamp = common.get_millis()
+                agregator_timestamp = common.get_millis()
                 rpi_peripherals.set_relay(1, 1)
                 agregator_step += 1
-            elif agregator_step == 2 and common.millis_passed(timestamp) > 5000:
+            elif agregator_step == 2 and common.millis_passed(agregator_timestamp) > 5000:
                 logger.info("[LGC]: agregator 2")
-                timestamp = common.get_millis()
+                agregator_timestamp = common.get_millis()
                 rpi_peripherals.set_relay(1, 0)
                 rpi_peripherals.set_relay(2, 1)
                 agregator_step += 1
-            elif agregator_step == 3 and common.millis_passed(timestamp) > 5000:
+            elif agregator_step == 3 and common.millis_passed(agregator_timestamp) > 5000:
                 logger.info("[LGC]: agregator 3")
-                timestamp = 0
+                agregator_timestamp = 0
                 rpi_peripherals.set_relay(2, 0)
                 agregator_in_progress = False
                 agregator_step = 0
@@ -70,6 +79,18 @@ def check_for_agregator_progress():
             rpi_peripherals.set_button_led(0)
             rpi_peripherals.set_relay(0, 0)
             agregator_in_progress = False
+
+
+def get_ip():
+    global ip_check_timestamp
+    if common.millis_passed(ip_check_timestamp) >= 30000 or ip_check_timestamp == 0:
+        ip_check_timestamp = common.get_millis()
+        str_ip = ""
+        str_ip += "usb0: %s\n" % (str(network_info.get_ip_from_usb()))
+        str_ip += "wlan0: %s\n" % (str(network_info.get_ip_from_wifi()))
+        str_ip += "tun0: %s\n" % (str(network_info.get_ip_from_vpn()))
+        return str_ip
+    return None
 
 
 def get_mqtt():
@@ -82,6 +103,13 @@ def get_mqtt():
     if agregator_step != mqtt_messages["agregator_step"]:
         mqtt_messages["agregator_step"] = agregator_step
         return "agregator_step", agregator_step
+    if uptime != mqtt_messages["uptime"]:
+        mqtt_messages["uptime"] = uptime
+        return "uptime", uptime
+    ip = get_ip()
+    if ip != None and ip != mqtt_messages["ip"]:
+        mqtt_messages["ip"] = ip
+        return "ip", ip
     return None, None
 
 
@@ -91,9 +119,21 @@ def set_mqtt(topic, message):
         check_for_agregator_toggle()
 
 
+def get_uptime():
+    return int(common.millis_passed(start_timestamp) / 1000)
+
+
+def check_uptime():
+    global uptime, uptime_check_timestamp
+    if common.millis_passed(uptime_check_timestamp) >= 10000 or uptime_check_timestamp == 0:
+        uptime_check_timestamp = common.get_millis()
+        uptime = get_uptime()
+
+
 def loop():
     rpi_peripherals.loop()
     check_for_agregator_progress()
+    check_uptime()
 
 
 def loop_test():
