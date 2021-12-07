@@ -21,6 +21,7 @@ def check_mqtt_send(mqtt_client):
 def main(mqtt_client):
     logger.info("[LOOP]: main begin")
     logic.init()
+    logic.blink_init_led()
     logger.info("[LOOP]: main end")
     while True:
         logic.loop()

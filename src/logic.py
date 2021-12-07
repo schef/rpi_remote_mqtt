@@ -2,6 +2,7 @@ import rpi_peripherals
 import common
 import log
 import network_info
+import time
 
 logger = log.get()
 agregator_state = False
@@ -37,6 +38,14 @@ def on_button_state_change(state):
     logger.info("[LGC]: on_button_state_change %d" % (state))
     if state:
         check_for_agregator_toggle()
+
+
+def blink_init_led():
+    for i in range(3):
+        rpi_peripherals.set_button_led(1)
+        time.sleep(0.5)
+        rpi_peripherals.set_button_led(0)
+        time.sleep(0.5)
 
 
 def init():
