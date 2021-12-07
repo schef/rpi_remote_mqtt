@@ -86,6 +86,7 @@ def get_mqtt():
 
 
 def set_mqtt(topic, message):
+    logger.info("[LGC]: set_mqtt %s %s" % (topic, message))
     if topic == "agregator_toggle":
         check_for_agregator_toggle()
 
