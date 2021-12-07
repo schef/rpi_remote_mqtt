@@ -55,6 +55,7 @@ def check_for_agregator():
                 timestamp = 0
                 rpi_peripherals.set_relay(2, 0)
                 agregator_in_progress = False
+                agregator_step = 0
         if not agregator_state:
             rpi_peripherals.set_button_led(0)
             rpi_peripherals.set_relay(0, 0)
