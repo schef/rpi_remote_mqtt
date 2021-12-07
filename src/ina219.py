@@ -383,16 +383,19 @@ class INA219:
 
         register_bytes = self.__to_bytes(register_value)
         #self._i2c.writeto_mem(self._address, register, register_bytes)
-        self._i2c.transfer(self._address, [I2C.Message(register_bytes, read=False)])
+        self._log.debug("[INA]: write %s, %s=%s", str(register), str(register_value), str(register_bytes))
+        msg = [I2C.Message(register), I2C.Message(register_bytes)]
+        self._i2c.transfer(self._address, msg)
 
     def __to_bytes(self, register_value):
         return bytearray([(register_value >> 8) & 0xFF, register_value & 0xFF])
 
     def __read_register(self, register, negative_value_supported=False):
         #register_bytes = self._i2c.readfrom_mem(self._address, register, 2)
-        register_bytes = [0x00, 0x00]
-        self._i2c.transfer(self._address, [I2C.Message(register_bytes, read=True)])
-        register_value = int.from_bytes(register_bytes, 'big')
+        msg = [I2C.Message(register), I2C.Message([0x00, 0x00], read=True)]
+        self._i2c.transfer(self._address, msg)
+        self._log.debug("[INA]: read %s", str(msg[1].data))
+        register_value = int.from_bytes(msg[1].data, 'big')
         if negative_value_supported:
             # Two's compliment
             if register_value > 32767:
