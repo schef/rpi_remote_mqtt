@@ -54,7 +54,7 @@ def get_number_of_frames():
 
 
 def loop():
-    time = common.millis_passed(led_start_timestamp)
+    time = common.millis_passed(led_start_timestamp) % led_timeout
     logger.info("[LED]: time %d" % (time))
     for frame in range(get_number_of_frames() + 1):
         if is_time_in_timeframe(time, frame):
@@ -72,6 +72,7 @@ def loop():
                 else:
                     rpi_peripherals.set_button_led(False)
     sleep(0.1)
+
 
 def test_init():
     rpi_peripherals.init()
