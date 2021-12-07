@@ -11,12 +11,13 @@ def on_button_state_change(state):
     logger.info("[LGC]: on_button_state_change %d" % (state))
     global agregator_state, agregator_in_progress
     if state:
-        if not agregator_state and not agregator_in_progress:
-            agregator_state = True
-            agregator_in_progress = True
-        if agregator_state and not agregator_in_progress:
-            agregator_state = False
-            agregator_in_progress = True
+        if not agregator_in_progress:
+            if agregator_state:
+                agregator_state = False
+                agregator_in_progress = True
+            else:
+                agregator_state = True
+                agregator_in_progress = True
 
 
 def init():
@@ -41,6 +42,7 @@ def check_for_agregator():
 def loop():
     rpi_peripherals.loop()
     check_for_agregator()
+
 
 def loop_test():
     init()
