@@ -69,8 +69,8 @@ def check_button_state():
     global button_state
     current_state = get_button_state()
     if current_state != button_state:
-        logger.info("[RPI]: button state changed %d" % (button_state))
         button_state = current_state
+        logger.info("[RPI]: button state changed %d" % (button_state))
 
 
 def loop():
