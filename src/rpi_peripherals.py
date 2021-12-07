@@ -46,10 +46,6 @@ def ina_get_measure():
     return (voltage, current, power)
 
 
-def loop():
-    pass
-
-
 def init():
     logger.info("[RPI]: init begin")
     global button_led, button_in, relays, i2c, ina
@@ -66,3 +62,14 @@ def init():
     ina = ina219.INA219(SHUNT_OHMS, i2c)
     ina.configure()
     logger.info("[RPI]: init end")
+
+
+if __name__ == "__main__":
+    import readline
+    import rlcompleter
+    import code
+
+    init()
+
+    readline.parse_and_bind("tab: complete")
+    code.interact(local=locals())
