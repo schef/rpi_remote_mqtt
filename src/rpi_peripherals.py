@@ -62,7 +62,7 @@ def init():
         set_relay(i, False)
     i2c = I2C("/dev/i2c-1")
     ina = ina219.INA219(SHUNT_OHMS, i2c)
-    ina.configure()
+    ina.configure(gain=ina219.GAIN_1_40MV)
     logger.info("[RPI]: init end")
 
 
