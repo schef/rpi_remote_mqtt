@@ -20,6 +20,7 @@ relays = []
 i2c = None
 ina = None
 button_state = None
+on_button_state_changed = None
 
 
 # i2cdetect -y 1
@@ -71,6 +72,13 @@ def check_button_state():
     if current_state != button_state:
         button_state = current_state
         logger.info("[RPI]: button state changed %d" % (button_state))
+        if on_button_state_changed:
+            on_button_state_changed(button_state)
+
+
+def register_on_button_state_changed(func):
+    global on_button_state_changed
+    on_button_state_changed = func
 
 
 def loop():
