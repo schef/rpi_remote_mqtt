@@ -99,14 +99,18 @@ def check_for_agregator_progress():
                 agregator_timestamp = common.get_millis()
                 rpi_peripherals.set_relay(1, 1)
                 agregator_step += 1
-            elif agregator_step == 2 and common.millis_passed(agregator_timestamp) > 3000:
+            elif agregator_step == 2 and common.millis_passed(agregator_timestamp) > 2000:
                 logger.info("[LGC]: agregator 2")
                 agregator_timestamp = common.get_millis()
                 rpi_peripherals.set_relay(1, 0)
-                rpi_peripherals.set_relay(2, 1)
                 agregator_step += 1
             elif agregator_step == 3 and common.millis_passed(agregator_timestamp) > 10000:
                 logger.info("[LGC]: agregator 3")
+                agregator_timestamp = common.get_millis()
+                rpi_peripherals.set_relay(2, 1)
+                agregator_step += 1
+            elif agregator_step == 4 and common.millis_passed(agregator_timestamp) > 10000:
+                logger.info("[LGC]: agregator 4")
                 agregator_timestamp = 0
                 rpi_peripherals.set_relay(2, 0)
                 agregator_in_progress = False
@@ -191,7 +195,7 @@ def loop():
     check_uptime()
     check_ip()
     led_logic.loop()
-    check_for_internet()
+    #check_for_internet()
 
 
 def loop_test():
