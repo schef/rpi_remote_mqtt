@@ -49,3 +49,9 @@ polkit.addRule(function(action, subject) {
     return polkit.Result.YES;
   }
 });
+
+
+/boot/config.txt
+dtoverlay=w1-gpio
+ls  /sys/bus/w1/devices/
+cat /sys/bus/w1/devices/28-051693ec41ff/w1_slave
