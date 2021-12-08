@@ -5,6 +5,7 @@ import threading
 import log
 import rpi_peripherals
 import logic
+from thread_monitor import ThreadMonitor, ThreadMonitorExitStrategySystemdWatchdog
 
 logger = log.get()
 
@@ -47,6 +48,10 @@ def on_message(client, userdata, msg):
 
 def start():
     logger.info("[MAIN]: start begin")
+
+    ThreadMonitor.set_exit_strategy(ThreadMonitorExitStrategySystemdWatchdog())
+    ThreadMonitor.watch_main_thread()
+
     mqtt_client = paho.Client(client_id="", userdata=None, protocol=paho.MQTTv5)
     mqtt_client.on_connect = on_connect
 
@@ -60,11 +65,14 @@ def start():
 
     mqtt_client.subscribe("%s/input/#" % (DEVICE_NAME), qos=1)
 
-    main_thread = threading.Thread(target=main, args=(mqtt_client,))
+    client_thread = threading.Thread(target=main, args=(mqtt_client,))
     logger.info("[MAIN]: start end")
 
-    main_thread.start()
-    mqtt_client.loop_forever()
+    client_thread.start()
+    ThreadMonitor.watch(client_thread)
+    mqtt_client.loop_start()
+    ThreadMonitor.watch(mqtt_client._thread)
+    ThreadMonitor.join()
 
 
 if __name__ == "__main__":
