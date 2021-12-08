@@ -5,7 +5,7 @@ mosquitto_sub -h HOST -p PORT -u USER -P PASS -v -t "#"
 mosquitto_pub -h HOST -p PORT -u USER -P PASS -t 'device_outdoor/input/light' -m '0'
 
 sudo pacman -S python-periphery
-sudo pacman -S bind
+sudo pacman -S bindW
 
 https://ozzmaker.com/i2c/
 sudo pacman -S i2c-tools
