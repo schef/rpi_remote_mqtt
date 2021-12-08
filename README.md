@@ -18,8 +18,9 @@ dtparam=i2c_arm=on
 dtparam=i2c1=on
 
 groupadd gpio
-usermod -a -G gpio alarm
 sudo gpasswd -a alarm wheel
+sudo gpasswd -a alarm network
+sudo gpasswd -a alarm gpio
 
 /etc/udev/rules.d/alarm-gpio.rules
 SUBSYSTEM=="gpio", ACTION=="add", PROGRAM="/bin/sh -c 'chgrp -R gpio /dev/gpiochip* && chmod -R g+rw /dev/gpiochip*'"
