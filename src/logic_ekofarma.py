@@ -21,6 +21,8 @@ ip = None
 temperature = None
 temperature_check_timestamp = 0
 internet_timestamp = 0
+voltage = None
+voltage_timestamp = 0
 
 init_status = False
 internet_status = False
@@ -31,7 +33,8 @@ mqtt_messages = {
     "agregator_step": None,
     "uptime": None,
     "ip": None,
-    "temperature": None
+    "temperature": None,
+    "voltage": None
 }
 
 
@@ -70,6 +73,13 @@ def check_for_internet():
             if internet_status == True:
                 internet_status = False
                 update_led()
+
+
+def check_for_voltage():
+    global voltage, voltage_timestamp
+    if common.millis_passed(voltage_timestamp) >= 10000 or voltage_timestamp == 0:
+        voltage_timestamp = common.get_millis()
+        voltage = rpi_peripherals.ina.voltage()
 
 
 def init():
@@ -169,6 +179,9 @@ def get_mqtt():
     if temperature != mqtt_messages["temperature"]:
         mqtt_messages["temperature"] = temperature
         return "temperature", temperature
+    if voltage != mqtt_messages["voltage"]:
+        mqtt_messages["voltage"] = voltage
+        return "voltage", voltage
     return None, None
 
 
@@ -195,7 +208,8 @@ def loop():
     check_uptime()
     check_ip()
     led_logic.loop()
-    #check_for_internet()
+    # check_for_internet()
+    check_for_voltage()
 
 
 def loop_test():
