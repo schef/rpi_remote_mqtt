@@ -44,6 +44,8 @@ for i in `seq 255`; do ping -c 1 `ip -4 addr show dev rndis0 | grep inet | tr -s
 ExecStart=
 ExecStart=-/usr/bin/agetty --autologin username --noclear %I $TERM
 
+systemctl enable getty@tty1 ?
+
 /etc/polkit-1/rules.d/50-org.freedesktop.NetworkManager.rules
 polkit.addRule(function(action, subject) {
   if (action.id.indexOf("org.freedesktop.NetworkManager.") == 0 && subject.isInGroup("network")) {
