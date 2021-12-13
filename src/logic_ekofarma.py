@@ -1,4 +1,4 @@
-import rpi_peripherals
+import rpi_peripherals_ekofarma as rpi_peripherals
 import common
 import log
 import network_info

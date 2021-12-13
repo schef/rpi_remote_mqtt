@@ -1,15 +1,20 @@
 import paho.mqtt.client as paho
 from paho import mqtt
-import credentials
 import threading
 import log
-import rpi_peripherals
-import logic
 from thread_monitor import ThreadMonitor, ThreadMonitorExitStrategySystemdWatchdog
+import credentials
+
+if credentials.project == "ekofarma":
+    import logic_ekofarma as logic
+elif credentials.project == "havas":
+    import logic_havas as logic
+else:
+    import logic_generic as logic
 
 logger = log.get()
 
-DEVICE_NAME = "device_outdoor"
+DEVICE_NAME = credentials.name
 DEVICE_INPUT = "%s/input/" % DEVICE_NAME
 
 
@@ -29,7 +34,7 @@ def main(mqtt_client):
 
 
 def on_connect(client, userdata, flags, rc, properties=None):
-    logger.info("[MQTT]: CONNACK received with code %s." % rc)
+    logger.info("[MQTT]: CONNACK received with code %s." % str(rc))
 
 
 def on_publish(client, userdata, mid, properties=None):
@@ -42,8 +47,11 @@ def on_subscribe(client, userdata, mid, granted_qos, properties=None):
 
 def on_message(client, userdata, msg):
     logger.info("[MQTT]: on_message topic[%s], qos[%s], payload[%s]" % (msg.topic, str(msg.qos), str(msg.payload)))
-    if DEVICE_INPUT in msg.topic:
-        logic.set_mqtt(msg.topic[len(DEVICE_INPUT):], msg.payload.decode())
+    try:
+        if DEVICE_INPUT in msg.topic:
+            logic.set_mqtt(msg.topic[len(DEVICE_INPUT):], msg.payload.decode())
+    except Exception as e:
+        logger.error("[MQTT]: on_message %s" % (e))
 
 
 def start():
@@ -65,11 +73,12 @@ def start():
 
     mqtt_client.subscribe("%s/input/#" % (DEVICE_NAME), qos=1)
 
-    client_thread = threading.Thread(target=main, args=(mqtt_client,))
+    main_client_thread = threading.Thread(target=main, args=(mqtt_client,))
+
     logger.info("[MAIN]: start end")
 
-    client_thread.start()
-    ThreadMonitor.watch(client_thread)
+    main_client_thread.start()
+    ThreadMonitor.watch(main_client_thread)
     mqtt_client.loop_start()
     ThreadMonitor.watch(mqtt_client._thread)
     ThreadMonitor.join()
