@@ -383,7 +383,9 @@ class INA219:
     def __write_register(self, register, register_value):
         self.__log_register_operation("write", register, register_value)
         # self._i2c.writeto_mem(self._address, register, register_bytes)
-        msg = [I2C.Message(bytearray(register) + register_value.to_bytes(2, 'big'))]
+        data = bytearray(register) + register_value.to_bytes(2, 'big')
+        self._log.debug(data)
+        msg = [I2C.Message(data)]
         self._i2c.transfer(self._address, msg)
 
     def __read_register(self, register, negative_value_supported=False):
