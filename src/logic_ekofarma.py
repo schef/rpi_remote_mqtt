@@ -145,9 +145,9 @@ def check_ip():
         if new_vpn_ip != None:
             vpn_ip = new_vpn_ip
         str_ip = ""
-        str_ip += "usb0: %s\n" % (str(usb_ip))
-        str_ip += "wlan0: %s\n" % (str(wlan_ip))
-        str_ip += "tun0: %s\n" % (str(vpn_ip))
+        str_ip += "u: %s\n" % (str(usb_ip))
+        str_ip += "w: %s\n" % (str(wlan_ip))
+        str_ip += "t: %s\n" % (str(vpn_ip))
         ip = str_ip
 
 
