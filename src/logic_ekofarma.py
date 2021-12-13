@@ -77,7 +77,7 @@ def check_for_internet():
 
 def check_for_voltage():
     global voltage, voltage_timestamp
-    if common.millis_passed(voltage_timestamp) >= 10000 or voltage_timestamp == 0:
+    if common.millis_passed(voltage_timestamp) >= 60000 or voltage_timestamp == 0:
         voltage_timestamp = common.get_millis()
         voltage = rpi_peripherals.ina.voltage()
 
