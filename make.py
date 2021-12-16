@@ -75,8 +75,6 @@ def systemd_log(follow=True, lines_to_show=1000):
 
 
 if __name__ == "__main__":
-
-if __name__ == "__main__":
     import readline
     import rlcompleter
     import code
