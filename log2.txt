@@ -1,0 +1,516 @@
+Dec 16 16:08:43.029432 alarmpihavas systemd[282]: rpi_remote_mqtt.service: Main process exited, code=dumped, status=6/ABRT
+Dec 16 16:08:43.036974 alarmpihavas systemd[282]: rpi_remote_mqtt.service: Failed with result 'watchdog'.
+Dec 16 16:08:43.051000 alarmpihavas systemd[282]: rpi_remote_mqtt.service: Consumed 3.163s CPU time.
+Dec 16 16:08:44.246661 alarmpihavas systemd[282]: rpi_remote_mqtt.service: Scheduled restart job, restart counter is at 23.
+Dec 16 16:08:44.252426 alarmpihavas systemd[282]: Stopped RPI remote mqtt.
+Dec 16 16:08:44.252734 alarmpihavas systemd[282]: rpi_remote_mqtt.service: Consumed 3.163s CPU time.
+Dec 16 16:08:44.267108 alarmpihavas systemd[282]: Starting RPI remote mqtt...
+Dec 16 16:08:47.743521 alarmpihavas python[591]: [16.12 16:08:47.741] [INF] [MAIN]: start begin
+Dec 16 16:08:47.754695 alarmpihavas python[591]: [THREADMON]: initializing:
+Dec 16 16:08:47.754695 alarmpihavas python[591]:         period = 5.0s
+Dec 16 16:08:47.754695 alarmpihavas python[591]:         strategy = KILL PROCESS
+Dec 16 16:08:47.750495 alarmpihavas systemd[282]: Started RPI remote mqtt.
+Dec 16 16:08:47.770635 alarmpihavas python[591]: [THREADMON]: set exit strategy = SYSTEMD WATCHDOG TRIGGER
+Dec 16 16:08:47.770635 alarmpihavas python[591]: [THREADMON]: WATCH[total=001]: { name=MainThread; native_id=591; ident=1996361744 }
+Dec 16 16:08:48.261397 alarmpihavas python[591]: [16.12 16:08:48.259] [INF] [MAIN]: start end
+Dec 16 16:08:48.269971 alarmpihavas python[591]: [THREADMON]: WATCH[total=002]: { name=Thread-2; native_id=598; ident=1967817696 }
+Dec 16 16:08:48.273037 alarmpihavas python[591]: [16.12 16:08:48.267] [INF] [LOOP]: main begin
+Dec 16 16:08:48.276362 alarmpihavas python[591]: [16.12 16:08:48.274] [INF] [LGC]: init begin
+Dec 16 16:08:48.280229 alarmpihavas python[591]: [THREADMON]: WATCH[total=003]: { name=Thread-3; native_id=599; ident=1957688288 }
+Dec 16 16:08:48.283621 alarmpihavas python[591]: [16.12 16:08:48.282] [INF] [RPI]: init begin
+Dec 16 16:08:48.296293 alarmpihavas python[591]: [16.12 16:08:48.293] [INF] [INA]: gain set to 0.04V
+Dec 16 16:08:48.300688 alarmpihavas python[591]: [16.12 16:08:48.298] [DBG] [INA]: shunt ohms: 0.100, bus max volts: 32, shunt volts max: 0.04, bus ADC: 12-bit, shunt ADC: 12-bit
+Dec 16 16:08:48.304110 alarmpihavas python[591]: [16.12 16:08:48.302] [INF] [INA]: calibrate called with: bus max volts: 32V, max shunt volts: 0.04V
+Dec 16 16:08:48.316148 alarmpihavas python[591]: [16.12 16:08:48.306] [INF] [INA]: max possible current: 0.400A
+Dec 16 16:08:48.321765 alarmpihavas python[591]: [16.12 16:08:48.320] [INF] [INA]: current LSB: 1.220e-05 A/bit
+Dec 16 16:08:48.325052 alarmpihavas python[591]: [16.12 16:08:48.323] [INF] [INA]: power LSB: 2.439e-04 W/bit
+Dec 16 16:08:48.328664 alarmpihavas python[591]: [16.12 16:08:48.327] [INF] [INA]: max current before overflow: 0.3996A
+Dec 16 16:08:48.332337 alarmpihavas python[591]: [16.12 16:08:48.319] [INF] [MQTT]: CONNACK received with code Success.
+Dec 16 16:08:48.335684 alarmpihavas python[591]: [16.12 16:08:48.330] [INF] [INA]: max shunt voltage before overflow: 39.9598mV
+Dec 16 16:08:48.339098 alarmpihavas python[591]: [16.12 16:08:48.337] [INF] [INA]: calibration: 0x8333 (33587)
+Dec 16 16:08:48.342226 alarmpihavas python[591]: [16.12 16:08:48.340] [DBG] [INA]: calibration: 0x8333
+Dec 16 16:08:48.351151 alarmpihavas python[591]: [16.12 16:08:48.345] [DBG] [INA]: write register 0x05: 0x8333 0b1000001100110011
+Dec 16 16:08:48.355993 alarmpihavas python[591]: [16.12 16:08:48.350] [INF] [MQTT]: on_subscribe mid[1], granted_qos[[<paho.mqtt.reasoncodes.ReasonCodes object at 0x75ff7a48>]]
+Dec 16 16:08:48.360127 alarmpihavas python[591]: Exception in thread Thread-2:
+Dec 16 16:08:48.361643 alarmpihavas python[591]: Traceback (most recent call last):
+Dec 16 16:08:48.366010 alarmpihavas python[591]:   File "/usr/lib/python3.9/site-packages/periphery/i2c.py", line 135, in transfer
+Dec 16 16:08:48.366010 alarmpihavas python[591]:     fcntl.ioctl(self._fd, I2C._I2C_IOC_RDWR, i2c_xfer, False)
+Dec 16 16:08:48.369101 alarmpihavas python[591]: OSError: [Errno 121] Remote I/O error
+Dec 16 16:08:48.376222 alarmpihavas python[591]: During handling of the above exception, another exception occurred:
+Dec 16 16:08:48.376222 alarmpihavas python[591]: Traceback (most recent call last):
+Dec 16 16:08:48.376222 alarmpihavas python[591]:   File "/usr/lib/python3.9/threading.py", line 973, in _bootstrap_inner
+Dec 16 16:08:48.382689 alarmpihavas python[591]:     self.run()
+Dec 16 16:08:48.384164 alarmpihavas python[591]:   File "/usr/lib/python3.9/threading.py", line 910, in run
+Dec 16 16:08:48.393515 alarmpihavas python[591]:     self._target(*self._args, **self._kwargs)
+Dec 16 16:08:48.395097 alarmpihavas python[591]:   File "/home/alarm/git/rpi_remote_mqtt/src/main.py", line 29, in main
+Dec 16 16:08:48.399133 alarmpihavas python[591]:     logic.init()
+Dec 16 16:08:48.406073 alarmpihavas python[591]:   File "/home/alarm/git/rpi_remote_mqtt/src/logic_havas.py", line 78, in init
+Dec 16 16:08:48.406073 alarmpihavas python[591]:     rpi_peripherals.init()
+Dec 16 16:08:48.406073 alarmpihavas python[591]:   File "/home/alarm/git/rpi_remote_mqtt/src/rpi_peripherals_havas.py", line 72, in init
+Dec 16 16:08:48.406073 alarmpihavas python[591]:     ina.configure()
+Dec 16 16:08:48.406073 alarmpihavas python[591]:   File "/home/alarm/git/rpi_remote_mqtt/src/ina219.py", line 188, in configure
+Dec 16 16:08:48.412773 alarmpihavas python[591]:     self._calibrate(
+Dec 16 16:08:48.414240 alarmpihavas python[591]:   File "/home/alarm/git/rpi_remote_mqtt/src/ina219.py", line 312, in _calibrate
+Dec 16 16:08:48.420135 alarmpihavas python[591]:     self._calibration_register(calibration)
+Dec 16 16:08:48.421550 alarmpihavas python[591]:   File "/home/alarm/git/rpi_remote_mqtt/src/ina219.py", line 357, in _calibration_register
+Dec 16 16:08:48.427624 alarmpihavas python[591]:     self.__write_register(self.__REG_CALIBRATION, register_value)
+Dec 16 16:08:48.430154 alarmpihavas python[591]:   File "/home/alarm/git/rpi_remote_mqtt/src/ina219.py", line 386, in __write_register
+Dec 16 16:08:48.437893 alarmpihavas python[591]:     self._i2c.transfer(self._address, msg)
+Dec 16 16:08:48.439310 alarmpihavas python[591]:   File "/usr/lib/python3.9/site-packages/periphery/i2c.py", line 137, in transfer
+Dec 16 16:08:48.443585 alarmpihavas python[591]:     raise I2CError(e.errno, "I2C transfer: " + e.strerror)
+Dec 16 16:08:48.448067 alarmpihavas python[591]: periphery.i2c.I2CError: [Errno 121] I2C transfer: Remote I/O error
+Dec 13 11:46:02.407699 alarmpihavas python[370]: [13.12 11:46:02.406] [INF] [MQTT]: on_publish mid[14]
+Dec 16 16:08:52.774086 alarmpihavas python[591]: [THREADMON]: DEAD: { name=Thread-2; native_id=598; ident=1967817696 }
+Dec 16 16:08:52.783614 alarmpihavas python[591]: [THREADMON.EXIT][SYSTEMD]: stopping systemd notify and triggering systemd watchdog...
+Dec 16 16:08:52.777729 alarmpihavas systemd[282]: rpi_remote_mqtt.service: Watchdog request (last status: <unset>)!
+Dec 16 16:08:52.778118 alarmpihavas systemd[282]: rpi_remote_mqtt.service: Killing process 591 (python) with signal SIGABRT.
+Dec 16 16:08:58.768222 alarmpihavas systemd-coredump[602]: [LNK] Process 591 (python) of user 1000 dumped core.
+                                                           
+                                                           Found module linux-vdso.so.1 with build-id: 951caebe336bb134b546d2d0075529ead55594ae
+                                                           Found module libnss_resolve.so.2 with build-id: 2b55116e733374be6364d16cbe2d0c00cd276666
+                                                           Found module libcap.so.2 with build-id: 3fb62215ea40bc819166e2a0d400c279097f7fad
+                                                           Found module librt.so.1 with build-id: d055d1f6dd2c1a898fcaef056081842f7b884e2c
+                                                           Found module libnss_mymachines.so.2 with build-id: 02ada9b7866ae10ba67e98d5b4628a3320eeb163
+                                                           Found module unicodedata.cpython-39-arm-linux-gnueabihf.so with build-id: 3acadc646458539ab0568b3ecc52799023290226
+                                                           Found module termios.cpython-39-arm-linux-gnueabihf.so with build-id: da8e40b91fb1d435758fc15d767fa35dd3002499
+                                                           Found module mmap.cpython-39-arm-linux-gnueabihf.so with build-id: e2bc25ccbcb22c94e9fbd8a0eb5ae2c16086dd75
+                                                           Found module fcntl.cpython-39-arm-linux-gnueabihf.so with build-id: c08051c8ff4acc00956e0fbf6e9b9e96625e1b58
+                                                           Found module libgcc_s.so.1 with build-id: e23dc3726851b4dd9b9f08edbee16a18eb5a53a0
+                                                           Found module libffi.so.8 with build-id: 41db88cdc75e1de4738ec65b0f0d5b2e44aa47b9
+                                                           Found module _ctypes.cpython-39-arm-linux-gnueabihf.so with build-id: a6c10a010904faff2be6ca847b6a1829a477e6bf
+                                                           Found module _queue.cpython-39-arm-linux-gnueabihf.so with build-id: 3dba046ebe5edef53227ae025753b0de78cf90ab
+                                                           Found module _pickle.cpython-39-arm-linux-gnueabihf.so with build-id: 5d8f33dc0dfef992b960a01e7ef3aea320520e97
+                                                           Found module liblzma.so.5 with build-id: 00c6a075e8fce9c9a5d6fa292f5331f5519a8077
+                                                           Found module _lzma.cpython-39-arm-linux-gnueabihf.so with build-id: c4085fdbfbfd3d019efd5ff1bd6e1e3bdadf800a
+                                                           Found module libbz2.so.1.0 with build-id: fb8ebf7c690fa0532f40745a047a8eb4d50a739b
+                                                           Found module _bz2.cpython-39-arm-linux-gnueabihf.so with build-id: 957ae6c74e97c73c953a9f6768e219eefc1b72e1
+                                                           Found module zlib.cpython-39-arm-linux-gnueabihf.so with build-id: 6f8fea10abacb6b2acb4f65598988e2aa383b59f
+                                                           Found module _datetime.cpython-39-arm-linux-gnueabihf.so with build-id: f80c603ed887d43432667f6ec660a6e0dc6db259
+                                                           Found module _sha512.cpython-39-arm-linux-gnueabihf.so with build-id: 2ea7095451538225d0d2b420fa0c850b30d172a9
+                                                           Found module _random.cpython-39-arm-linux-gnueabihf.so with build-id: a461972012a2e00e018f845916acc723376576e5
+                                                           Found module _bisect.cpython-39-arm-linux-gnueabihf.so with build-id: 7b4442606a445795188ef6ab20a6886517b9c06b
+                                                           Found module libssl.so.1.1 with build-id: 11ba01b26578cf37844f2d3d61c177069c263c86
+                                                           Found module _ssl.cpython-39-arm-linux-gnueabihf.so with build-id: e2f80b6f00a4261ca2fa6e1c716743e7e009c4e5
+                                                           Found module array.cpython-39-arm-linux-gnueabihf.so with build-id: d567ea50d61054b9892aed2b39e3924b4ccf1d35
+                                                           Found module _socket.cpython-39-arm-linux-gnueabihf.so with build-id: 5fd32e3a524622307ecab49babcb97ec0cf64a4e
+                                                           Found module libuuid.so.1 with build-id: a787aac35112be18c5f62a38f1d43dbad64d5b30
+                                                           Found module _uuid.cpython-39-arm-linux-gnueabihf.so with build-id: 49ec3fa3a6c7c7ce3b5ee207358f582e2256dba8
+                                                           Found module math.cpython-39-arm-linux-gnueabihf.so with build-id: 5b6afe8a7a9f1d05c4dd2f93b7a8215ca6b78a73
+                                                           Found module select.cpython-39-arm-linux-gnueabihf.so with build-id: 250aac61b87c16b4f20be270a830eda8b7fc85fe
+                                                           Found module _posixsubprocess.cpython-39-arm-linux-gnueabihf.so with build-id: 97df7ebb8b7214e994ed399676d5440e4ad5cdec
+                                                           Found module grp.cpython-39-arm-linux-gnueabihf.so with build-id: 979af0aa884bf253065890469b67413c07019d16
+                                                           Found module libz.so.1 with build-id: ecba9755d5157a42cfb704e31cab482b904c2e56
+                                                           Found module binascii.cpython-39-arm-linux-gnueabihf.so with build-id: 8174ce6c0856d660624cc1db09f0364105a2d2c9
+                                                           Found module _blake2.cpython-39-arm-linux-gnueabihf.so with build-id: 19a0bffb9cb537256fc57deec644c45436f03c6a
+                                                           Found module libcrypto.so.1.1 with build-id: 0741f18b374319046ac3dfde13b7cc1b07bc37cb
+                                                           Found module _hashlib.cpython-39-arm-linux-gnueabihf.so with build-id: 22832310001ffe4cd53241d14ee30e5bd9aac15b
+                                                           Found module _heapq.cpython-39-arm-linux-gnueabihf.so with build-id: 2a694a68709723dd4ef42a196243cdc02171f9b4
+                                                           Found module _struct.cpython-39-arm-linux-gnueabihf.so with build-id: 89c3b6ff6264180164f60ebdf8135496452b493d
+                                                           Found module ld-linux-armhf.so.3 with build-id: 4f0af70a6fb97ad09ae97959408fde44fd035a29
+                                                           Found module libm.so.6 with build-id: 659b0ceef249214685cf3d37897e1b1088fb1ae3
+                                                           Found module libutil.so.1 with build-id: ae13b0526761fa2c0faa17b82dc20c6690146e82
+                                                           Found module libdl.so.2 with build-id: f18b1d26e4cf93f962008747fdc52c85e9f21de9
+                                                           Found module libpthread.so.0 with build-id: e0dd3840e2100b8a261c549b76f8e31a2334c6d7
+                                                           Found module libc.so.6 with build-id: 4169f66ab46e08cac27eda835cadd2ef5969a9d1
+                                                           Found module libpython3.9.so.1.0 with build-id: 8a8237f1becf65fea0bc40e0d8c511a731859b50
+                                                           Found module python3.9 with build-id: ccb27581b84e726db716920c0ee15c3ca9458913
+                                                           Stack trace of thread 591:
+                                                           #0  0x0000000076b14ed8 do_futex_wait.constprop.0 (libpthread.so.0 + 0x11ed8)
+Dec 16 16:08:58.856545 alarmpihavas systemd[282]: rpi_remote_mqtt.service: Main process exited, code=dumped, status=6/ABRT
+Dec 16 16:08:58.862196 alarmpihavas systemd[282]: rpi_remote_mqtt.service: Failed with result 'watchdog'.
+Dec 16 16:08:58.874142 alarmpihavas systemd[282]: rpi_remote_mqtt.service: Consumed 3.173s CPU time.
+Dec 16 16:08:59.996413 alarmpihavas systemd[282]: rpi_remote_mqtt.service: Scheduled restart job, restart counter is at 24.
+Dec 16 16:09:00.001488 alarmpihavas systemd[282]: Stopped RPI remote mqtt.
+Dec 16 16:09:00.001764 alarmpihavas systemd[282]: rpi_remote_mqtt.service: Consumed 3.173s CPU time.
+Dec 16 16:09:00.014159 alarmpihavas systemd[282]: Starting RPI remote mqtt...
+Dec 13 11:46:12.452719 alarmpihavas python[370]: [13.12 11:46:12.450] [INF] [MQTT]: on_publish mid[15]
+Dec 16 16:09:02.752285 alarmpihavas python[609]: [16.12 16:09:02.750] [INF] [MAIN]: start begin
+Dec 16 16:09:02.757866 alarmpihavas systemd[282]: Started RPI remote mqtt.
+Dec 16 16:09:02.766022 alarmpihavas python[609]: [THREADMON]: initializing:
+Dec 16 16:09:02.766022 alarmpihavas python[609]:         period = 5.0s
+Dec 16 16:09:02.766022 alarmpihavas python[609]:         strategy = KILL PROCESS
+Dec 16 16:09:02.776096 alarmpihavas python[609]: [THREADMON]: set exit strategy = SYSTEMD WATCHDOG TRIGGER
+Dec 16 16:09:02.776096 alarmpihavas python[609]: [THREADMON]: WATCH[total=001]: { name=MainThread; native_id=609; ident=1995771920 }
+Dec 16 16:09:03.268573 alarmpihavas python[609]: [16.12 16:09:03.266] [INF] [MAIN]: start end
+Dec 16 16:09:03.275202 alarmpihavas python[609]: [THREADMON]: WATCH[total=002]: { name=Thread-2; native_id=611; ident=1967285216 }
+Dec 16 16:09:03.278877 alarmpihavas python[609]: [16.12 16:09:03.272] [INF] [LOOP]: main begin
+Dec 16 16:09:03.282254 alarmpihavas python[609]: [16.12 16:09:03.280] [INF] [LGC]: init begin
+Dec 16 16:09:03.286875 alarmpihavas python[609]: [THREADMON]: WATCH[total=003]: { name=Thread-3; native_id=612; ident=1957688288 }
+Dec 16 16:09:03.290597 alarmpihavas python[609]: [16.12 16:09:03.289] [INF] [RPI]: init begin
+Dec 16 16:09:03.302923 alarmpihavas python[609]: [16.12 16:09:03.300] [INF] [INA]: gain set to 0.04V
+Dec 16 16:09:03.307443 alarmpihavas python[609]: [16.12 16:09:03.306] [DBG] [INA]: shunt ohms: 0.100, bus max volts: 32, shunt volts max: 0.04, bus ADC: 12-bit, shunt ADC: 12-bit
+Dec 16 16:09:03.316111 alarmpihavas python[609]: [16.12 16:09:03.309] [INF] [INA]: calibrate called with: bus max volts: 32V, max shunt volts: 0.04V
+Dec 16 16:09:03.324793 alarmpihavas python[609]: [16.12 16:09:03.323] [INF] [INA]: max possible current: 0.400A
+Dec 16 16:09:03.328822 alarmpihavas python[609]: [16.12 16:09:03.327] [INF] [INA]: current LSB: 1.220e-05 A/bit
+Dec 16 16:09:03.333202 alarmpihavas python[609]: [16.12 16:09:03.331] [INF] [INA]: power LSB: 2.439e-04 W/bit
+Dec 16 16:09:03.336997 alarmpihavas python[609]: [16.12 16:09:03.330] [INF] [MQTT]: CONNACK received with code Success.
+Dec 16 16:09:03.340425 alarmpihavas python[609]: [16.12 16:09:03.335] [INF] [INA]: max current before overflow: 0.3996A
+Dec 16 16:09:03.343569 alarmpihavas python[609]: [16.12 16:09:03.342] [INF] [INA]: max shunt voltage before overflow: 39.9598mV
+Dec 16 16:09:03.347604 alarmpihavas python[609]: [16.12 16:09:03.345] [INF] [INA]: calibration: 0x8333 (33587)
+Dec 16 16:09:03.356170 alarmpihavas python[609]: [16.12 16:09:03.349] [DBG] [INA]: calibration: 0x8333
+Dec 16 16:09:03.359807 alarmpihavas python[609]: [16.12 16:09:03.358] [DBG] [INA]: write register 0x05: 0x8333 0b1000001100110011
+Dec 16 16:09:03.364589 alarmpihavas python[609]: [16.12 16:09:03.355] [INF] [MQTT]: on_subscribe mid[1], granted_qos[[<paho.mqtt.reasoncodes.ReasonCodes object at 0x75f67a48>]]
+Dec 16 16:09:03.368909 alarmpihavas python[609]: Exception in thread Thread-2:
+Dec 16 16:09:03.370490 alarmpihavas python[609]: Traceback (most recent call last):
+Dec 16 16:09:03.376008 alarmpihavas python[609]:   File "/usr/lib/python3.9/site-packages/periphery/i2c.py", line 135, in transfer
+Dec 16 16:09:03.376008 alarmpihavas python[609]:     fcntl.ioctl(self._fd, I2C._I2C_IOC_RDWR, i2c_xfer, False)
+Dec 16 16:09:03.376008 alarmpihavas python[609]: OSError: [Errno 121] Remote I/O error
+Dec 16 16:09:03.376008 alarmpihavas python[609]: During handling of the above exception, another exception occurred:
+Dec 16 16:09:03.376008 alarmpihavas python[609]: Traceback (most recent call last):
+Dec 16 16:09:03.376008 alarmpihavas python[609]:   File "/usr/lib/python3.9/threading.py", line 973, in _bootstrap_inner
+Dec 16 16:09:03.390135 alarmpihavas python[609]:     self.run()
+Dec 16 16:09:03.391681 alarmpihavas python[609]:   File "/usr/lib/python3.9/threading.py", line 910, in run
+Dec 16 16:09:03.401581 alarmpihavas python[609]:     self._target(*self._args, **self._kwargs)
+Dec 16 16:09:03.402981 alarmpihavas python[609]:   File "/home/alarm/git/rpi_remote_mqtt/src/main.py", line 29, in main
+Dec 16 16:09:03.406901 alarmpihavas python[609]:     logic.init()
+Dec 16 16:09:03.416067 alarmpihavas python[609]:   File "/home/alarm/git/rpi_remote_mqtt/src/logic_havas.py", line 78, in init
+Dec 16 16:09:03.416067 alarmpihavas python[609]:     rpi_peripherals.init()
+Dec 16 16:09:03.416067 alarmpihavas python[609]:   File "/home/alarm/git/rpi_remote_mqtt/src/rpi_peripherals_havas.py", line 72, in init
+Dec 16 16:09:03.416067 alarmpihavas python[609]:     ina.configure()
+Dec 16 16:09:03.416067 alarmpihavas python[609]:   File "/home/alarm/git/rpi_remote_mqtt/src/ina219.py", line 188, in configure
+Dec 16 16:09:03.416067 alarmpihavas python[609]:     self._calibrate(
+Dec 16 16:09:03.416067 alarmpihavas python[609]:   File "/home/alarm/git/rpi_remote_mqtt/src/ina219.py", line 312, in _calibrate
+Dec 16 16:09:03.426386 alarmpihavas python[609]:     self._calibration_register(calibration)
+Dec 16 16:09:03.427795 alarmpihavas python[609]:   File "/home/alarm/git/rpi_remote_mqtt/src/ina219.py", line 357, in _calibration_register
+Dec 16 16:09:03.433825 alarmpihavas python[609]:     self.__write_register(self.__REG_CALIBRATION, register_value)
+Dec 16 16:09:03.435386 alarmpihavas python[609]:   File "/home/alarm/git/rpi_remote_mqtt/src/ina219.py", line 386, in __write_register
+Dec 16 16:09:03.441956 alarmpihavas python[609]:     self._i2c.transfer(self._address, msg)
+Dec 16 16:09:03.443368 alarmpihavas python[609]:   File "/usr/lib/python3.9/site-packages/periphery/i2c.py", line 137, in transfer
+Dec 16 16:09:03.448278 alarmpihavas python[609]:     raise I2CError(e.errno, "I2C transfer: " + e.strerror)
+Dec 16 16:09:03.452150 alarmpihavas python[609]: periphery.i2c.I2CError: [Errno 121] I2C transfer: Remote I/O error
+Dec 16 16:09:07.785282 alarmpihavas python[609]: [THREADMON]: DEAD: { name=Thread-2; native_id=611; ident=1967285216 }
+Dec 16 16:09:07.810120 alarmpihavas python[609]: [THREADMON.EXIT][SYSTEMD]: stopping systemd notify and triggering systemd watchdog...
+Dec 16 16:09:07.794696 alarmpihavas systemd[282]: rpi_remote_mqtt.service: Watchdog request (last status: <unset>)!
+Dec 16 16:09:07.795080 alarmpihavas systemd[282]: rpi_remote_mqtt.service: Killing process 609 (python) with signal SIGABRT.
+Dec 13 11:46:22.492247 alarmpihavas python[370]: [13.12 11:46:22.490] [INF] [MQTT]: on_publish mid[16]
+Dec 16 16:09:13.805331 alarmpihavas systemd-coredump[614]: [LNK] Process 609 (python) of user 1000 dumped core.
+                                                           
+                                                           Found module linux-vdso.so.1 with build-id: 951caebe336bb134b546d2d0075529ead55594ae
+                                                           Found module libnss_resolve.so.2 with build-id: 2b55116e733374be6364d16cbe2d0c00cd276666
+                                                           Found module libcap.so.2 with build-id: 3fb62215ea40bc819166e2a0d400c279097f7fad
+                                                           Found module librt.so.1 with build-id: d055d1f6dd2c1a898fcaef056081842f7b884e2c
+                                                           Found module libnss_mymachines.so.2 with build-id: 02ada9b7866ae10ba67e98d5b4628a3320eeb163
+                                                           Found module unicodedata.cpython-39-arm-linux-gnueabihf.so with build-id: 3acadc646458539ab0568b3ecc52799023290226
+                                                           Found module termios.cpython-39-arm-linux-gnueabihf.so with build-id: da8e40b91fb1d435758fc15d767fa35dd3002499
+                                                           Found module mmap.cpython-39-arm-linux-gnueabihf.so with build-id: e2bc25ccbcb22c94e9fbd8a0eb5ae2c16086dd75
+                                                           Found module fcntl.cpython-39-arm-linux-gnueabihf.so with build-id: c08051c8ff4acc00956e0fbf6e9b9e96625e1b58
+                                                           Found module libgcc_s.so.1 with build-id: e23dc3726851b4dd9b9f08edbee16a18eb5a53a0
+                                                           Found module libffi.so.8 with build-id: 41db88cdc75e1de4738ec65b0f0d5b2e44aa47b9
+                                                           Found module _ctypes.cpython-39-arm-linux-gnueabihf.so with build-id: a6c10a010904faff2be6ca847b6a1829a477e6bf
+                                                           Found module _queue.cpython-39-arm-linux-gnueabihf.so with build-id: 3dba046ebe5edef53227ae025753b0de78cf90ab
+                                                           Found module _pickle.cpython-39-arm-linux-gnueabihf.so with build-id: 5d8f33dc0dfef992b960a01e7ef3aea320520e97
+                                                           Found module liblzma.so.5 with build-id: 00c6a075e8fce9c9a5d6fa292f5331f5519a8077
+                                                           Found module _lzma.cpython-39-arm-linux-gnueabihf.so with build-id: c4085fdbfbfd3d019efd5ff1bd6e1e3bdadf800a
+                                                           Found module libbz2.so.1.0 with build-id: fb8ebf7c690fa0532f40745a047a8eb4d50a739b
+                                                           Found module _bz2.cpython-39-arm-linux-gnueabihf.so with build-id: 957ae6c74e97c73c953a9f6768e219eefc1b72e1
+                                                           Found module zlib.cpython-39-arm-linux-gnueabihf.so with build-id: 6f8fea10abacb6b2acb4f65598988e2aa383b59f
+                                                           Found module _datetime.cpython-39-arm-linux-gnueabihf.so with build-id: f80c603ed887d43432667f6ec660a6e0dc6db259
+                                                           Found module _sha512.cpython-39-arm-linux-gnueabihf.so with build-id: 2ea7095451538225d0d2b420fa0c850b30d172a9
+                                                           Found module _random.cpython-39-arm-linux-gnueabihf.so with build-id: a461972012a2e00e018f845916acc723376576e5
+                                                           Found module _bisect.cpython-39-arm-linux-gnueabihf.so with build-id: 7b4442606a445795188ef6ab20a6886517b9c06b
+                                                           Found module libssl.so.1.1 with build-id: 11ba01b26578cf37844f2d3d61c177069c263c86
+                                                           Found module _ssl.cpython-39-arm-linux-gnueabihf.so with build-id: e2f80b6f00a4261ca2fa6e1c716743e7e009c4e5
+                                                           Found module array.cpython-39-arm-linux-gnueabihf.so with build-id: d567ea50d61054b9892aed2b39e3924b4ccf1d35
+                                                           Found module _socket.cpython-39-arm-linux-gnueabihf.so with build-id: 5fd32e3a524622307ecab49babcb97ec0cf64a4e
+                                                           Found module libuuid.so.1 with build-id: a787aac35112be18c5f62a38f1d43dbad64d5b30
+                                                           Found module _uuid.cpython-39-arm-linux-gnueabihf.so with build-id: 49ec3fa3a6c7c7ce3b5ee207358f582e2256dba8
+                                                           Found module math.cpython-39-arm-linux-gnueabihf.so with build-id: 5b6afe8a7a9f1d05c4dd2f93b7a8215ca6b78a73
+                                                           Found module select.cpython-39-arm-linux-gnueabihf.so with build-id: 250aac61b87c16b4f20be270a830eda8b7fc85fe
+                                                           Found module _posixsubprocess.cpython-39-arm-linux-gnueabihf.so with build-id: 97df7ebb8b7214e994ed399676d5440e4ad5cdec
+                                                           Found module grp.cpython-39-arm-linux-gnueabihf.so with build-id: 979af0aa884bf253065890469b67413c07019d16
+                                                           Found module libz.so.1 with build-id: ecba9755d5157a42cfb704e31cab482b904c2e56
+                                                           Found module binascii.cpython-39-arm-linux-gnueabihf.so with build-id: 8174ce6c0856d660624cc1db09f0364105a2d2c9
+                                                           Found module _blake2.cpython-39-arm-linux-gnueabihf.so with build-id: 19a0bffb9cb537256fc57deec644c45436f03c6a
+                                                           Found module libcrypto.so.1.1 with build-id: 0741f18b374319046ac3dfde13b7cc1b07bc37cb
+                                                           Found module _hashlib.cpython-39-arm-linux-gnueabihf.so with build-id: 22832310001ffe4cd53241d14ee30e5bd9aac15b
+                                                           Found module _heapq.cpython-39-arm-linux-gnueabihf.so with build-id: 2a694a68709723dd4ef42a196243cdc02171f9b4
+                                                           Found module _struct.cpython-39-arm-linux-gnueabihf.so with build-id: 89c3b6ff6264180164f60ebdf8135496452b493d
+                                                           Found module ld-linux-armhf.so.3 with build-id: 4f0af70a6fb97ad09ae97959408fde44fd035a29
+                                                           Found module libm.so.6 with build-id: 659b0ceef249214685cf3d37897e1b1088fb1ae3
+                                                           Found module libutil.so.1 with build-id: ae13b0526761fa2c0faa17b82dc20c6690146e82
+                                                           Found module libdl.so.2 with build-id: f18b1d26e4cf93f962008747fdc52c85e9f21de9
+                                                           Found module libpthread.so.0 with build-id: e0dd3840e2100b8a261c549b76f8e31a2334c6d7
+                                                           Found module libc.so.6 with build-id: 4169f66ab46e08cac27eda835cadd2ef5969a9d1
+                                                           Found module libpython3.9.so.1.0 with build-id: 8a8237f1becf65fea0bc40e0d8c511a731859b50
+                                                           Found module python3.9 with build-id: ccb27581b84e726db716920c0ee15c3ca9458913
+                                                           Stack trace of thread 609:
+                                                           #0  0x0000000076a84ed8 do_futex_wait.constprop.0 (libpthread.so.0 + 0x11ed8)
+Dec 16 16:09:13.903474 alarmpihavas systemd[282]: rpi_remote_mqtt.service: Main process exited, code=dumped, status=6/ABRT
+Dec 16 16:09:13.909440 alarmpihavas systemd[282]: rpi_remote_mqtt.service: Failed with result 'watchdog'.
+Dec 16 16:09:13.924011 alarmpihavas systemd[282]: rpi_remote_mqtt.service: Consumed 3.226s CPU time.
+Dec 16 16:09:14.998158 alarmpihavas systemd[282]: rpi_remote_mqtt.service: Scheduled restart job, restart counter is at 25.
+Dec 16 16:09:14.998593 alarmpihavas systemd[282]: Stopped RPI remote mqtt.
+Dec 16 16:09:14.998807 alarmpihavas systemd[282]: rpi_remote_mqtt.service: Consumed 3.226s CPU time.
+Dec 16 16:09:15.010950 alarmpihavas systemd[282]: Starting RPI remote mqtt...
+Dec 13 11:46:32.424554 alarmpihavas python[370]: [13.12 11:46:32.422] [INF] [MQTT]: on_publish mid[17]
+Dec 13 11:46:42.417621 alarmpihavas python[370]: [13.12 11:46:42.416] [INF] [MQTT]: on_publish mid[18]
+Dec 13 11:46:52.415877 alarmpihavas python[370]: [13.12 11:46:52.414] [INF] [MQTT]: on_publish mid[19]
+Dec 13 11:47:02.414053 alarmpihavas python[370]: [13.12 11:47:02.412] [INF] [MQTT]: on_publish mid[20]
+Dec 13 11:47:12.407415 alarmpihavas python[370]: [13.12 11:47:12.406] [INF] [MQTT]: on_publish mid[21]
+Dec 13 11:47:22.412240 alarmpihavas python[370]: [13.12 11:47:22.410] [INF] [MQTT]: on_publish mid[22]
+Dec 13 11:47:32.408773 alarmpihavas python[370]: [13.12 11:47:32.406] [INF] [MQTT]: on_publish mid[23]
+Dec 13 11:47:42.404646 alarmpihavas python[370]: [13.12 11:47:42.402] [INF] [MQTT]: on_publish mid[24]
+Dec 13 11:47:52.418407 alarmpihavas python[370]: [13.12 11:47:52.416] [INF] [MQTT]: on_publish mid[25]
+Dec 13 11:48:02.408521 alarmpihavas python[370]: [13.12 11:48:02.406] [INF] [MQTT]: on_publish mid[26]
+Dec 13 11:48:12.408253 alarmpihavas python[370]: [13.12 11:48:12.406] [INF] [MQTT]: on_publish mid[27]
+Dec 13 11:48:22.402938 alarmpihavas python[370]: [13.12 11:48:22.401] [INF] [MQTT]: on_publish mid[28]
+Dec 13 11:48:32.407593 alarmpihavas python[370]: [13.12 11:48:32.406] [INF] [MQTT]: on_publish mid[29]
+Dec 13 11:48:42.407925 alarmpihavas python[370]: [13.12 11:48:42.406] [INF] [MQTT]: on_publish mid[30]
+Dec 13 11:48:52.412244 alarmpihavas python[370]: [13.12 11:48:52.410] [INF] [MQTT]: on_publish mid[31]
+Dec 13 11:49:02.408627 alarmpihavas python[370]: [13.12 11:49:02.406] [INF] [MQTT]: on_publish mid[32]
+Dec 13 11:49:12.406181 alarmpihavas python[370]: [13.12 11:49:12.404] [INF] [MQTT]: on_publish mid[33]
+Dec 13 11:49:22.408244 alarmpihavas python[370]: [13.12 11:49:22.406] [INF] [MQTT]: on_publish mid[34]
+Dec 13 11:49:32.409589 alarmpihavas python[370]: [13.12 11:49:32.407] [INF] [MQTT]: on_publish mid[35]
+Dec 13 11:49:42.406905 alarmpihavas python[370]: [13.12 11:49:42.405] [INF] [MQTT]: on_publish mid[36]
+Dec 13 11:49:52.419154 alarmpihavas python[370]: [13.12 11:49:52.416] [INF] [MQTT]: on_publish mid[37]
+Dec 13 11:35:13.234354 alarmpihavas systemd[315]: Starting RPI remote mqtt...
+Dec 13 11:50:02.445050 alarmpihavas python[370]: [13.12 11:50:02.443] [INF] [MQTT]: on_publish mid[38]
+Dec 13 11:35:16.123342 alarmpihavas python[782]: [13.12 11:35:16.121] [INF] [MAIN]: start begin
+Dec 13 11:35:16.143256 alarmpihavas python[782]: [THREADMON]: initializing:
+Dec 13 11:35:16.143256 alarmpihavas python[782]:         period = 5.0s
+Dec 13 11:35:16.143256 alarmpihavas python[782]:         strategy = KILL PROCESS
+Dec 13 11:35:16.130604 alarmpihavas systemd[315]: Started RPI remote mqtt.
+Dec 13 11:35:16.159450 alarmpihavas python[782]: [THREADMON]: set exit strategy = SYSTEMD WATCHDOG TRIGGER
+Dec 13 11:35:16.159450 alarmpihavas python[782]: [THREADMON]: WATCH[total=001]: { name=MainThread; native_id=782; ident=1995968528 }
+Dec 13 11:35:16.678093 alarmpihavas python[782]: [13.12 11:35:16.675] [INF] [MAIN]: start end
+Dec 13 11:35:16.684462 alarmpihavas python[782]: [THREADMON]: WATCH[total=002]: { name=Thread-2; native_id=784; ident=1967391712 }
+Dec 13 11:35:16.687843 alarmpihavas python[782]: [13.12 11:35:16.681] [INF] [LOOP]: main begin
+Dec 13 11:35:16.691146 alarmpihavas python[782]: [13.12 11:35:16.689] [INF] [LGC]: init begin
+Dec 13 11:35:16.694360 alarmpihavas python[782]: [13.12 11:35:16.692] [INF] [RPI]: init begin
+Dec 13 11:35:16.698860 alarmpihavas python[782]: [THREADMON]: WATCH[total=003]: { name=Thread-3; native_id=785; ident=1957688288 }
+Dec 13 11:35:16.711014 alarmpihavas python[782]: [13.12 11:35:16.708] [INF] [INA]: gain set to 0.04V
+Dec 13 11:35:16.714309 alarmpihavas python[782]: [13.12 11:35:16.712] [DBG] [INA]: shunt ohms: 0.100, bus max volts: 32, shunt volts max: 0.04, bus ADC: 12-bit, shunt ADC: 12-bit
+Dec 13 11:35:16.718095 alarmpihavas python[782]: [13.12 11:35:16.716] [INF] [INA]: calibrate called with: bus max volts: 32V, max shunt volts: 0.04V
+Dec 13 11:35:16.721694 alarmpihavas python[782]: [13.12 11:35:16.719] [INF] [INA]: max possible current: 0.400A
+Dec 13 11:35:16.725914 alarmpihavas python[782]: [13.12 11:35:16.723] [INF] [INA]: current LSB: 1.220e-05 A/bit
+Dec 13 11:35:16.729201 alarmpihavas python[782]: [13.12 11:35:16.727] [INF] [INA]: power LSB: 2.439e-04 W/bit
+Dec 13 11:35:16.743164 alarmpihavas python[782]: [13.12 11:35:16.730] [INF] [INA]: max current before overflow: 0.3996A
+Dec 13 11:35:16.746726 alarmpihavas python[782]: [13.12 11:35:16.745] [INF] [INA]: max shunt voltage before overflow: 39.9598mV
+Dec 13 11:35:16.749866 alarmpihavas python[782]: [13.12 11:35:16.748] [INF] [INA]: calibration: 0x8333 (33587)
+Dec 13 11:35:16.752899 alarmpihavas python[782]: [13.12 11:35:16.751] [DBG] [INA]: calibration: 0x8333
+Dec 13 11:35:16.756498 alarmpihavas python[782]: [13.12 11:35:16.754] [DBG] [INA]: write register 0x05: 0x8333 0b1000001100110011
+Dec 13 11:35:16.761246 alarmpihavas python[782]: [13.12 11:35:16.742] [INF] [MQTT]: CONNACK received with code Success.
+Dec 13 11:35:16.767430 alarmpihavas python[782]: [13.12 11:35:16.764] [DBG] [INA]: configuration: 0x219f
+Dec 13 11:35:16.770615 alarmpihavas python[782]: [13.12 11:35:16.769] [DBG] [INA]: write register 0x00: 0x219f 0b0010000110011111
+Dec 13 11:35:16.774994 alarmpihavas python[782]: [13.12 11:35:16.773] [INF] [RPI]: init end
+Dec 13 11:35:16.778943 alarmpihavas python[782]: [13.12 11:35:16.777] [INF] [LED]: set_led 1 False
+Dec 13 11:35:16.787563 alarmpihavas python[782]: [13.12 11:35:16.780] [INF] [LGC]: init end
+Dec 13 11:35:16.790715 alarmpihavas python[782]: [13.12 11:35:16.789] [INF] [LOOP]: main end
+Dec 13 11:35:16.793989 alarmpihavas python[782]: [13.12 11:35:16.792] [INF] [RPI]: button state changed 0
+Dec 13 11:35:16.797692 alarmpihavas python[782]: [13.12 11:35:16.786] [INF] [MQTT]: on_subscribe mid[1], granted_qos[[<paho.mqtt.reasoncodes.ReasonCodes object at 0x75f97ac0>]]
+Dec 13 11:35:16.800868 alarmpihavas python[782]: [13.12 11:35:16.796] [INF] [LGC]: on_button_state_change 0
+Dec 13 11:35:17.145893 alarmpihavas python[782]: [13.12 11:35:17.134] [INF] [MQTT]: on_publish mid[2]
+Dec 13 11:35:17.203452 alarmpihavas python[782]: [13.12 11:35:17.202] [INF] [MQTT]: on_publish mid[4]
+Dec 13 11:35:17.210435 alarmpihavas python[782]: [13.12 11:35:17.209] [INF] [MQTT]: on_publish mid[6]
+Dec 13 11:35:17.220478 alarmpihavas python[782]: [13.12 11:35:17.219] [INF] [MQTT]: on_publish mid[3]
+Dec 13 11:35:17.230453 alarmpihavas python[782]: [13.12 11:35:17.229] [INF] [MQTT]: on_publish mid[5]
+Dec 13 11:50:12.405967 alarmpihavas python[370]: [13.12 11:50:12.404] [INF] [MQTT]: on_publish mid[39]
+Dec 13 11:35:26.867896 alarmpihavas python[782]: [13.12 11:35:26.866] [INF] [MQTT]: on_publish mid[7]
+Dec 13 11:50:22.415782 alarmpihavas python[370]: [13.12 11:50:22.406] [INF] [MQTT]: on_publish mid[40]
+Dec 13 11:35:36.864391 alarmpihavas python[782]: [13.12 11:35:36.863] [INF] [MQTT]: on_publish mid[8]
+Dec 13 11:50:32.448685 alarmpihavas python[370]: [13.12 11:50:32.446] [INF] [MQTT]: on_publish mid[41]
+Dec 13 11:35:46.889409 alarmpihavas python[782]: [13.12 11:35:46.874] [INF] [MQTT]: on_publish mid[9]
+Dec 13 11:50:42.406934 alarmpihavas python[370]: [13.12 11:50:42.405] [INF] [MQTT]: on_publish mid[42]
+Dec 13 11:35:56.872869 alarmpihavas python[782]: [13.12 11:35:56.871] [INF] [MQTT]: on_publish mid[10]
+Dec 13 11:50:52.412220 alarmpihavas python[370]: [13.12 11:50:52.410] [INF] [MQTT]: on_publish mid[43]
+Dec 13 11:36:06.872949 alarmpihavas python[782]: [13.12 11:36:06.871] [INF] [MQTT]: on_publish mid[11]
+Dec 13 11:51:02.451729 alarmpihavas python[370]: [13.12 11:51:02.450] [INF] [MQTT]: on_publish mid[44]
+Dec 13 11:36:16.880870 alarmpihavas python[782]: [13.12 11:36:16.879] [INF] [MQTT]: on_publish mid[12]
+Dec 13 11:51:12.486616 alarmpihavas python[370]: [13.12 11:51:12.485] [INF] [MQTT]: on_publish mid[45]
+Dec 13 11:36:26.874728 alarmpihavas python[782]: [13.12 11:36:26.873] [INF] [MQTT]: on_publish mid[13]
+Dec 13 11:51:22.421936 alarmpihavas python[370]: [13.12 11:51:22.420] [INF] [MQTT]: on_publish mid[46]
+Dec 13 11:36:36.871584 alarmpihavas python[782]: [13.12 11:36:36.870] [INF] [MQTT]: on_publish mid[14]
+Dec 13 11:51:32.406176 alarmpihavas python[370]: [13.12 11:51:32.404] [INF] [MQTT]: on_publish mid[47]
+Dec 13 11:36:46.906006 alarmpihavas python[782]: [13.12 11:36:46.882] [INF] [MQTT]: on_publish mid[15]
+Dec 13 11:36:47.480257 alarmpihavas python[782]: [13.12 11:36:47.478] [INF] [MQTT]: on_publish mid[16]
+Dec 13 11:51:42.417127 alarmpihavas python[370]: [13.12 11:51:42.415] [INF] [MQTT]: on_publish mid[48]
+Dec 13 11:36:56.872837 alarmpihavas python[782]: [13.12 11:36:56.871] [INF] [MQTT]: on_publish mid[17]
+Dec 13 11:51:52.414924 alarmpihavas python[370]: [13.12 11:51:52.413] [INF] [MQTT]: on_publish mid[49]
+Dec 13 11:37:06.874345 alarmpihavas python[782]: [13.12 11:37:06.873] [INF] [MQTT]: on_publish mid[18]
+Dec 13 11:52:02.411662 alarmpihavas python[370]: [13.12 11:52:02.410] [INF] [MQTT]: on_publish mid[50]
+Dec 13 11:37:16.872907 alarmpihavas python[782]: [13.12 11:37:16.870] [INF] [MQTT]: on_publish mid[19]
+Dec 13 11:52:12.406726 alarmpihavas python[370]: [13.12 11:52:12.404] [INF] [MQTT]: on_publish mid[51]
+Dec 13 11:37:26.881323 alarmpihavas python[782]: [13.12 11:37:26.879] [INF] [MQTT]: on_publish mid[20]
+Dec 13 11:52:22.498100 alarmpihavas python[370]: [13.12 11:52:22.496] [INF] [MQTT]: on_publish mid[52]
+Dec 13 11:37:36.871416 alarmpihavas python[782]: [13.12 11:37:36.870] [INF] [MQTT]: on_publish mid[21]
+Dec 13 11:52:32.415817 alarmpihavas python[370]: [13.12 11:52:32.414] [INF] [MQTT]: on_publish mid[53]
+Dec 13 11:52:42.448604 alarmpihavas python[370]: [13.12 11:52:42.447] [INF] [MQTT]: on_publish mid[54]
+Dec 13 11:52:49.281484 alarmpihavas systemd[312]: Stopping RPI remote mqtt...
+Dec 13 11:52:49.351572 alarmpihavas systemd[312]: Stopped RPI remote mqtt.
+Dec 13 11:52:49.356050 alarmpihavas systemd[312]: rpi_remote_mqtt.service: Consumed 7min 47.208s CPU time.
+-- Boot 0dffae5b1cad4002aebaf644a1032a2a --
+Dec 13 11:57:47.852849 alarmpihavas systemd[310]: Starting RPI remote mqtt...
+Dec 13 11:57:51.621642 alarmpihavas python[317]: [13.12 11:57:51.620] [INF] [MAIN]: start begin
+Dec 13 11:57:51.637728 alarmpihavas python[317]: [THREADMON]: initializing:
+Dec 13 11:57:51.637728 alarmpihavas python[317]:         period = 5.0s
+Dec 13 11:57:51.637728 alarmpihavas python[317]:         strategy = KILL PROCESS
+Dec 13 11:57:51.628434 alarmpihavas systemd[310]: Started RPI remote mqtt.
+Dec 13 11:57:51.659026 alarmpihavas python[317]: [THREADMON]: set exit strategy = SYSTEMD WATCHDOG TRIGGER
+Dec 13 11:57:51.659026 alarmpihavas python[317]: [THREADMON]: WATCH[total=001]: { name=MainThread; native_id=317; ident=1995915280 }
+Dec 13 11:57:52.206136 alarmpihavas python[317]: [13.12 11:57:52.204] [INF] [MAIN]: start end
+Dec 13 11:57:52.213955 alarmpihavas python[317]: [THREADMON]: WATCH[total=002]: { name=Thread-2; native_id=322; ident=1967391712 }
+Dec 13 11:57:52.217259 alarmpihavas python[317]: [13.12 11:57:52.211] [INF] [LOOP]: main begin
+Dec 13 11:57:52.220641 alarmpihavas python[317]: [13.12 11:57:52.219] [INF] [LGC]: init begin
+Dec 13 11:57:52.224712 alarmpihavas python[317]: [THREADMON]: WATCH[total=003]: { name=Thread-3; native_id=323; ident=1957688288 }
+Dec 13 11:57:52.229512 alarmpihavas python[317]: [13.12 11:57:52.227] [INF] [RPI]: init begin
+Dec 13 11:57:52.241334 alarmpihavas python[317]: [13.12 11:57:52.239] [INF] [INA]: gain set to 0.04V
+Dec 13 11:57:52.244643 alarmpihavas python[317]: [13.12 11:57:52.243] [DBG] [INA]: shunt ohms: 0.100, bus max volts: 32, shunt volts max: 0.04, bus ADC: 12-bit, shunt ADC: 12-bit
+Dec 13 11:57:52.248069 alarmpihavas python[317]: [13.12 11:57:52.246] [INF] [INA]: calibrate called with: bus max volts: 32V, max shunt volts: 0.04V
+Dec 13 11:57:52.251572 alarmpihavas python[317]: [13.12 11:57:52.250] [INF] [INA]: max possible current: 0.400A
+Dec 13 11:57:52.255513 alarmpihavas python[317]: [13.12 11:57:52.254] [INF] [INA]: current LSB: 1.220e-05 A/bit
+Dec 13 11:57:52.267421 alarmpihavas python[317]: [13.12 11:57:52.257] [INF] [INA]: power LSB: 2.439e-04 W/bit
+Dec 13 11:57:52.273075 alarmpihavas python[317]: [13.12 11:57:52.271] [INF] [INA]: max current before overflow: 0.3996A
+Dec 13 11:57:52.276217 alarmpihavas python[317]: [13.12 11:57:52.274] [INF] [INA]: max shunt voltage before overflow: 39.9598mV
+Dec 13 11:57:52.279652 alarmpihavas python[317]: [13.12 11:57:52.278] [INF] [INA]: calibration: 0x8333 (33587)
+Dec 13 11:57:52.283955 alarmpihavas python[317]: [13.12 11:57:52.270] [INF] [MQTT]: CONNACK received with code Success.
+Dec 13 11:57:52.287455 alarmpihavas python[317]: [13.12 11:57:52.282] [DBG] [INA]: calibration: 0x8333
+Dec 13 11:57:52.290715 alarmpihavas python[317]: [13.12 11:57:52.289] [DBG] [INA]: write register 0x05: 0x8333 0b1000001100110011
+Dec 13 11:57:52.297747 alarmpihavas python[317]: [13.12 11:57:52.295] [DBG] [INA]: configuration: 0x219f
+Dec 13 11:57:52.300945 alarmpihavas python[317]: [13.12 11:57:52.299] [DBG] [INA]: write register 0x00: 0x219f 0b0010000110011111
+Dec 13 11:57:52.305764 alarmpihavas python[317]: [13.12 11:57:52.304] [INF] [RPI]: init end
+Dec 13 11:57:52.313908 alarmpihavas python[317]: [13.12 11:57:52.312] [INF] [LED]: set_led 1 False
+Dec 13 11:57:52.317269 alarmpihavas python[317]: [13.12 11:57:52.315] [INF] [LGC]: init end
+Dec 13 11:57:52.320859 alarmpihavas python[317]: [13.12 11:57:52.311] [INF] [MQTT]: on_subscribe mid[1], granted_qos[[<paho.mqtt.reasoncodes.ReasonCodes object at 0x75f8aaf0>]]
+Dec 13 11:57:52.323977 alarmpihavas python[317]: [13.12 11:57:52.319] [INF] [LOOP]: main end
+Dec 13 11:57:52.327322 alarmpihavas python[317]: [13.12 11:57:52.325] [INF] [RPI]: button state changed 0
+Dec 13 11:57:52.330460 alarmpihavas python[317]: [13.12 11:57:52.329] [INF] [LGC]: on_button_state_change 0
+Dec 13 11:57:52.688604 alarmpihavas python[317]: [13.12 11:57:52.686] [INF] [MQTT]: on_publish mid[2]
+Dec 13 11:57:52.740839 alarmpihavas python[317]: [13.12 11:57:52.739] [INF] [MQTT]: on_publish mid[3]
+Dec 13 11:57:52.752040 alarmpihavas python[317]: [13.12 11:57:52.750] [INF] [MQTT]: on_publish mid[4]
+Dec 13 11:57:52.761237 alarmpihavas python[317]: [13.12 11:57:52.759] [INF] [MQTT]: on_publish mid[5]
+Dec 13 11:57:52.771741 alarmpihavas python[317]: [13.12 11:57:52.770] [INF] [MQTT]: on_publish mid[6]
+Dec 13 11:58:02.395928 alarmpihavas python[317]: [13.12 11:58:02.394] [INF] [MQTT]: on_publish mid[7]
+Dec 13 11:58:12.455126 alarmpihavas python[317]: [13.12 11:58:12.453] [INF] [MQTT]: on_publish mid[8]
+Dec 13 11:58:22.689592 alarmpihavas python[317]: [13.12 11:58:22.687] [INF] [MQTT]: on_publish mid[9]
+Dec 13 11:58:22.837896 alarmpihavas python[317]: [13.12 11:58:22.836] [INF] [MQTT]: on_publish mid[10]
+Dec 13 11:58:32.756249 alarmpihavas python[317]: [13.12 11:58:32.754] [INF] [MQTT]: on_publish mid[11]
+Dec 13 11:58:39.280773 alarmpihavas systemd[310]: Stopping RPI remote mqtt...
+Dec 13 11:58:39.329228 alarmpihavas systemd[310]: Stopped RPI remote mqtt.
+Dec 13 11:58:39.332024 alarmpihavas systemd[310]: rpi_remote_mqtt.service: Consumed 46.101s CPU time.
+-- Boot 7dc328c2e4864a7cb8587fc64ba00a44 --
+Dec 13 12:01:42.995261 alarmpihavas systemd[305]: Starting RPI remote mqtt...
+Dec 13 12:01:47.606791 alarmpihavas python[312]: [13.12 12:01:47.605] [INF] [MAIN]: start begin
+Dec 13 12:01:47.615962 alarmpihavas systemd[305]: Started RPI remote mqtt.
+Dec 13 12:01:47.633680 alarmpihavas python[312]: [THREADMON]: initializing:
+Dec 13 12:01:47.633680 alarmpihavas python[312]:         period = 5.0s
+Dec 13 12:01:47.633680 alarmpihavas python[312]:         strategy = KILL PROCESS
+Dec 13 12:01:47.653315 alarmpihavas python[312]: [THREADMON]: set exit strategy = SYSTEMD WATCHDOG TRIGGER
+Dec 13 12:01:47.653315 alarmpihavas python[312]: [THREADMON]: WATCH[total=001]: { name=MainThread; native_id=312; ident=1996419088 }
+Dec 13 12:01:48.428606 alarmpihavas python[312]: [13.12 12:01:48.427] [INF] [MAIN]: start end
+Dec 13 12:01:48.450731 alarmpihavas python[312]: [THREADMON]: WATCH[total=002]: { name=Thread-2; native_id=322; ident=1967817696 }
+Dec 13 12:01:48.453750 alarmpihavas python[312]: [13.12 12:01:48.439] [INF] [LOOP]: main begin
+Dec 13 12:01:48.456820 alarmpihavas python[312]: [13.12 12:01:48.455] [INF] [LGC]: init begin
+Dec 13 12:01:48.462443 alarmpihavas python[312]: [THREADMON]: WATCH[total=003]: { name=Thread-3; native_id=323; ident=1957688288 }
+Dec 13 12:01:48.465684 alarmpihavas python[312]: [13.12 12:01:48.464] [INF] [RPI]: init begin
+Dec 13 12:01:48.485211 alarmpihavas python[312]: [13.12 12:01:48.477] [INF] [INA]: gain set to 0.04V
+Dec 13 12:01:48.488437 alarmpihavas python[312]: [13.12 12:01:48.487] [DBG] [INA]: shunt ohms: 0.100, bus max volts: 32, shunt volts max: 0.04, bus ADC: 12-bit, shunt ADC: 12-bit
+Dec 13 12:01:48.492027 alarmpihavas python[312]: [13.12 12:01:48.490] [INF] [INA]: calibrate called with: bus max volts: 32V, max shunt volts: 0.04V
+Dec 13 12:01:48.495584 alarmpihavas python[312]: [13.12 12:01:48.494] [INF] [INA]: max possible current: 0.400A
+Dec 13 12:01:48.509527 alarmpihavas python[312]: [13.12 12:01:48.497] [INF] [INA]: current LSB: 1.220e-05 A/bit
+Dec 13 12:01:48.513137 alarmpihavas python[312]: [13.12 12:01:48.511] [INF] [INA]: power LSB: 2.439e-04 W/bit
+Dec 13 12:01:48.516381 alarmpihavas python[312]: [13.12 12:01:48.514] [INF] [INA]: max current before overflow: 0.3996A
+Dec 13 12:01:48.519563 alarmpihavas python[312]: [13.12 12:01:48.518] [INF] [INA]: max shunt voltage before overflow: 39.9598mV
+Dec 13 12:01:48.523029 alarmpihavas python[312]: [13.12 12:01:48.521] [INF] [INA]: calibration: 0x8333 (33587)
+Dec 13 12:01:48.526578 alarmpihavas python[312]: [13.12 12:01:48.508] [INF] [MQTT]: CONNACK received with code Success.
+Dec 13 12:01:48.530437 alarmpihavas python[312]: [13.12 12:01:48.525] [DBG] [INA]: calibration: 0x8333
+Dec 13 12:01:48.538699 alarmpihavas python[312]: [13.12 12:01:48.537] [DBG] [INA]: write register 0x05: 0x8333 0b1000001100110011
+Dec 13 12:01:48.543580 alarmpihavas python[312]: [13.12 12:01:48.536] [INF] [MQTT]: on_subscribe mid[1], granted_qos[[<paho.mqtt.reasoncodes.ReasonCodes object at 0x76005a48>]]
+Dec 13 12:01:48.548582 alarmpihavas python[312]: [13.12 12:01:48.546] [DBG] [INA]: configuration: 0x219f
+Dec 13 12:01:48.552129 alarmpihavas python[312]: [13.12 12:01:48.550] [DBG] [INA]: write register 0x00: 0x219f 0b0010000110011111
+Dec 13 12:01:48.556642 alarmpihavas python[312]: [13.12 12:01:48.555] [INF] [RPI]: init end
+Dec 13 12:01:48.560002 alarmpihavas python[312]: [13.12 12:01:48.558] [INF] [LED]: set_led 1 False
+Dec 13 12:01:48.563263 alarmpihavas python[312]: [13.12 12:01:48.561] [INF] [LGC]: init end
+Dec 13 12:01:48.566365 alarmpihavas python[312]: [13.12 12:01:48.565] [INF] [LOOP]: main end
+Dec 13 12:01:48.569637 alarmpihavas python[312]: [13.12 12:01:48.568] [INF] [RPI]: button state changed 0
+Dec 13 12:01:48.573144 alarmpihavas python[312]: [13.12 12:01:48.571] [INF] [LGC]: on_button_state_change 0
+Dec 13 12:01:48.939782 alarmpihavas python[312]: [13.12 12:01:48.938] [INF] [MQTT]: on_publish mid[2]
+Dec 13 12:01:48.991471 alarmpihavas python[312]: [13.12 12:01:48.989] [INF] [MQTT]: on_publish mid[4]
+Dec 13 12:01:49.005021 alarmpihavas python[312]: [13.12 12:01:49.003] [INF] [MQTT]: on_publish mid[3]
+Dec 13 12:01:49.015113 alarmpihavas python[312]: [13.12 12:01:49.013] [INF] [MQTT]: on_publish mid[5]
+Dec 13 12:01:49.023876 alarmpihavas python[312]: [13.12 12:01:49.022] [INF] [MQTT]: on_publish mid[6]
+Dec 13 12:01:58.641884 alarmpihavas python[312]: [13.12 12:01:58.640] [INF] [MQTT]: on_publish mid[7]
+Dec 13 12:02:08.642684 alarmpihavas python[312]: [13.12 12:02:08.640] [INF] [MQTT]: on_publish mid[8]
+Dec 13 12:02:19.075956 alarmpihavas python[312]: [13.12 12:02:19.074] [INF] [MQTT]: on_publish mid[9]
+Dec 13 12:02:19.122697 alarmpihavas python[312]: [13.12 12:02:19.121] [INF] [MQTT]: on_publish mid[10]
+Dec 13 12:02:28.648443 alarmpihavas python[312]: [13.12 12:02:28.647] [INF] [MQTT]: on_publish mid[11]
+Dec 13 12:02:38.647157 alarmpihavas python[312]: [13.12 12:02:38.645] [INF] [MQTT]: on_publish mid[12]
+Dec 13 12:02:48.657859 alarmpihavas python[312]: [13.12 12:02:48.656] [INF] [MQTT]: on_publish mid[13]
+Dec 13 12:02:58.648155 alarmpihavas python[312]: [13.12 12:02:58.646] [INF] [MQTT]: on_publish mid[14]
+Dec 13 12:03:08.647221 alarmpihavas python[312]: [13.12 12:03:08.645] [INF] [MQTT]: on_publish mid[15]
+Dec 13 12:03:18.654482 alarmpihavas python[312]: [13.12 12:03:18.652] [INF] [MQTT]: on_publish mid[16]
+Dec 13 12:03:28.648132 alarmpihavas python[312]: [13.12 12:03:28.646] [INF] [MQTT]: on_publish mid[17]
+Dec 13 12:03:38.648774 alarmpihavas python[312]: [13.12 12:03:38.646] [INF] [MQTT]: on_publish mid[18]
+Dec 13 12:03:48.654410 alarmpihavas python[312]: [13.12 12:03:48.652] [INF] [MQTT]: on_publish mid[19]
+Dec 13 12:03:58.648291 alarmpihavas python[312]: [13.12 12:03:58.646] [INF] [MQTT]: on_publish mid[20]
+Dec 13 12:04:08.653436 alarmpihavas python[312]: [13.12 12:04:08.652] [INF] [MQTT]: on_publish mid[21]
+Dec 13 12:04:18.657758 alarmpihavas python[312]: [13.12 12:04:18.656] [INF] [MQTT]: on_publish mid[22]
+Dec 13 12:04:28.644799 alarmpihavas python[312]: [13.12 12:04:28.643] [INF] [MQTT]: on_publish mid[23]
+Dec 13 12:04:38.646473 alarmpihavas python[312]: [13.12 12:04:38.645] [INF] [MQTT]: on_publish mid[24]
+Dec 13 12:04:48.923479 alarmpihavas python[312]: [13.12 12:04:48.921] [INF] [MQTT]: on_publish mid[25]
+Dec 13 12:04:58.650992 alarmpihavas python[312]: [13.12 12:04:58.649] [INF] [MQTT]: on_publish mid[26]
+Dec 13 12:05:08.653072 alarmpihavas python[312]: [13.12 12:05:08.651] [INF] [MQTT]: on_publish mid[27]
+Dec 13 12:05:18.654008 alarmpihavas python[312]: [13.12 12:05:18.652] [INF] [MQTT]: on_publish mid[28]
+Dec 13 12:05:28.661417 alarmpihavas python[312]: [13.12 12:05:28.659] [INF] [MQTT]: on_publish mid[29]
+Dec 13 12:05:38.647371 alarmpihavas python[312]: [13.12 12:05:38.646] [INF] [MQTT]: on_publish mid[30]
+Dec 13 12:05:48.658257 alarmpihavas python[312]: [13.12 12:05:48.656] [INF] [MQTT]: on_publish mid[31]
+Dec 13 12:05:58.654006 alarmpihavas python[312]: [13.12 12:05:58.652] [INF] [MQTT]: on_publish mid[32]
+Dec 13 12:06:08.706132 alarmpihavas python[312]: [13.12 12:06:08.704] [INF] [MQTT]: on_publish mid[33]
+Dec 13 12:06:18.654373 alarmpihavas python[312]: [13.12 12:06:18.652] [INF] [MQTT]: on_publish mid[34]
+Dec 13 12:06:28.647655 alarmpihavas python[312]: [13.12 12:06:28.646] [INF] [MQTT]: on_publish mid[35]
+Dec 13 12:06:34.263463 alarmpihavas systemd[305]: Stopping RPI remote mqtt...
+Dec 13 12:06:34.334722 alarmpihavas systemd[305]: Stopped RPI remote mqtt.
+Dec 13 12:06:34.336673 alarmpihavas systemd[305]: rpi_remote_mqtt.service: Consumed 4min 33.167s CPU time.
+Dec 16 16:09:22.633157 alarmpihavas python[621]: [16.12 16:09:22.631] [INF] [MAIN]: start begin
+Dec 16 16:09:22.639691 alarmpihavas systemd[282]: Started RPI remote mqtt.
+Dec 16 16:09:22.645712 alarmpihavas python[621]: [THREADMON]: initializing:
+Dec 16 16:09:22.645712 alarmpihavas python[621]:         period = 5.0s
+Dec 16 16:09:22.645712 alarmpihavas python[621]:         strategy = KILL PROCESS
+Dec 16 16:09:22.645712 alarmpihavas python[621]: [THREADMON]: set exit strategy = SYSTEMD WATCHDOG TRIGGER
+Dec 16 16:09:22.645712 alarmpihavas python[621]: [THREADMON]: WATCH[total=001]: { name=MainThread; native_id=621; ident=1995468816 }
+Dec 16 16:09:23.096014 alarmpihavas python[621]: [16.12 16:09:23.094] [INF] [MAIN]: start end
+Dec 16 16:09:23.107277 alarmpihavas python[621]: [THREADMON]: WATCH[total=002]: { name=Thread-2; native_id=623; ident=1967002592 }
+Dec 16 16:09:23.111634 alarmpihavas python[621]: [16.12 16:09:23.104] [INF] [LOOP]: main begin
+Dec 16 16:09:23.115052 alarmpihavas python[621]: [16.12 16:09:23.113] [INF] [LGC]: init begin
+Dec 16 16:09:23.121723 alarmpihavas python[621]: [THREADMON]: WATCH[total=003]: { name=Thread-3; native_id=624; ident=1956639712 }
+Dec 16 16:09:23.125512 alarmpihavas python[621]: [16.12 16:09:23.117] [INF] [RPI]: init begin
+Dec 16 16:09:23.136532 alarmpihavas python[621]: [16.12 16:09:23.134] [INF] [INA]: gain set to 0.04V
+Dec 16 16:09:23.139922 alarmpihavas python[621]: [16.12 16:09:23.138] [DBG] [INA]: shunt ohms: 0.100, bus max volts: 32, shunt volts max: 0.04, bus ADC: 12-bit, shunt ADC: 12-bit
+Dec 16 16:09:23.143284 alarmpihavas python[621]: [16.12 16:09:23.141] [INF] [INA]: calibrate called with: bus max volts: 32V, max shunt volts: 0.04V
+Dec 16 16:09:23.156108 alarmpihavas python[621]: [16.12 16:09:23.146] [INF] [INA]: max possible current: 0.400A
+Dec 16 16:09:23.161997 alarmpihavas python[621]: [16.12 16:09:23.160] [INF] [INA]: current LSB: 1.220e-05 A/bit
+Dec 16 16:09:23.165226 alarmpihavas python[621]: [16.12 16:09:23.163] [INF] [INA]: power LSB: 2.439e-04 W/bit
+Dec 16 16:09:23.168850 alarmpihavas python[621]: [16.12 16:09:23.167] [INF] [INA]: max current before overflow: 0.3996A
+Dec 16 16:09:23.172395 alarmpihavas python[621]: [16.12 16:09:23.159] [INF] [MQTT]: CONNACK received with code Success.
+Dec 16 16:09:23.175680 alarmpihavas python[621]: [16.12 16:09:23.170] [INF] [INA]: max shunt voltage before overflow: 39.9598mV
+Dec 16 16:09:23.179117 alarmpihavas python[621]: [16.12 16:09:23.177] [INF] [INA]: calibration: 0x8333 (33587)
+Dec 16 16:09:23.187752 alarmpihavas python[621]: [16.12 16:09:23.186] [DBG] [INA]: calibration: 0x8333
+Dec 16 16:09:23.191139 alarmpihavas python[621]: [16.12 16:09:23.189] [DBG] [INA]: write register 0x05: 0x8333 0b1000001100110011
+Dec 16 16:09:23.195926 alarmpihavas python[621]: [16.12 16:09:23.184] [INF] [MQTT]: on_subscribe mid[1], granted_qos[[<paho.mqtt.reasoncodes.ReasonCodes object at 0x75f1da48>]]
+Dec 16 16:09:23.200366 alarmpihavas python[621]: Exception in thread Thread-2:
+Dec 16 16:09:23.201871 alarmpihavas python[621]: Traceback (most recent call last):
+Dec 16 16:09:23.206058 alarmpihavas python[621]:   File "/usr/lib/python3.9/site-packages/periphery/i2c.py", line 135, in transfer
+Dec 16 16:09:23.206058 alarmpihavas python[621]:     fcntl.ioctl(self._fd, I2C._I2C_IOC_RDWR, i2c_xfer, False)
+Dec 16 16:09:23.216164 alarmpihavas python[621]: OSError: [Errno 121] Remote I/O error
+Dec 16 16:09:23.216164 alarmpihavas python[621]: During handling of the above exception, another exception occurred:
+Dec 16 16:09:23.216164 alarmpihavas python[621]: Traceback (most recent call last):
+Dec 16 16:09:23.216164 alarmpihavas python[621]:   File "/usr/lib/python3.9/threading.py", line 973, in _bootstrap_inner
+Dec 16 16:09:23.222595 alarmpihavas python[621]:     self.run()
+Dec 16 16:09:23.224072 alarmpihavas python[621]:   File "/usr/lib/python3.9/threading.py", line 910, in run
+Dec 16 16:09:23.233334 alarmpihavas python[621]:     self._target(*self._args, **self._kwargs)
+Dec 16 16:09:23.234744 alarmpihavas python[621]:   File "/home/alarm/git/rpi_remote_mqtt/src/main.py", line 29, in main
+Dec 16 16:09:23.238838 alarmpihavas python[621]:     logic.init()
+Dec 16 16:09:23.246130 alarmpihavas python[621]:   File "/home/alarm/git/rpi_remote_mqtt/src/logic_havas.py", line 78, in init
+Dec 16 16:09:23.246130 alarmpihavas python[621]:     rpi_peripherals.init()
+Dec 16 16:09:23.246130 alarmpihavas python[621]:   File "/home/alarm/git/rpi_remote_mqtt/src/rpi_peripherals_havas.py", line 72, in init
+Dec 16 16:09:23.246130 alarmpihavas python[621]:     ina.configure()
+Dec 16 16:09:23.246130 alarmpihavas python[621]:   File "/home/alarm/git/rpi_remote_mqtt/src/ina219.py", line 188, in configure
+Dec 16 16:09:23.252402 alarmpihavas python[621]:     self._calibrate(
+Dec 16 16:09:23.253869 alarmpihavas python[621]:   File "/home/alarm/git/rpi_remote_mqtt/src/ina219.py", line 312, in _calibrate
+Dec 16 16:09:23.259745 alarmpihavas python[621]:     self._calibration_register(calibration)
+Dec 16 16:09:23.261154 alarmpihavas python[621]:   File "/home/alarm/git/rpi_remote_mqtt/src/ina219.py", line 357, in _calibration_register
+Dec 16 16:09:23.267170 alarmpihavas python[621]:     self.__write_register(self.__REG_CALIBRATION, register_value)
+Dec 16 16:09:23.268736 alarmpihavas python[621]:   File "/home/alarm/git/rpi_remote_mqtt/src/ina219.py", line 386, in __write_register
+Dec 16 16:09:23.274628 alarmpihavas python[621]:     self._i2c.transfer(self._address, msg)
+Dec 16 16:09:23.276427 alarmpihavas python[621]:   File "/usr/lib/python3.9/site-packages/periphery/i2c.py", line 137, in transfer
+Dec 16 16:09:23.280699 alarmpihavas python[621]:     raise I2CError(e.errno, "I2C transfer: " + e.strerror)
+Dec 16 16:09:23.283357 alarmpihavas python[621]: periphery.i2c.I2CError: [Errno 121] I2C transfer: Remote I/O error
