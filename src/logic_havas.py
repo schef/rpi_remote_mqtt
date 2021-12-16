@@ -97,9 +97,9 @@ class Temperature:
 
     def generate_message(self):
         mstr = ""
-        mstr += "t0: %f\n" % (str(self.t0))
-        mstr += "t1: %f\n" % (str(self.t1))
-        mstr += "t2: %f\n" % (str(self.t2))
+        mstr += "t0: %s\n" % (str(self.t0))
+        mstr += "t1: %s\n" % (str(self.t1))
+        mstr += "t2: %s\n" % (str(self.t2))
         return mstr
 
     def get(self, num):
