@@ -179,6 +179,7 @@ def get_mqtt():
     if uptime.has_mqtt(): return uptime.get_mqtt()
     if ip.has_mqtt(): return ip.get_mqtt()
     if temperature.has_mqtt(): return temperature.get_mqtt()
+    if pump.has_mqtt(): return pump.get_mqtt()
     return None, None
 
 
