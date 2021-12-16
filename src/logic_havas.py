@@ -129,9 +129,40 @@ class Temperature:
         return None, None
 
 
+class Pump:
+    def __init__(self):
+        self.mqtt = None
+        self.mqtt_last = None
+        self.name = "pump"
+
+    def init(self):
+        pass
+
+    def get(self):
+        return rpi_peripherals.get_relay_state()
+
+    def set(self, state):
+        rpi_peripherals.set_relay(state)
+        self.mqtt = state
+
+    def loop(self):
+        pass
+
+    def has_mqtt(self):
+        return self.mqtt != None and self.mqtt != self.mqtt_last
+
+    def get_mqtt(self):
+        if self.has_mqtt():
+            self.mqtt_last = self.mqtt
+            self.mqtt = None
+            return self.name, self.mqtt_last
+        return None, None
+
+
 uptime = Uptime()
 ip = Ip()
 temperature = Temperature()
+pump = Pump()
 
 
 def init():
@@ -140,6 +171,7 @@ def init():
     uptime.init()
     ip.init()
     temperature.init()
+    pump.init()
     logger.info("[LGC]: init end")
 
 
@@ -152,12 +184,15 @@ def get_mqtt():
 
 def set_mqtt(topic, message):
     logger.info("[LGC]: set_mqtt %s %s" % (topic, message))
+    if topic == pump.name:
+        pump.set(int(message))
 
 
 def loop():
     uptime.loop()
     ip.loop()
     temperature.loop()
+    pump.loop()
 
 
 def loop_test():
