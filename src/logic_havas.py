@@ -166,10 +166,44 @@ class Pump:
         return None, None
 
 
+class Automatic:
+    def __init__(self):
+        self.timeout = 10000
+        self.timestamp = 0
+        self.mqtt = None
+        self.mqtt_last = None
+        self.name = "automatic"
+        self.state = True
+
+    def init(self):
+        pass
+
+    def get(self):
+        return self.state
+
+    def set(self, state):
+        self.state = state
+        self.mqtt = self.state
+
+    def loop(self):
+        pass
+
+    def has_mqtt(self):
+        return self.mqtt != None and self.mqtt != self.mqtt_last
+
+    def get_mqtt(self):
+        if self.has_mqtt():
+            self.mqtt_last = self.mqtt
+            self.mqtt = None
+            return self.name, self.mqtt_last
+        return None, None
+
+
 uptime = Uptime()
 ip = Ip()
 temperature = Temperature()
 pump = Pump()
+automatic = Automatic()
 
 
 def init():
@@ -179,6 +213,7 @@ def init():
     ip.init()
     temperature.init()
     pump.init()
+    automatic.init()
     logger.info("[LGC]: init end")
 
 
@@ -187,13 +222,15 @@ def get_mqtt():
     if ip.has_mqtt(): return ip.get_mqtt()
     if temperature.has_mqtt(): return temperature.get_mqtt()
     if pump.has_mqtt(): return pump.get_mqtt()
+    if automatic.has_mqtt(): return automatic.get_mqtt()
     return None, None
 
 
 def set_mqtt(topic, message):
     logger.info("[LGC]: set_mqtt %s %s" % (topic, message))
     if topic == pump.name:
-        pump.set(int(message))
+        if not automatic.get():
+            pump.set(int(message))
 
 
 def loop():
@@ -201,6 +238,7 @@ def loop():
     ip.loop()
     temperature.loop()
     pump.loop()
+    automatic.loop()
 
 
 def loop_test():
