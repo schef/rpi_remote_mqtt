@@ -22,6 +22,7 @@ class Uptime:
 
     def loop(self):
         if common.millis_passed(self.timestamp) >= 10000 or self.timestamp == 0:
+            logger.info("VE")
             self.timestamp = common.get_millis()
             self.mqtt = self.get()
 
