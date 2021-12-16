@@ -209,7 +209,7 @@ def loop():
     check_ip()
     led_logic.loop()
     # check_for_internet()
-    check_for_voltage()
+    # check_for_voltage()
 
 
 def loop_test():

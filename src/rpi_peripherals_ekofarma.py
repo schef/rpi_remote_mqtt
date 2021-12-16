@@ -67,9 +67,9 @@ def init():
     relays.append(GPIO("/dev/gpiochip0", RELAY_3, "out"))
     for i in range(len(relays)):
         set_relay(i, False)
-    i2c = I2C("/dev/i2c-1")
-    ina = ina219.INA219(SHUNT_OHMS, i2c)
-    ina.configure()
+    #i2c = I2C("/dev/i2c-1")
+    #ina = ina219.INA219(SHUNT_OHMS, i2c)
+    #ina.configure()
     logger.info("[RPI]: init end")
 
 
