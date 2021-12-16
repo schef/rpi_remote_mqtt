@@ -1,4 +1,5 @@
 #!/bin/bash
+import sys
 
 from src.common import *
 import src.log as log
@@ -74,7 +75,18 @@ def systemd_log(follow=True, lines_to_show=1000):
 
 
 if __name__ == "__main__":
-    logger.info("[INS]: Installing systemd service")
-    create_dir()
-    change_user_and_copy_service()
-    systemd_deamon_reload()
+
+if __name__ == "__main__":
+    import readline
+    import rlcompleter
+    import code
+
+    if len(sys.argv) == 2 and sys.argv[1] == "-i":
+        logger.info("[INS]: Installing systemd service")
+        create_dir()
+        change_user_and_copy_service()
+        systemd_deamon_reload()
+        sys.exit(0)
+
+    readline.parse_and_bind("tab: complete")
+    code.interact(local=locals())
