@@ -183,7 +183,7 @@ class Automatic:
 
     def set(self, state):
         self.state = int(state)
-        self.mqtt = int(self.state)
+        self.mqtt = self.state
 
     def loop(self):
         pass
