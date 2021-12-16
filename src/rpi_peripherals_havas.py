@@ -9,12 +9,22 @@ logger = log.get()
 RELAY_0 = 23
 relay = None
 
-TEMP_0 = '28-051684344cff'
-TEMP_1 = '28-0516843330ff'
-TEMP_2 = '28-051684308bff'
+TEMP_0 = '28-051684308bff'
+TEMP_1 = '28-051684344cff'
+TEMP_2 = '28-0516843330ff'
+
 
 def set_relay(state):
     relay.write(bool(state))
+
+
+def get_temperature(num):
+    if num == 0:
+        return ds18b20.read_temp(TEMP_0)
+    elif num == 1:
+        return ds18b20.read_temp(TEMP_1)
+    elif num == 2:
+        return ds18b20.read_temp(TEMP_2)
 
 
 def init():
