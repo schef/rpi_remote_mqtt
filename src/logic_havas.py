@@ -90,6 +90,7 @@ class Temperature:
         self.t0 = None
         self.t1 = None
         self.t2 = None
+        self.count = 0
 
     def init(self):
         pass
@@ -111,11 +112,17 @@ class Temperature:
         return None
 
     def loop(self):
-        if common.millis_passed(self.timestamp) >= 10000 or self.timestamp == 0:
+        if common.millis_passed(self.timestamp) >= 5000 or self.timestamp == 0:
             self.timestamp = common.get_millis()
-            self.t0 = rpi_peripherals.get_temperature(0)
-            self.t1 = rpi_peripherals.get_temperature(1)
-            self.t2 = rpi_peripherals.get_temperature(2)
+            if self.count == 0:
+                self.t0 = rpi_peripherals.get_temperature(0)
+            elif self.count == 1:
+                self.t1 = rpi_peripherals.get_temperature(1)
+            elif self.count == 2:
+                self.t2 = rpi_peripherals.get_temperature(2)
+            self.count += 1
+            if self.count >= 2:
+                self.count = 0
             self.mqtt = self.generate_message()
 
     def has_mqtt(self):
