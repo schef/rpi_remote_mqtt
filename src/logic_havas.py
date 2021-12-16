@@ -231,6 +231,8 @@ def set_mqtt(topic, message):
     if topic == pump.name:
         if not automatic.get():
             pump.set(int(message))
+    elif topic == automatic.name:
+        automatic.set(int(message))
 
 
 def loop():
