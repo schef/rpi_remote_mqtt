@@ -1,5 +1,6 @@
 from periphery import GPIO
 import log
+import ds18b20
 
 logger = log.get()
 
@@ -8,6 +9,9 @@ logger = log.get()
 RELAY_0 = 23
 relay = None
 
+TEMP_0 = '28-051684344cff'
+TEMP_1 = '28-0516843330ff'
+TEMP_2 = '28-051684308bff'
 
 def set_relay(state):
     relay.write(bool(state))
