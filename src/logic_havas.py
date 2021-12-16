@@ -121,7 +121,7 @@ class Temperature:
             elif self.count == 2:
                 self.t2 = rpi_peripherals.get_temperature(2)
             self.count += 1
-            if self.count >= 2:
+            if self.count >= 3:
                 self.count = 0
             self.mqtt = self.generate_message()
 
