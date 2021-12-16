@@ -179,11 +179,11 @@ class Automatic:
         self.set(True)
 
     def get(self):
-        return self.state
+        return int(self.state)
 
     def set(self, state):
-        self.state = state
-        self.mqtt = self.state
+        self.state = int(state)
+        self.mqtt = int(self.state)
 
     def loop(self):
         pass
