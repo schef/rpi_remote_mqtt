@@ -8,6 +8,7 @@ logger = log.get()
 
 RELAY_0 = 23
 relay = None
+relay_state = None
 
 TEMP_0 = '28-051684308bff'
 TEMP_1 = '28-051684344cff'
@@ -15,7 +16,13 @@ TEMP_2 = '28-0516843330ff'
 
 
 def set_relay(state):
+    global relay_state
     relay.write(bool(state))
+    relay_state = state
+
+
+def get_relay_state():
+    return relay_state
 
 
 def get_temperature(num):
