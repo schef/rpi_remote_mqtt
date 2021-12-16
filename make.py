@@ -12,13 +12,13 @@ SYSTMED_SERVICE_PATH = get_full_path("./systemd")
 SYSTEMD_PATH = get_full_path("~/.config/systemd/user")
 
 
-def create_dir():
+def _create_dir():
     logger.info("[INS]: create_dir %s" % (SYSTEMD_PATH))
     cmd = "mkdir -p %s" % (SYSTEMD_PATH)
     run_bash_cmd(cmd)
 
 
-def change_user_and_copy_service():
+def _change_user_and_copy_service():
     logger.info("[INS]: change_user_and_copy_service")
     old_location = "%s/%s" % (SYSTMED_SERVICE_PATH, SYSTMED_SERVICE_NAME)
     user = getpass.getuser()
@@ -33,31 +33,31 @@ def change_user_and_copy_service():
     write_lines_to_file(lines, new_location)
 
 
-def systemd_deamon_reload():
+def _systemd_deamon_reload():
     logger.info("[INS]: systemd_deamon_reload")
     cmd = "systemctl --user daemon-reload"
     run_bash_cmd(cmd)
 
 
-def systemd_service_start():
+def start():
     logger.info("[INS]: systemd_service_start")
     cmd = "systemctl --user start %s" % (SYSTMED_SERVICE_NAME)
     run_bash_cmd(cmd)
 
 
-def systemd_service_stop():
+def stop():
     logger.info("[INS]: systemd_service_stop")
     cmd = "systemctl --user stop %s" % (SYSTMED_SERVICE_NAME)
     run_bash_cmd(cmd)
 
 
-def systemd_service_restart():
+def restart():
     logger.info("[INS]: systemd_service_restart")
     cmd = "systemctl --user restart %s" % (SYSTMED_SERVICE_NAME)
     run_bash_cmd(cmd)
 
 
-def systemd_service_enable():
+def enable():
     logger.info("[INS]: systemd_service_enable")
     cmd = "systemctl --user enable %s" % (SYSTMED_SERVICE_NAME)
     run_bash_cmd(cmd)
@@ -81,9 +81,9 @@ if __name__ == "__main__":
 
     if len(sys.argv) == 2 and sys.argv[1] == "-i":
         logger.info("[INS]: Installing systemd service")
-        create_dir()
-        change_user_and_copy_service()
-        systemd_deamon_reload()
+        _create_dir()
+        _change_user_and_copy_service()
+        _systemd_deamon_reload()
         sys.exit(0)
 
     readline.parse_and_bind("tab: complete")
