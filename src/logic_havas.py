@@ -173,10 +173,10 @@ class Automatic:
         self.mqtt = None
         self.mqtt_last = None
         self.name = "automatic"
-        self.state = True
+        self.state = None
 
     def init(self):
-        pass
+        self.set(True)
 
     def get(self):
         return self.state
