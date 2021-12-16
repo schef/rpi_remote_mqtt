@@ -80,8 +80,58 @@ class Ip:
         return None, None
 
 
+class Temperature:
+    def __init__(self):
+        self.timeout = 10000
+        self.timestamp = 0
+        self.mqtt = None
+        self.mqtt_last = None
+        self.name = "temperature"
+        self.t0 = None
+        self.t1 = None
+        self.t2 = None
+
+    def init(self):
+        pass
+
+    def generate_message(self):
+        str = ""
+        str += "t0: %f\n" % (self.t0)
+        str += "t1: %f\n" % (self.t1)
+        str += "t2: %f\n" % (self.t2)
+        return str
+
+    def get(self, num):
+        if num == 0:
+            return self.t0
+        elif num == 1:
+            return self.t1
+        elif num == 2:
+            return self.t2
+        return None
+
+    def loop(self):
+        if common.millis_passed(self.timestamp) >= 10000 or self.timestamp == 0:
+            self.timestamp = common.get_millis()
+            self.t0 = rpi_peripherals.get_temperature(0)
+            self.t1 = rpi_peripherals.get_temperature(1)
+            self.t2 = rpi_peripherals.get_temperature(2)
+            self.mqtt = self.generate_message()
+
+    def has_mqtt(self):
+        return self.mqtt != None and self.mqtt != self.mqtt_last
+
+    def get_mqtt(self):
+        if self.has_mqtt():
+            self.mqtt_last = self.mqtt
+            self.mqtt = None
+            return self.name, self.mqtt_last
+        return None, None
+
+
 uptime = Uptime()
 ip = Ip()
+temperature = Temperature()
 
 
 def init():
@@ -89,12 +139,14 @@ def init():
     rpi_peripherals.init()
     uptime.init()
     ip.init()
+    temperature.init()
     logger.info("[LGC]: init end")
 
 
 def get_mqtt():
     if uptime.has_mqtt(): return uptime.get_mqtt()
     if ip.has_mqtt(): return ip.get_mqtt()
+    if temperature.has_mqtt(): return temperature.get_mqtt()
     return None, None
 
 
@@ -105,6 +157,7 @@ def set_mqtt(topic, message):
 def loop():
     uptime.loop()
     ip.loop()
+    temperature.loop()
 
 
 def loop_test():
