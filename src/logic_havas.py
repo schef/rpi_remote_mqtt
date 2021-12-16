@@ -10,19 +10,19 @@ class Uptime:
     def __init__(self):
         self.timeout = 10000
         self.timestamp = 0
+        self.start_timestamp = 0
         self.mqtt = None
         self.mqtt_last = None
         self.name = "uptime"
 
     def init(self):
-        self.timestamp = common.get_millis()
+        self.start_timestamp = common.get_millis()
 
     def get(self):
-        return int(common.millis_passed(self.timestamp) / 1000)
+        return int(common.millis_passed(self.start_timestamp) / 1000)
 
     def loop(self):
         if common.millis_passed(self.timestamp) >= 10000 or self.timestamp == 0:
-            logger.info("VE")
             self.timestamp = common.get_millis()
             self.mqtt = self.get()
 
