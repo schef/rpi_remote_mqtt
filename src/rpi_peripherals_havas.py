@@ -26,12 +26,15 @@ def get_relay_state():
 
 
 def get_temperature(num):
-    if num == 0:
-        return ds18b20.read_temp(TEMP_0)
-    elif num == 1:
-        return ds18b20.read_temp(TEMP_1)
-    elif num == 2:
-        return ds18b20.read_temp(TEMP_2)
+    try:
+        if num == 0:
+            return ds18b20.read_temp(TEMP_0)
+        elif num == 1:
+            return ds18b20.read_temp(TEMP_1)
+        elif num == 2:
+            return ds18b20.read_temp(TEMP_2)
+    except:
+        return None
 
 
 def init():
