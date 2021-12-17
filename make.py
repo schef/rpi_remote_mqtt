@@ -85,7 +85,7 @@ def log(follow=True, lines_to_show=1000):
 def clean_logs():
     cmd = "sudo journalctl --unit %s --vacuum-time=1s" % (SYSTMED_SERVICE_NAME)
     interaction = {"[sudo]": get_root_password()}
-    run_bash_cmd(cmd, interaction=interaction)
+    run_bash_cmd(cmd, echo=True, interaction=interaction)
 
 
 if __name__ == "__main__":
