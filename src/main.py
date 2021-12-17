@@ -37,7 +37,7 @@ def main_unblocking(mqtt_client):
 
 
 def main_blocking():
-    while not logic.init_status:
+    while not init_status:
         pass
     logger.info("[LOOP]: main blocking begin")
     logger.info("[LOOP]: main blocking end")
