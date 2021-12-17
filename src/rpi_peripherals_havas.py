@@ -11,8 +11,8 @@ relay = None
 relay_state = None
 
 TEMP_0 = '28-051684308bff'
-TEMP_1 = '28-051684344cff'
-TEMP_2 = '28-0516843330ff'
+TEMP_1 = '28-0516843330ff'
+TEMP_2 = '28-051684344cff'
 
 
 def set_relay(state):
