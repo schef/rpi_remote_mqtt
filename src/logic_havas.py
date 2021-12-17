@@ -275,7 +275,7 @@ def set_mqtt(topic, message):
 
 
 def check_for_automatisation():
-    if automatic.get():
+    if automatic.get() and temperature_input.get() != None and temperature_output.get() != None:
         if pump.get():
             if temperature_input.get() < temperature_input_limit.get() or \
                     temperature_output.get() > temperature_output_limit.get():
