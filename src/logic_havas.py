@@ -106,6 +106,7 @@ class Temperature:
 
     def set(self, value):
         self.temperature = value
+        self.mqtt = self.get()
         self.testing = True
 
     def loop(self):
@@ -113,7 +114,7 @@ class Temperature:
             self.timestamp = common.get_millis()
             if not self.testing:
                 self.read()
-            self.mqtt = self.get()
+                self.mqtt = self.get()
 
     def has_mqtt(self):
         return self.mqtt != None and self.mqtt != self.mqtt_last
