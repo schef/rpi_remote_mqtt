@@ -82,7 +82,7 @@ def start():
     mqtt_client.subscribe("%s/input/#" % (DEVICE_NAME), qos=1)
 
     unblocking_thread = threading.Thread(target=main_unblocking, args=(mqtt_client,))
-    blocking_thread = threading.Thread(target=main_blocking, args=(mqtt_client,))
+    blocking_thread = threading.Thread(target=main_blocking)
 
     logger.info("[MAIN]: start end")
 
