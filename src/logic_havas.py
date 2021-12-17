@@ -273,6 +273,18 @@ def set_mqtt(topic, message):
             pump.set(int(message))
     elif topic == automatic.name:
         automatic.set(int(message))
+    elif topic == temperature_input.name:
+        temperature_input.set(float(message))
+    elif topic == temperature_output.name:
+        temperature_output.set(float(message))
+    elif topic == temperature_return.name:
+        temperature_return.set(float(message))
+    elif topic == temperature_input_limit.name:
+        temperature_input_limit.set(float(message))
+    elif topic == temperature_output_limit.name:
+        temperature_output_limit.set(float(message))
+    elif topic == temperature_return_limit.name:
+        temperature_return_limit.set(float(message))
 
 
 def check_for_automatisation():
