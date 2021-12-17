@@ -5,6 +5,10 @@ import network_info
 
 logger = log.get()
 
+TEMPERATURE_INPUT_LIMIT = 40.0
+TEMPERATURE_OUTPUT_LIMIT = 30.0
+TEMPERATURE_RETURN_LIMIT = 20.0
+
 
 class Uptime:
     def __init__(self):
@@ -81,49 +85,66 @@ class Ip:
 
 
 class Temperature:
-    def __init__(self):
+    def __init__(self, index, name):
         self.timeout = 10000
         self.timestamp = 0
         self.mqtt = None
         self.mqtt_last = None
-        self.name = "temperature"
-        self.t0 = None
-        self.t1 = None
-        self.t2 = None
-        self.count = 0
+        self.name = "temperature_" + name
+        self.index = index
+        self.temperature = None
+        self.testing = False
 
     def init(self):
         pass
 
-    def generate_message(self):
-        mstr = ""
-        mstr += "t0: %s\n" % (str(self.t0))
-        mstr += "t1: %s\n" % (str(self.t1))
-        mstr += "t2: %s\n" % (str(self.t2))
-        return mstr
+    def get(self):
+        return self.temperature
 
-    def get(self, num):
-        if num == 0:
-            return self.t0
-        elif num == 1:
-            return self.t1
-        elif num == 2:
-            return self.t2
-        return None
+    def read(self):
+        self.temperature = rpi_peripherals.get_temperature(self.index)
+
+    def set(self, value):
+        self.temperature = value
+        self.testing = True
 
     def loop(self):
-        if common.millis_passed(self.timestamp) >= 5000 or self.timestamp == 0:
+        if common.millis_passed(self.timestamp) >= self.timeout or self.timestamp == 0:
             self.timestamp = common.get_millis()
-            if self.count == 0:
-                self.t0 = rpi_peripherals.get_temperature(0)
-            elif self.count == 1:
-                self.t1 = rpi_peripherals.get_temperature(1)
-            elif self.count == 2:
-                self.t2 = rpi_peripherals.get_temperature(2)
-            self.count += 1
-            if self.count >= 3:
-                self.count = 0
-            self.mqtt = self.generate_message()
+            if not self.testing:
+                self.read()
+            self.mqtt = self.get()
+
+    def has_mqtt(self):
+        return self.mqtt != None and self.mqtt != self.mqtt_last
+
+    def get_mqtt(self):
+        if self.has_mqtt():
+            self.mqtt_last = self.mqtt
+            self.mqtt = None
+            return self.name, self.mqtt_last
+        return None, None
+
+
+class TemperatureLimit:
+    def __init__(self, name):
+        self.mqtt = None
+        self.mqtt_last = None
+        self.name = "temperature_" + name + "_limit"
+        self.temperature = None
+
+    def init(self):
+        pass
+
+    def get(self):
+        return self.temperature
+
+    def set(self, value):
+        self.temperature = value
+        self.mqtt = self.temperature
+
+    def loop(self):
+        pass
 
     def has_mqtt(self):
         return self.mqtt != None and self.mqtt != self.mqtt_last
@@ -201,7 +222,12 @@ class Automatic:
 
 uptime = Uptime()
 ip = Ip()
-temperature = Temperature()
+temperature_input = Temperature(0, "input")
+temperature_output = Temperature(1, "output")
+temperature_return = Temperature(2, "return")
+temperature_input_limit = TemperatureLimit("input")
+temperature_output_limit = TemperatureLimit("output")
+temperature_return_limit = TemperatureLimit("return")
 pump = Pump()
 automatic = Automatic()
 
@@ -211,7 +237,15 @@ def init():
     rpi_peripherals.init()
     uptime.init()
     ip.init()
-    temperature.init()
+    temperature_input.init()
+    temperature_output.init()
+    temperature_return.init()
+    temperature_input_limit.init()
+    temperature_output_limit.init()
+    temperature_return_limit.init()
+    temperature_input_limit.set(TEMPERATURE_INPUT_LIMIT)
+    temperature_output_limit.set(TEMPERATURE_OUTPUT_LIMIT)
+    temperature_return_limit.set(TEMPERATURE_RETURN_LIMIT)
     pump.init()
     automatic.init()
     logger.info("[LGC]: init end")
@@ -220,7 +254,12 @@ def init():
 def get_mqtt():
     if uptime.has_mqtt(): return uptime.get_mqtt()
     if ip.has_mqtt(): return ip.get_mqtt()
-    if temperature.has_mqtt(): return temperature.get_mqtt()
+    if temperature_input.has_mqtt(): return temperature_input.get_mqtt()
+    if temperature_output.has_mqtt(): return temperature_output.get_mqtt()
+    if temperature_return.has_mqtt(): return temperature_return.get_mqtt()
+    if temperature_input_limit.has_mqtt(): return temperature_input_limit.get_mqtt()
+    if temperature_output_limit.has_mqtt(): return temperature_output_limit.get_mqtt()
+    if temperature_return_limit.has_mqtt(): return temperature_return_limit.get_mqtt()
     if pump.has_mqtt(): return pump.get_mqtt()
     if automatic.has_mqtt(): return automatic.get_mqtt()
     return None, None
@@ -235,18 +274,40 @@ def set_mqtt(topic, message):
         automatic.set(int(message))
 
 
-def loop():
+def check_for_automatisation():
+    if automatic.get():
+        if pump.get():
+            if temperature_input.get() < temperature_input_limit.get() or \
+                    temperature_output.get() > temperature_output_limit.get():
+                pump.set(0)
+        else:
+            if temperature_input.get() >= temperature_input_limit.get() and \
+                    temperature_output.get() <= temperature_output_limit.get():
+                pump.set(1)
+
+
+def loop_unblocking():
     uptime.loop()
     ip.loop()
-    temperature.loop()
     pump.loop()
     automatic.loop()
+    temperature_input_limit.loop()
+    temperature_output_limit.loop()
+    temperature_return_limit.loop()
+    check_for_automatisation()
+
+
+def loop_blocking():
+    temperature_input.loop()
+    temperature_output.loop()
+    temperature_return.loop()
 
 
 def loop_test():
     init()
     while True:
-        loop()
+        loop_unblocking()
+        loop_blocking()
 
 
 if __name__ == "__main__":

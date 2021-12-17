@@ -24,13 +24,21 @@ def check_mqtt_send(mqtt_client):
         mqtt_client.publish("%s/output/%s" % (DEVICE_NAME, topic), payload=message, retain=True, qos=1)
 
 
-def main(mqtt_client):
-    logger.info("[LOOP]: main begin")
+def main_unblocking(mqtt_client):
+    logger.info("[LOOP]: main unblocking begin")
     logic.init()
-    logger.info("[LOOP]: main end")
+    logger.info("[LOOP]: main unblocking end")
     while True:
-        logic.loop()
+        logic.loop_unblocking()
         check_mqtt_send(mqtt_client)
+
+
+def main_blocking():
+    logger.info("[LOOP]: main blocking begin")
+    logic.init()
+    logger.info("[LOOP]: main blocking end")
+    while True:
+        logic.loop_blocking()
 
 
 def on_connect(client, userdata, flags, rc, properties=None):
@@ -73,12 +81,15 @@ def start():
 
     mqtt_client.subscribe("%s/input/#" % (DEVICE_NAME), qos=1)
 
-    main_client_thread = threading.Thread(target=main, args=(mqtt_client,))
+    unblocking_thread = threading.Thread(target=main_unblocking, args=(mqtt_client,))
+    blocking_thread = threading.Thread(target=main_blocking, args=(mqtt_client,))
 
     logger.info("[MAIN]: start end")
 
-    main_client_thread.start()
-    ThreadMonitor.watch(main_client_thread)
+    unblocking_thread.start()
+    ThreadMonitor.watch(unblocking_thread)
+    blocking_thread.start()
+    ThreadMonitor.watch(blocking_thread)
     mqtt_client.loop_start()
     ThreadMonitor.watch(mqtt_client._thread)
     ThreadMonitor.join()
