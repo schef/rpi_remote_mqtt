@@ -12,6 +12,13 @@ SYSTMED_SERVICE_PATH = get_full_path("./systemd")
 SYSTEMD_PATH = get_full_path("~/.config/systemd/user")
 
 
+def get_root_password():
+    global root_password
+    if not root_password:
+        root_password = getpass("Enter [sudo] password: ")
+    return root_password
+
+
 def _create_dir():
     logger.info("[INS]: create_dir %s" % (SYSTEMD_PATH))
     cmd = "mkdir -p %s" % (SYSTEMD_PATH)
@@ -63,7 +70,7 @@ def enable():
     run_bash_cmd(cmd)
 
 
-def systemd_log(follow=True, lines_to_show=1000):
+def log(follow=True, lines_to_show=1000):
     cmd = "journalctl"
     cmd += " -o short-precise"
     cmd += " -n %s" % (lines_to_show)
@@ -72,6 +79,12 @@ def systemd_log(follow=True, lines_to_show=1000):
     cmd = "bash -c '%s'" % (cmd)
     print(cmd)
     os.system(cmd)
+
+
+def clean_logs():
+    cmd = "sudo journalctl --unit %s --vacuum-time=1s" % (SYSTMED_SERVICE_NAME)
+    interaction = {"[sudo]": get_root_password()}
+    run_bash_cmd(cmd, interaction=interaction)
 
 
 if __name__ == "__main__":
