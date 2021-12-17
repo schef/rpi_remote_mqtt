@@ -9,8 +9,6 @@ TEMPERATURE_INPUT_LIMIT = 40.0
 TEMPERATURE_OUTPUT_LIMIT = 30.0
 TEMPERATURE_RETURN_LIMIT = 20.0
 
-init_status = False
-
 
 class Uptime:
     def __init__(self):
@@ -251,7 +249,6 @@ def init():
     temperature_return_limit.set(TEMPERATURE_RETURN_LIMIT)
     pump.init()
     automatic.init()
-    init_status = True
     logger.info("[LGC]: init end")
 
 

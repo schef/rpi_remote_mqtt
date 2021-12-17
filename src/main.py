@@ -16,6 +16,7 @@ logger = log.get()
 
 DEVICE_NAME = credentials.name
 DEVICE_INPUT = "%s/input/" % DEVICE_NAME
+init_status = False
 
 
 def check_mqtt_send(mqtt_client):
@@ -25,19 +26,21 @@ def check_mqtt_send(mqtt_client):
 
 
 def main_unblocking(mqtt_client):
+    global init_status
     logger.info("[LOOP]: main unblocking begin")
     logic.init()
     logger.info("[LOOP]: main unblocking end")
+    init_status = True
     while True:
         logic.loop_unblocking()
         check_mqtt_send(mqtt_client)
 
 
 def main_blocking():
-    logger.info("[LOOP]: main blocking begin")
-    logger.info("[LOOP]: main blocking end")
     while not logic.init_status:
         pass
+    logger.info("[LOOP]: main blocking begin")
+    logger.info("[LOOP]: main blocking end")
     while True:
         logic.loop_blocking()
 
