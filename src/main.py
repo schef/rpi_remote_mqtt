@@ -17,7 +17,7 @@ logger = log.get()
 DEVICE_NAME = credentials.name
 DEVICE_INPUT = "%s/input/" % DEVICE_NAME
 init_status = False
-
+root_password = ""
 
 def check_mqtt_send(mqtt_client):
     topic, message = logic.get_mqtt()
