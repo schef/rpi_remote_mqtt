@@ -202,7 +202,7 @@ def check_uptime():
         uptime = get_uptime()
 
 
-def loop():
+def loop_unblocking():
     rpi_peripherals.loop()
     check_for_agregator_progress()
     check_uptime()
@@ -212,10 +212,15 @@ def loop():
     # check_for_voltage()
 
 
+def loop_blocking():
+    pass
+
+
 def loop_test():
     init()
     while True:
-        loop()
+        loop_unblocking()
+        loop_blocking()
 
 
 if __name__ == "__main__":
