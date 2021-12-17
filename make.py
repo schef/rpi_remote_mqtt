@@ -10,6 +10,7 @@ logger = log.get()
 SYSTMED_SERVICE_NAME = "rpi_remote_mqtt.service"
 SYSTMED_SERVICE_PATH = get_full_path("./systemd")
 SYSTEMD_PATH = get_full_path("~/.config/systemd/user")
+root_password = ""
 
 
 def get_root_password():
