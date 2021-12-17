@@ -16,7 +16,7 @@ root_password = ""
 def get_root_password():
     global root_password
     if not root_password:
-        root_password = getpass("Enter [sudo] password: ")
+        root_password = getpass.getpass("Enter [sudo] password: ")
     return root_password
 
 
