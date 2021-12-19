@@ -1,0 +1,51 @@
+Dec 19 21:53:39.765521 alarmpizoki python[292]: [19.12 21:53:39.758] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:53:41.504227 alarmpizoki python[292]: [19.12 21:53:41.502] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:53:43.235535 alarmpizoki python[292]: [19.12 21:53:43.228] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:53:44.975035 alarmpizoki python[292]: [19.12 21:53:44.973] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:53:46.725500 alarmpizoki python[292]: [19.12 21:53:46.715] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:53:48.463784 alarmpizoki python[292]: [19.12 21:53:48.462] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:53:50.104132 alarmpizoki python[292]: [19.12 21:53:50.102] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:53:51.855444 alarmpizoki python[292]: [19.12 21:53:51.846] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:53:53.584828 alarmpizoki python[292]: [19.12 21:53:53.583] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:53:55.373861 alarmpizoki python[292]: [19.12 21:53:55.372] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:53:57.115493 alarmpizoki python[292]: [19.12 21:53:57.106] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:53:58.885446 alarmpizoki python[292]: [19.12 21:53:58.875] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:54:00.594539 alarmpizoki python[292]: [19.12 21:54:00.593] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:54:02.342644 alarmpizoki python[292]: [19.12 21:54:02.341] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:54:04.064335 alarmpizoki python[292]: [19.12 21:54:04.063] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:54:05.784226 alarmpizoki python[292]: [19.12 21:54:05.782] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:54:07.484318 alarmpizoki python[292]: [19.12 21:54:07.483] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:54:09.265547 alarmpizoki python[292]: [19.12 21:54:09.253] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:54:10.994314 alarmpizoki python[292]: [19.12 21:54:10.993] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:54:11.155874 alarmpizoki systemd[281]: Stopping RPI remote mqtt...
+Dec 19 21:54:11.177955 alarmpizoki systemd[281]: Stopped RPI remote mqtt.
+Dec 19 21:54:11.180881 alarmpizoki systemd[281]: rpi_remote_mqtt.service: Consumed 2d 5h 23min 33.556s CPU time.
+Dec 19 21:54:11.215872 alarmpizoki systemd[281]: Starting RPI remote mqtt...
+Dec 19 21:54:11.221926 alarmpizoki systemd[281]: Started RPI remote mqtt.
+Dec 19 21:54:14.064898 alarmpizoki python[23245]: [19.12 21:54:14.063] [INF] [MAIN]: start begin
+Dec 19 21:54:14.073973 alarmpizoki python[23245]: [THREADMON]: initializing:
+Dec 19 21:54:14.073973 alarmpizoki python[23245]:         period = 5.0s
+Dec 19 21:54:14.073973 alarmpizoki python[23245]:         strategy = KILL PROCESS
+Dec 19 21:54:14.085485 alarmpizoki python[23245]: [THREADMON]: set exit strategy = SYSTEMD WATCHDOG TRIGGER
+Dec 19 21:54:14.085485 alarmpizoki python[23245]: [THREADMON]: WATCH[total=001]: { name=MainThread; native_id=23245; ident=1995579408 }
+Dec 19 21:54:14.617240 alarmpizoki python[23245]: [19.12 21:54:14.615] [INF] [MAIN]: start end
+Dec 19 21:54:14.626705 alarmpizoki python[23245]: [THREADMON]: WATCH[total=002]: { name=Thread-2; native_id=23247; ident=1966842848 }
+Dec 19 21:54:14.630274 alarmpizoki python[23245]: [19.12 21:54:14.622] [INF] [LOOP]: main begin
+Dec 19 21:54:14.633550 alarmpizoki python[23245]: [19.12 21:54:14.632] [INF] [LGC]: init begin
+Dec 19 21:54:14.639456 alarmpizoki python[23245]: [THREADMON]: WATCH[total=003]: { name=Thread-3; native_id=23248; ident=1956639712 }
+Dec 19 21:54:14.643469 alarmpizoki python[23245]: [19.12 21:54:14.635] [INF] [RPI]: init begin
+Dec 19 21:54:14.652101 alarmpizoki python[23245]: [19.12 21:54:14.650] [INF] [RPI]: init end
+Dec 19 21:54:14.655888 alarmpizoki python[23245]: [19.12 21:54:14.654] [INF] [LED]: set_led 1 False
+Dec 19 21:54:14.659283 alarmpizoki python[23245]: [19.12 21:54:14.657] [INF] [LGC]: init end
+Dec 19 21:54:14.662445 alarmpizoki python[23245]: [19.12 21:54:14.661] [INF] [LOOP]: main end
+Dec 19 21:54:14.666265 alarmpizoki python[23245]: [19.12 21:54:14.664] [INF] [RPI]: button state changed 0
+Dec 19 21:54:14.669550 alarmpizoki python[23245]: [19.12 21:54:14.668] [INF] [LGC]: on_button_state_change 0
+Dec 19 21:54:14.714866 alarmpizoki python[23245]: [19.12 21:54:14.710] [INF] [MQTT]: CONNACK received with code Success.
+Dec 19 21:54:14.770803 alarmpizoki python[23245]: [19.12 21:54:14.769] [INF] [MQTT]: on_subscribe mid[1], granted_qos[[<paho.mqtt.reasoncodes.ReasonCodes object at 0x75f4fa78>]]
+Dec 19 21:54:15.051368 alarmpizoki python[23245]: [19.12 21:54:15.049] [INF] [MQTT]: on_publish mid[2]
+Dec 19 21:54:15.126482 alarmpizoki python[23245]: [19.12 21:54:15.125] [INF] [MQTT]: on_publish mid[3]
+Dec 19 21:54:15.133937 alarmpizoki python[23245]: [19.12 21:54:15.132] [INF] [MQTT]: on_publish mid[4]
+Dec 19 21:54:15.148544 alarmpizoki python[23245]: [19.12 21:54:15.147] [INF] [MQTT]: on_publish mid[5]
+Dec 19 21:54:15.153257 alarmpizoki python[23245]: [19.12 21:54:15.151] [INF] [MQTT]: on_publish mid[6]
+Dec 19 21:54:24.767355 alarmpizoki python[23245]: [19.12 21:54:24.766] [INF] [MQTT]: on_publish mid[7]
+Dec 19 21:54:34.765753 alarmpizoki python[23245]: [19.12 21:54:34.764] [INF] [MQTT]: on_publish mid[8]
