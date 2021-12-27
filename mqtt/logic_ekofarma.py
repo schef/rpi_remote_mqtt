@@ -21,7 +21,7 @@ class ThingBool:
         self.state = False
 
     def init(self):
-        pass
+        self.mqtt = int(self.state)
 
     def get(self):
         return int(self.state)
@@ -52,7 +52,7 @@ class ThingInt:
         self.value = 0
 
     def init(self):
-        pass
+        self.mqtt = int(self.value)
 
     def get(self):
         return int(self.value)
