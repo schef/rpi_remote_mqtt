@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 
-import sys
-
-sys.path.append('..')
 import re
 from glob import glob
 import time
+import os, sys
+
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
 from common import log
 
 logger = log.get()

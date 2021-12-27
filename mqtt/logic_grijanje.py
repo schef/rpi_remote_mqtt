@@ -1,9 +1,13 @@
-import sys
+import os, sys
 
-sys.path.append('..')
 import rpi_peripherals_grijanje as rpi_peripherals
-from common import log
 from logic_common import *
+
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+
+from common import log
 
 logger = log.get()
 

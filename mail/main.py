@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 
+import threading
+import time
 import os, sys
+
+import credentials
+import mail_client
 
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
-
-import time
-import mail_client
-import credentials
-from common.common import run_bash_cmd
-from mqtt.make import SYSTMED_SERVICE_NAME
-from common import log
 from common.thread_monitor import ThreadMonitor, ThreadMonitorExitStrategySystemdWatchdog
-import threading
+from common.common import run_bash_cmd
+from common import log
+from mqtt.make import SYSTMED_SERVICE_NAME
 
 logger = log.get()
 

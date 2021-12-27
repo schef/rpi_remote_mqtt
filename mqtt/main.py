@@ -1,20 +1,21 @@
+import threading
+import os, sys
+
+import paho.mqtt.client as paho
+from paho import mqtt
+import credentials
+
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 
-import paho.mqtt.client as paho
-from paho import mqtt
-import threading
-from common import log
 from common.thread_monitor import ThreadMonitor, ThreadMonitorExitStrategySystemdWatchdog
-from mqtt import credentials
+from common import log
 
 if credentials.project == "ekofarma":
     import logic_ekofarma as logic
 elif credentials.project == "grijanje":
     import logic_grijanje as logic
-else:
-    import logic_generic as logic
 
 logger = log.get()
 

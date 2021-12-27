@@ -1,8 +1,11 @@
-import sys
+import os, sys
 
-sys.path.append('..')
 from periphery import GPIO, I2C
 import ina219
+
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
 from common import log
 
 logger = log.get()
@@ -70,9 +73,9 @@ def init():
     relays.append(GPIO("/dev/gpiochip0", RELAY_3, "out"))
     for i in range(len(relays)):
         set_relay(i, False)
-    #i2c = I2C("/dev/i2c-1")
-    #ina = ina219.INA219(SHUNT_OHMS, i2c)
-    #ina.configure()
+    # i2c = I2C("/dev/i2c-1")
+    # ina = ina219.INA219(SHUNT_OHMS, i2c)
+    # ina.configure()
     logger.info("[RPI]: init end")
 
 

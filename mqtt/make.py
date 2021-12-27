@@ -1,10 +1,11 @@
 #!/bin/bash
-import sys
+import os, sys, getpass
 
-sys.path.append('..')
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
 from common.common import *
-import common.log as log
-import os, getpass
+from common import log
 
 logger = log.get()
 

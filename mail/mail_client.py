@@ -2,7 +2,6 @@ from email import message_from_bytes, message_from_string
 from email.header import decode_header, make_header
 from imaplib import IMAP4_SSL
 import re
-import credentials
 
 
 class Mail:
@@ -70,4 +69,5 @@ class Mail:
 
 
 if __name__ == "__main__":
-    mail = Mail(gmail_user=credentials.mail_user, gmail_pass=credentials.mail_pass)
+    # mail = Mail(gmail_user=credentials.mail_user, gmail_pass=credentials.mail_pass)
+    pass

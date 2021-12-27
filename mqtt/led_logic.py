@@ -1,16 +1,16 @@
-import sys
+import os, sys
 
-sys.path.append('..')
-from mqtt import credentials
+import credentials
 
 if credentials.project == "ekofarma":
     import rpi_peripherals_ekofarma as rpi_peripherals
 elif credentials.project == "grijanje":
     import rpi_peripherals_grijanje as rpi_peripherals
-else:
-    import rpi_peripherals_generic as rpi_peripherals
-import common
-from common import log
+
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+from common import log, common
 
 logger = log.get()
 

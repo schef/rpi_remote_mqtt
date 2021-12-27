@@ -1,9 +1,12 @@
-import sys
+import os, sys
 
-sys.path.append('..')
 from periphery import GPIO
-from common import log
 import ds18b20
+
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+from common import log
 
 logger = log.get()
 

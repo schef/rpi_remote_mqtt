@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-import sys
+import os, sys
 
-sys.path.append('..')
-from common import run_bash_cmd
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+from common.common import run_bash_cmd
 
 
 def get_ip_from_usb():

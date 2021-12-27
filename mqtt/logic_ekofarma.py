@@ -1,11 +1,13 @@
-import sys
+import os, sys
 
-sys.path.append('..')
-import rpi_peripherals_ekofarma as rpi_peripherals
-import common
-from common import log
 import network_info
+import rpi_peripherals_ekofarma as rpi_peripherals
 import led_logic
+
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+from common import log, common
 
 logger = log.get()
 
