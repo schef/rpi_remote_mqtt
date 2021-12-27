@@ -1,14 +1,18 @@
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
+
 import paho.mqtt.client as paho
 from paho import mqtt
 import threading
-import log
-from thread_monitor import ThreadMonitor, ThreadMonitorExitStrategySystemdWatchdog
-import credentials
+from common import log
+from common.thread_monitor import ThreadMonitor, ThreadMonitorExitStrategySystemdWatchdog
+from mqtt import credentials
 
 if credentials.project == "ekofarma":
     import logic_ekofarma as logic
-elif credentials.project == "havas":
-    import logic_havas as logic
+elif credentials.project == "grijanje":
+    import logic_grijanje as logic
 else:
     import logic_generic as logic
 
@@ -17,6 +21,7 @@ logger = log.get()
 DEVICE_NAME = credentials.name
 DEVICE_INPUT = "%s/input/" % DEVICE_NAME
 init_status = False
+
 
 def check_mqtt_send(mqtt_client):
     topic, message = logic.get_mqtt()

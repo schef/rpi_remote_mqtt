@@ -1,5 +1,8 @@
+import sys
+
+sys.path.append('..')
 from periphery import GPIO
-import log
+from common import log
 import ds18b20
 
 logger = log.get()

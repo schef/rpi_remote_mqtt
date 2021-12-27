@@ -1,12 +1,16 @@
-import credentials
+import sys
+
+sys.path.append('..')
+from mqtt import credentials
+
 if credentials.project == "ekofarma":
     import rpi_peripherals_ekofarma as rpi_peripherals
-elif credentials.project == "havas":
-    import rpi_peripherals_havas as rpi_peripherals
+elif credentials.project == "grijanje":
+    import rpi_peripherals_grijanje as rpi_peripherals
 else:
     import rpi_peripherals_generic as rpi_peripherals
 import common
-import log
+from common import log
 
 logger = log.get()
 

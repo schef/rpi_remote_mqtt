@@ -1,6 +1,9 @@
+import sys
+
+sys.path.append('..')
 from periphery import GPIO, I2C
 import ina219
-import log
+from common import log
 
 logger = log.get()
 

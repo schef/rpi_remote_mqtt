@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 
+import sys
+
+sys.path.append('..')
 import re
 from glob import glob
 import time
-import log
+from common import log
 
 logger = log.get()
 

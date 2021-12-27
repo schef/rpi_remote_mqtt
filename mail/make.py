@@ -1,14 +1,15 @@
 #!/bin/bash
 import sys
 
-from src.common import *
-import src.log as log
+sys.path.append('..')
+from common.common import *
+from common import log
 import os, getpass
 
 logger = log.get()
 
-SYSTMED_SERVICE_NAME = "rpi_remote_mqtt.service"
-SYSTMED_SERVICE_PATH = get_full_path("./systemd")
+SYSTMED_SERVICE_NAME = "rpi_remote_mail.service"
+SYSTMED_SERVICE_PATH = get_full_path("../systemd")
 SYSTEMD_PATH = get_full_path("~/.config/systemd/user")
 root_password = ""
 
