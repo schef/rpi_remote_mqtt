@@ -128,4 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .idea/
-src/credentials.py
+mqtt/credentials.py
+mail/credentials.py
