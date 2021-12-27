@@ -1,11 +1,7 @@
 import os, sys
 
 import credentials
-
-if credentials.project == "ekofarma":
-    import rpi_peripherals_ekofarma as rpi_peripherals
-elif credentials.project == "grijanje":
-    import rpi_peripherals_grijanje as rpi_peripherals
+import rpi_peripherals_ekofarma as rpi_peripherals
 
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)

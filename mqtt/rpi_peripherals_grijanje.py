@@ -1,7 +1,12 @@
 import os, sys
 
 from periphery import GPIO
-import ds18b20
+from credentials import test
+
+if test:
+    pass
+else:
+    import ds18b20
 
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
@@ -21,6 +26,11 @@ TEMP_1 = '28-0516843330ff'
 TEMP_2 = '28-051684344cff'
 
 
+class TestRelay:
+    def write(self, state):
+        logger.debug("TestRelay.write %s" % (str(state)))
+
+
 def set_relay(state):
     global relay_state
     relay.write(bool(state))
@@ -32,21 +42,27 @@ def get_relay_state():
 
 
 def get_temperature(num):
-    try:
-        if num == 0:
-            return ds18b20.read_temp(TEMP_0)
-        elif num == 1:
-            return ds18b20.read_temp(TEMP_1)
-        elif num == 2:
-            return ds18b20.read_temp(TEMP_2)
-    except:
-        return None
+    if test:
+        return 23.456
+    else:
+        try:
+            if num == 0:
+                return ds18b20.read_temp(TEMP_0)
+            elif num == 1:
+                return ds18b20.read_temp(TEMP_1)
+            elif num == 2:
+                return ds18b20.read_temp(TEMP_2)
+        except:
+            return None
 
 
 def init():
     logger.info("[RPI]: init begin")
     global relay
-    relay = GPIO("/dev/gpiochip0", RELAY_0, "out")
+    if test:
+        relay = TestRelay()
+    else:
+        relay = GPIO("/dev/gpiochip0", RELAY_0, "out")
     set_relay(False)
     logger.info("[RPI]: init end")
 

@@ -15,6 +15,80 @@ TEMPERATURE_INPUT_LIMIT = 40.0
 TEMPERATURE_OUTPUT_LIMIT = 30.0
 TEMPERATURE_RETURN_LIMIT = 0.0
 
+
+class Temperature:
+    def __init__(self, index, name):
+        self.timeout = 10000
+        self.timestamp = 0
+        self.mqtt = None
+        self.mqtt_last = None
+        self.name = "temperature_" + name
+        self.index = index
+        self.temperature = None
+        self.testing = False
+
+    def init(self):
+        pass
+
+    def get(self):
+        return self.temperature
+
+    def read(self):
+        self.temperature = rpi_peripherals.get_temperature(self.index)
+
+    def set(self, value):
+        self.temperature = value
+        self.mqtt = self.get()
+        self.testing = True
+
+    def loop(self):
+        if common.millis_passed(self.timestamp) >= self.timeout or self.timestamp == 0:
+            self.timestamp = common.get_millis()
+            if not self.testing:
+                self.read()
+                self.mqtt = self.get()
+
+    def has_mqtt(self):
+        return self.mqtt != None and self.mqtt != self.mqtt_last
+
+    def get_mqtt(self):
+        if self.has_mqtt():
+            self.mqtt_last = self.mqtt
+            self.mqtt = None
+            return self.name, self.mqtt_last
+        return None, None
+
+
+class Pump:
+    def __init__(self):
+        self.mqtt = None
+        self.mqtt_last = None
+        self.name = "pump"
+
+    def init(self):
+        pass
+
+    def get(self):
+        return rpi_peripherals.get_relay_state()
+
+    def set(self, state):
+        rpi_peripherals.set_relay(state)
+        self.mqtt = state
+
+    def loop(self):
+        pass
+
+    def has_mqtt(self):
+        return self.mqtt != None and self.mqtt != self.mqtt_last
+
+    def get_mqtt(self):
+        if self.has_mqtt():
+            self.mqtt_last = self.mqtt
+            self.mqtt = None
+            return self.name, self.mqtt_last
+        return None, None
+
+
 uptime = Uptime()
 ip = Ip()
 temperature_input = Temperature(0, "input")

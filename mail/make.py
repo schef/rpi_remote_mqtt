@@ -1,5 +1,6 @@
 #!/bin/bash
-import os, sys, getpass
+import os, sys
+from getpass import getpass, getuser
 
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
@@ -18,7 +19,7 @@ root_password = ""
 def get_root_password():
     global root_password
     if not root_password:
-        root_password = getpass.getpass("Enter [sudo] password: ")
+        root_password = getpass("Enter [sudo] password: ")
     return root_password
 
 
@@ -31,7 +32,7 @@ def _create_dir():
 def _change_user_and_copy_service():
     logger.info("[INS]: change_user_and_copy_service")
     old_location = "%s/%s" % (SYSTMED_SERVICE_PATH, SYSTMED_SERVICE_NAME)
-    user = getpass.getuser()
+    user = getuser()
     new_location = "%s/%s" % (SYSTEMD_PATH, SYSTMED_SERVICE_NAME)
     logger.info("[INS]: for user %s copy from %s to %s" % (user, old_location, new_location))
     lines = read_lines_from_file(old_location)
