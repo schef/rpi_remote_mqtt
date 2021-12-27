@@ -86,7 +86,7 @@ def log(follow=True, lines_to_show=1000):
 
 
 def clean_logs():
-    cmd = "sudo rm /var/log/journal/*/user-1000.journal -rv"
+    cmd = "sudo rm /var/log/journal/*/user-1000* -rv"
     interaction = {"[sudo]": get_root_password()}
     run_bash_cmd(cmd, echo=True, interaction=interaction)
 

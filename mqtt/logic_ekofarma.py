@@ -3,6 +3,7 @@ import os, sys
 import network_info
 import rpi_peripherals_ekofarma as rpi_peripherals
 import led_logic
+from logic_common import *
 
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
@@ -54,11 +55,11 @@ class ThingInt:
         pass
 
     def get(self):
-        return int(self.state)
+        return int(self.value)
 
-    def set(self, state):
-        self.state = state
-        self.mqtt = int(self.state)
+    def set(self, value):
+        self.value = value
+        self.mqtt = int(self.value)
 
     def increment(self, value):
         new = self.get() + value
@@ -162,7 +163,7 @@ def check_for_agregator_progress():
                 agregator_timestamp = common.get_millis()
                 rpi_peripherals.set_relay(2, 1)
                 agregator_step.increment(1)
-            elif agregator_step.get(4) and common.millis_passed(agregator_timestamp) > 10000:
+            elif agregator_step.get() == 4 and common.millis_passed(agregator_timestamp) > 10000:
                 logger.info("[LGC]: agregator 4")
                 agregator_timestamp = 0
                 rpi_peripherals.set_relay(2, 0)

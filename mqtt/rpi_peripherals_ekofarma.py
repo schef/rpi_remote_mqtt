@@ -1,7 +1,12 @@
 import os, sys
 
-from periphery import GPIO, I2C
-import ina219
+from credentials import test
+
+if test:
+    pass
+else:
+    from periphery import GPIO, I2C
+    import ina219
 
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
@@ -31,6 +36,16 @@ button_led_state = None
 
 
 # i2cdetect -y 1
+
+class TestRelay:
+    def __init__(self, name):
+        self.name = name
+
+    def write(self, state):
+        logger.debug("%s.write %s" % (self.name, str(state)))
+
+    def read(self):
+        return 1
 
 
 def set_button_led(state):
@@ -64,13 +79,21 @@ def ina_get_measure():
 def init():
     logger.info("[RPI]: init begin")
     global button_led, button_in, relays, i2c, ina
-    button_led = GPIO("/dev/gpiochip0", BUTTON_LED, "out")
+    if test:
+        button_led = TestRelay("BUTTON_LED")
+        button_in = TestRelay("BUTTON_IN")
+        relays.append(TestRelay("RELAY_0"))
+        relays.append(TestRelay("RELAY_1"))
+        relays.append(TestRelay("RELAY_2"))
+        relays.append(TestRelay("RELAY_3"))
+    else:
+        button_led = GPIO("/dev/gpiochip0", BUTTON_LED, "out")
+        button_in = GPIO("/dev/gpiochip0", BUTTON_IN, "in", bias="pull_up", inverted=True)
+        relays.append(GPIO("/dev/gpiochip0", RELAY_0, "out"))
+        relays.append(GPIO("/dev/gpiochip0", RELAY_1, "out"))
+        relays.append(GPIO("/dev/gpiochip0", RELAY_2, "out"))
+        relays.append(GPIO("/dev/gpiochip0", RELAY_3, "out"))
     set_button_led(False)
-    button_in = GPIO("/dev/gpiochip0", BUTTON_IN, "in", bias="pull_up", inverted=True)
-    relays.append(GPIO("/dev/gpiochip0", RELAY_0, "out"))
-    relays.append(GPIO("/dev/gpiochip0", RELAY_1, "out"))
-    relays.append(GPIO("/dev/gpiochip0", RELAY_2, "out"))
-    relays.append(GPIO("/dev/gpiochip0", RELAY_3, "out"))
     for i in range(len(relays)):
         set_relay(i, False)
     # i2c = I2C("/dev/i2c-1")
