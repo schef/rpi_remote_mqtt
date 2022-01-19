@@ -5,6 +5,7 @@ import paho.mqtt.client as paho
 from paho import mqtt
 import credentials
 
+mqtt_client = None
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
@@ -52,6 +53,7 @@ def main_blocking():
 
 def on_connect(client, userdata, flags, rc, properties=None):
     logger.info("[MQTT]: CONNACK received with code %s." % str(rc))
+    mqtt_client.subscribe("%s/input/#" % (DEVICE_NAME), qos=1)
 
 
 def on_publish(client, userdata, mid, properties=None):
@@ -77,18 +79,18 @@ def start():
     ThreadMonitor.set_exit_strategy(ThreadMonitorExitStrategySystemdWatchdog())
     ThreadMonitor.watch_main_thread()
 
+    global mqtt_client
     mqtt_client = paho.Client(client_id="", userdata=None, protocol=paho.MQTTv5)
     mqtt_client.on_connect = on_connect
 
     mqtt_client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
     mqtt_client.username_pw_set(credentials.user, credentials.password)
-    mqtt_client.connect(credentials.host, credentials.port)
 
     mqtt_client.on_subscribe = on_subscribe
     mqtt_client.on_message = on_message
     mqtt_client.on_publish = on_publish
 
-    mqtt_client.subscribe("%s/input/#" % (DEVICE_NAME), qos=1)
+    mqtt_client.connect(credentials.host, credentials.port)
 
     unblocking_thread = threading.Thread(target=main_unblocking, args=(mqtt_client,))
     blocking_thread = threading.Thread(target=main_blocking)
