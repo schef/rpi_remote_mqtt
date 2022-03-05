@@ -3,6 +3,8 @@
 import os
 import datetime
 import unittest
+import json
+from urllib.request import urlopen
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
@@ -51,6 +53,12 @@ def convert_time_string_to_seconds(time_string):
     return seconds
 
 
+def get_location(ip):
+    url = f"http://ipinfo.io/{ip}/json"
+    response = urlopen(url)
+    return json.load(response)
+
+
 class TestTime(unittest.TestCase):
     def test_string_to_seconds(self):
         self.assertEqual(convert_time_string_to_seconds("00:00:05"), 5)
@@ -81,9 +89,18 @@ if __name__ == "__main__":
         devices.append(device)
     driver.close()
     devices = sorted(devices, key=lambda d: d['seconds'])
+    len_connection = max([len(k["connection"]) for k in devices])
+    len_real_address = max([len(k["real_address"]) for k in devices])
+    len_vpn_address = max([len(k["vpn_address"]) for k in devices])
+    for device in devices:
+        device["location"] = get_location(device["real_address"].split(":")[0])
     for device in devices:
         string = ""
-        string += f"{Base.BOLD}{Base.OKGREEN}{device['vpn_address']}{Base.END}"
-        string += f"\t{device['real_address']}"
-        string += f"\t{device['connection']}"
+        string += f"{Base.BOLD}{Base.OKGREEN}{device['vpn_address']:<{len_vpn_address}}{Base.END}"
+        string += f" {device['real_address']:<{len_real_address}}"
+        string += f" {device['connection']:<{len_connection}}"
+        string += f" {device['location']['country']}"
+        string += f", {device['location']['region']}"
+        string += f", {device['location']['city']}"
+        string += f", {device['location']['org']}"
         print(string)
