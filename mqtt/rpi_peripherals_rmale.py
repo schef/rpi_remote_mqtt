@@ -25,7 +25,7 @@ on_button_state_changed = None
 
 
 class Relay:
-    def __init__(self, name, pin=None, inverted=False):
+    def __init__(self, name, pin=None, inverted=True):
         self.name = name
         self.output = None
         self.inverted = inverted
