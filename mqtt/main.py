@@ -17,6 +17,8 @@ if credentials.project == "ekofarma":
     import logic_ekofarma as logic
 elif credentials.project == "grijanje":
     import logic_grijanje as logic
+elif credentials.project == "rmale":
+    import logic_rmale as logic
 
 logger = log.get()
 
