@@ -20,9 +20,7 @@ logger = log.get()
 RELAY_PINS = [23, 24, 25, 8]
 relays = []
 
-TEMP_0 = '28-051684308bff'
-TEMP_1 = '28-0516843330ff'
-TEMP_2 = '28-051684344cff'
+TEMP_0 = '28-0516843756ff'
 
 
 class GPIOTest:
