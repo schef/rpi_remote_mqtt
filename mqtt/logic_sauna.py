@@ -88,6 +88,7 @@ class Relay:
 
 uptime = Uptime()
 ip = Ip()
+temperature_outside = Temperature(0, "outside")
 temperature_inside = Temperature(0, "inside")
 light = Relay("light", 0)
 heater_1 = Relay("heater_1", 1)
@@ -101,6 +102,7 @@ def init():
     rpi_peripherals.init()
     uptime.init()
     ip.init()
+    temperature_outside.init()
     temperature_inside.init()
     light.init()
     heater_1.init()
@@ -112,6 +114,7 @@ def init():
 def get_mqtt():
     if uptime.has_mqtt(): return uptime.get_mqtt()
     if ip.has_mqtt(): return ip.get_mqtt()
+    if temperature_outside.has_mqtt(): return temperature_outside.get_mqtt()
     if temperature_inside.has_mqtt(): return temperature_inside.get_mqtt()
     if light.has_mqtt(): return light.get_mqtt()
     if heater_1.has_mqtt(): return heater_1.get_mqtt()
@@ -130,6 +133,8 @@ def set_mqtt(topic, message):
         heater_2.set(int(message))
     elif topic == heater_3.name:
         heater_3.set(int(message))
+    elif topic == temperature_outside.name:
+        temperature_outside.set(float(message))
     elif topic == temperature_inside.name:
         temperature_inside.set(float(message))
 
@@ -144,6 +149,7 @@ def loop_unblocking():
 
 
 def loop_blocking():
+    temperature_outside.loop()
     temperature_inside.loop()
 
 

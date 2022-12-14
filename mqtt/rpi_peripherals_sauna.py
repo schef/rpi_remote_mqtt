@@ -21,6 +21,7 @@ RELAY_PINS = [23, 24, 25, 8]
 relays = []
 
 TEMP_0 = '28-0516843756ff'
+TEMP_1 = '28-3c76f649ef1e'
 
 
 class GPIOTest:
