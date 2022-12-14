@@ -11,10 +11,6 @@ from common import log
 
 logger = log.get()
 
-TEMPERATURE_INPUT_LIMIT = 40.0
-TEMPERATURE_OUTPUT_LIMIT = 30.0
-TEMPERATURE_RETURN_LIMIT = 0.0
-
 
 class Temperature:
     def __init__(self, index, name):
@@ -59,20 +55,21 @@ class Temperature:
         return None, None
 
 
-class Pump:
-    def __init__(self):
+class Relay:
+    def __init__(self, name, index):
         self.mqtt = None
         self.mqtt_last = None
-        self.name = "pump"
+        self.name = name
+        self.index = index
 
     def init(self):
         pass
 
     def get(self):
-        return rpi_peripherals.get_relay_state()
+        return rpi_peripherals.relays[self.index].get()
 
     def set(self, state):
-        rpi_peripherals.set_relay(state)
+        rpi_peripherals.relays[self.index].set(state)
         self.mqtt = state
 
     def loop(self):
@@ -91,14 +88,11 @@ class Pump:
 
 uptime = Uptime()
 ip = Ip()
-temperature_input = Temperature(0, "input")
-temperature_output = Temperature(1, "output")
-temperature_return = Temperature(2, "return")
-temperature_input_limit = TemperatureLimit("input")
-temperature_output_limit = TemperatureLimit("output")
-temperature_return_limit = TemperatureLimit("return")
-pump = Pump()
-automatic = Automatic()
+temperature_inside = Temperature(0, "input")
+light = Relay("light", 0)
+heater_1 = Relay("heater_1", 1)
+heater_2 = Relay("heater_2", 2)
+heater_3 = Relay("heater_3", 3)
 
 
 def init():
@@ -107,82 +101,50 @@ def init():
     rpi_peripherals.init()
     uptime.init()
     ip.init()
-    temperature_input.init()
-    temperature_output.init()
-    temperature_return.init()
-    temperature_input_limit.init()
-    temperature_output_limit.init()
-    temperature_return_limit.init()
-    temperature_input_limit.set(TEMPERATURE_INPUT_LIMIT)
-    temperature_output_limit.set(TEMPERATURE_OUTPUT_LIMIT)
-    temperature_return_limit.set(TEMPERATURE_RETURN_LIMIT)
-    pump.init()
-    automatic.init()
+    temperature_inside.init()
+    light.init()
+    heater_1.init()
+    heater_2.init()
+    heater_3.init()
     logger.info("[LGC]: init end")
 
 
 def get_mqtt():
     if uptime.has_mqtt(): return uptime.get_mqtt()
     if ip.has_mqtt(): return ip.get_mqtt()
-    if temperature_input.has_mqtt(): return temperature_input.get_mqtt()
-    if temperature_output.has_mqtt(): return temperature_output.get_mqtt()
-    if temperature_return.has_mqtt(): return temperature_return.get_mqtt()
-    if temperature_input_limit.has_mqtt(): return temperature_input_limit.get_mqtt()
-    if temperature_output_limit.has_mqtt(): return temperature_output_limit.get_mqtt()
-    if temperature_return_limit.has_mqtt(): return temperature_return_limit.get_mqtt()
-    if pump.has_mqtt(): return pump.get_mqtt()
-    if automatic.has_mqtt(): return automatic.get_mqtt()
+    if temperature_inside.has_mqtt(): return temperature_inside.get_mqtt()
+    if light.has_mqtt(): return light.get_mqtt()
+    if heater_1.has_mqtt(): return heater_1.get_mqtt()
+    if heater_2.has_mqtt(): return heater_2.get_mqtt()
+    if heater_3.has_mqtt(): return heater_3.get_mqtt()
     return None, None
 
 
 def set_mqtt(topic, message):
     logger.info("[LGC]: set_mqtt %s %s" % (topic, message))
-    if topic == pump.name:
-        if not automatic.get():
-            pump.set(int(message))
-    elif topic == automatic.name:
-        automatic.set(int(message))
-    elif topic == temperature_input.name:
-        temperature_input.set(float(message))
-    elif topic == temperature_output.name:
-        temperature_output.set(float(message))
-    elif topic == temperature_return.name:
-        temperature_return.set(float(message))
-    elif topic == temperature_input_limit.name:
-        temperature_input_limit.set(float(message))
-    elif topic == temperature_output_limit.name:
-        temperature_output_limit.set(float(message))
-    elif topic == temperature_return_limit.name:
-        temperature_return_limit.set(float(message))
-
-
-def check_for_automatisation():
-    if automatic.get() and temperature_input.get() != None and temperature_output.get() != None:
-        if pump.get():
-            if temperature_input.get() < temperature_input_limit.get() or \
-                    temperature_output.get() > temperature_output_limit.get():
-                pump.set(0)
-        else:
-            if temperature_input.get() >= temperature_input_limit.get() and \
-                    temperature_output.get() <= temperature_output_limit.get():
-                pump.set(1)
+    if topic == light.name:
+        light.set(int(message))
+    elif topic == heater_1.name:
+        heater_1.set(int(message))
+    elif topic == heater_2.name:
+        heater_2.set(int(message))
+    elif topic == heater_3.name:
+        heater_3.set(int(message))
+    elif topic == temperature_inside.name:
+        temperature_inside.set(float(message))
 
 
 def loop_unblocking():
     uptime.loop()
     ip.loop()
-    pump.loop()
-    automatic.loop()
-    temperature_input_limit.loop()
-    temperature_output_limit.loop()
-    temperature_return_limit.loop()
-    check_for_automatisation()
+    light.loop()
+    heater_1.loop()
+    heater_2.loop()
+    heater_3.loop()
 
 
 def loop_blocking():
-    temperature_input.loop()
-    temperature_output.loop()
-    temperature_return.loop()
+    temperature_inside.loop()
 
 
 def loop_test():
