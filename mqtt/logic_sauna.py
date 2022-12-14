@@ -88,7 +88,7 @@ class Relay:
 
 uptime = Uptime()
 ip = Ip()
-temperature_inside = Temperature(0, "input")
+temperature_inside = Temperature(0, "inside")
 light = Relay("light", 0)
 heater_1 = Relay("heater_1", 1)
 heater_2 = Relay("heater_2", 2)
