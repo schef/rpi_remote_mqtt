@@ -32,15 +32,19 @@ class GPIOTest:
 
 
 class Relay:
-    def __init__(self, pin: int):
+    def __init__(self, pin: int, invert=False):
         if test:
             self.relay = GPIOTest(pin)
         else:
             self.relay = GPIO("/dev/gpiochip0", pin, "out")
         self.state = None
+        self.invert = invert
 
     def set(self, state):
-        self.relay.write(bool(state))
+        if self.invert:
+            self.relay.write(not bool(state))
+        else:
+            self.relay.write(bool(state))
         self.state = state
 
     def get(self):
@@ -65,7 +69,7 @@ def get_temperature(num):
 def init():
     logger.info("[RPI]: init begin")
     for pin in RELAY_PINS:
-        relays.append(Relay(pin))
+        relays.append(Relay(pin, invert=True))
         relays[-1].set(False)
     logger.info("[RPI]: init end")
 
