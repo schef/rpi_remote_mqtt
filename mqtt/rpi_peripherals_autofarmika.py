@@ -5,15 +5,12 @@ currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 
-from rpi_peripherals_common import Relay, TemperatureSensor
+from rpi_peripherals_common import Relay, PowerMeasurement
 from credentials import test
-
-# https://cdn.sparkfun.com/assets/learn_tutorials/6/7/6/PiZero_1.pdf
 
 RELAY_PINS = [23, 24, 25, 8]
 relays = []
-TEMPERATURE_ADDRESSES = ['28-0516843756ff', '28-3c76f649ef1e']
-temperature_sensors = []
+meters = []
 
 
 def init():
@@ -21,8 +18,7 @@ def init():
     for pin in RELAY_PINS:
         relays.append(Relay(pin, invert=True, test=test))
         relays[-1].set(False)
-    for address in TEMPERATURE_ADDRESSES:
-        temperature_sensors.append(TemperatureSensor(address, test=test))
+    meters.append(PowerMeasurement(tty="/dev/ttyUSB"))
     print("[RPI]: init end")
 
 

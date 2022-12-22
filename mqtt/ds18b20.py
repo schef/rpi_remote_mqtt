@@ -1,59 +1,56 @@
 #!/usr/bin/env python
-
-import re
-from glob import glob
-import time
-import os, sys
+import os
+import sys
 
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
-from common import log
 
-logger = log.get()
-
-w1DeviceFolder = '/sys/bus/w1/devices'
-
-
-def get_thermometers():
-    w1Devices = glob(w1DeviceFolder + '/*/')
-    w1ThermometerCode = re.compile(r'28-\d+')
-    thermometers = []
-    for device in w1Devices:
-        deviceCode = device[len(w1DeviceFolder) + 1:-1]
-        if w1ThermometerCode.match(deviceCode):
-            thermometers.append(deviceCode)
-    return thermometers
+import re
+from glob import glob
+import time
 
 
-def read_temp_raw(deviceCode):
-    f = open(w1DeviceFolder + '/' + deviceCode + '/w1_slave', 'r')
-    lines = f.readlines()
-    f.close()
-    return lines
+class Ds18b20:
+    def __init__(self, address):
+        self.address = address
+        self.w1DeviceFolder = '/sys/bus/w1/devices'
 
+    def get_thermometers(self):
+        w1Devices = glob(self.w1DeviceFolder + '/*/')
+        w1ThermometerCode = re.compile(r'28-\d+')
+        thermometers = []
+        for device in w1Devices:
+            deviceCode = device[len(self.w1DeviceFolder) + 1:-1]
+            if w1ThermometerCode.match(deviceCode):
+                thermometers.append(deviceCode)
+        return thermometers
 
-def read_temp(deviceCode):
-    lines = read_temp_raw(deviceCode)
-    while lines[0].strip()[-3:] != 'YES':
-        time.sleep(0.2)
-        lines = read_temp_raw(deviceCode)
-    equals_pos = lines[1].find('t=')
-    if equals_pos != -1:
-        temp_string = lines[1][equals_pos + 2:]
-        temp_c = float(temp_string) / 1000.0
-        return temp_c
-    return None
+    def read_temp_raw(self):
+        f = open(self.w1DeviceFolder + '/' + self.address + '/w1_slave', 'r')
+        lines = f.readlines()
+        f.close()
+        return lines
 
+    def get(self):
+        lines = self.read_temp_raw(self.address)
+        while lines[0].strip()[-3:] != 'YES':
+            time.sleep(0.2)
+            lines = self.read_temp_raw(self.address)
+        equals_pos = lines[1].find('t=')
+        if equals_pos != -1:
+            temp_string = lines[1][equals_pos + 2:]
+            temp_c = float(temp_string) / 1000.0
+            return temp_c
+        return None
 
-def print_temperature(thermometer, data):
-    logger.info("[DS18b20]: %s => %s" % (thermometer, data))
+    def print_temperature(self, thermometer, data):
+        print("[DS18b20]: %s => %s" % (thermometer, data))
 
-
-def test():
-    thermometers = get_thermometers()
-    for thermometer in thermometers:
-        print_temperature(thermometer, read_temp(thermometer))
+    def test(self):
+        thermometers = self.get_thermometers()
+        for thermometer in thermometers:
+            self.print_temperature(thermometer, self.read_temp(thermometer))
 
 
 if __name__ == "__main__":

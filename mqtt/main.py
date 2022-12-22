@@ -21,6 +21,8 @@ elif credentials.project == "rmale":
     import logic_rmale as logic
 elif credentials.project == "sauna":
     import logic_sauna as logic
+elif credentials.project == "autofarmika":
+    import logic_autofarmika as logic
 
 logger = log.get()
 
