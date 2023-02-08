@@ -5,21 +5,33 @@ currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
 
-from rpi_peripherals_common import Relay, PowerMeasurement
+from rpi_peripherals_common import PowerMeasurement
 from credentials import test
 
-RELAY_PINS = [23, 24, 25, 8]
-relays = []
-meters = []
+meter = None
 
 
 def init():
     print("[RPI]: init begin")
-    for pin in RELAY_PINS:
-        relays.append(Relay(pin, invert=True, test=test))
-        relays[-1].set(False)
-    meters.append(PowerMeasurement(tty="/dev/ttyUSB"))
     print("[RPI]: init end")
+
+
+def get_power_measurement():
+    global meter
+    if meter == None:
+        try:
+            # TODO: find tty name by PID and VID or USB port
+            meter = PowerMeasurement(tty="/dev/ttyUSB0", test=test)
+            return meter.get()
+        except Exception as e:
+            print(f"[METER]: Error with {e}")
+            return {}
+    else:
+        try:
+            return meter.get()
+        except Exception as e:
+            print(f"[METER]: Error with {e}")
+            return {}
 
 
 if __name__ == "__main__":

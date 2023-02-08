@@ -112,9 +112,6 @@ class TemperatureLimit:
         return None, None
 
 
-
-
-
 class Automatic:
     def __init__(self):
         self.timeout = 10000
@@ -136,6 +133,38 @@ class Automatic:
 
     def loop(self):
         pass
+
+    def has_mqtt(self):
+        return self.mqtt != None and self.mqtt != self.mqtt_last
+
+    def get_mqtt(self):
+        if self.has_mqtt():
+            self.mqtt_last = self.mqtt
+            self.mqtt = None
+            return self.name, self.mqtt_last
+        return None, None
+
+
+class GenericMqttSender:
+    def __init__(self, timeout, name):
+        self.timeout = timeout
+        self.timestamp = 0
+        self.start_timestamp = 0
+        self.mqtt = None
+        self.mqtt_last = None
+        self.name = name
+
+    def init(self):
+        self.start_timestamp = common.get_millis()
+
+    def get(self):
+        # TODO: implement this function
+        return None
+
+    def loop(self):
+        if common.millis_passed(self.timestamp) >= self.timeout or self.timestamp == 0:
+            self.timestamp = common.get_millis()
+            self.mqtt = self.get()
 
     def has_mqtt(self):
         return self.mqtt != None and self.mqtt != self.mqtt_last
