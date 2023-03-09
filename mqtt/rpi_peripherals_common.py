@@ -50,8 +50,10 @@ class TemperatureSensor:
             self.device = Ds18b20(address)
 
     def get(self):
-        return self.device.get()
-
+        try:
+            return self.device.get()
+        except:
+            return 0.0
 
 class PowerMeasurementTest:
     def __init__(self, tty):
