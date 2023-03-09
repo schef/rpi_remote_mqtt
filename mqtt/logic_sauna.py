@@ -27,10 +27,10 @@ class Temperature:
         pass
 
     def get(self):
-        return self.temperature
+        return self.temperature.get()
 
     def read(self):
-        self.temperature = rpi_peripherals.get_temperature(self.index)
+        self.temperature = rpi_peripherals.temperature_sensors[self.index]
 
     def set(self, value):
         self.temperature = value

@@ -26,8 +26,8 @@ class Ds18b20:
                 thermometers.append(deviceCode)
         return thermometers
 
-    def read_temp_raw(self):
-        f = open(self.w1DeviceFolder + '/' + self.address + '/w1_slave', 'r')
+    def read_temp_raw(self, address):
+        f = open(self.w1DeviceFolder + '/' + address + '/w1_slave', 'r')
         lines = f.readlines()
         f.close()
         return lines
