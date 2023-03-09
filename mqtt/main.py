@@ -21,8 +21,11 @@ elif credentials.project == "rmale":
     import logic_rmale as logic
 elif credentials.project == "sauna":
     import logic_sauna as logic
+elif credentials.project == "autofarmika":
+    import logic_autofarmika as logic
 
 logger = log.get()
+logger.setLevel("INFO")
 
 DEVICE_NAME = credentials.name
 DEVICE_INPUT = "%s/input/" % DEVICE_NAME
@@ -87,8 +90,9 @@ def start():
     mqtt_client = paho.Client(client_id="", userdata=None, protocol=paho.MQTTv5)
     mqtt_client.on_connect = on_connect
 
-    mqtt_client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
-    mqtt_client.username_pw_set(credentials.user, credentials.password)
+    if len(credentials.user) > 0:
+        mqtt_client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
+        mqtt_client.username_pw_set(credentials.user, credentials.password)
 
     mqtt_client.on_subscribe = on_subscribe
     mqtt_client.on_message = on_message

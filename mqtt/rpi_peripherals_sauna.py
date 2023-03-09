@@ -1,19 +1,12 @@
-import os, sys
-
-from periphery import GPIO
-from credentials import test
-
-if test:
-    pass
-else:
-    import ds18b20
+import os
+import sys
 
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
 sys.path.append(parentdir)
-from common import log
 
-logger = log.get()
+from rpi_peripherals_common import Relay, TemperatureSensor
+from credentials import test
 
 # https://cdn.sparkfun.com/assets/learn_tutorials/6/7/6/PiZero_1.pdf
 
@@ -68,11 +61,13 @@ def get_temperature(num):
 
 
 def init():
-    logger.info("[RPI]: init begin")
+    print("[RPI]: init begin")
     for pin in RELAY_PINS:
-        relays.append(Relay(pin, invert=True))
+        relays.append(Relay(pin, invert=True, test=test))
         relays[-1].set(False)
-    logger.info("[RPI]: init end")
+    for address in TEMPERATURE_ADDRESSES:
+        temperature_sensors.append(TemperatureSensor(address, test=test))
+    print("[RPI]: init end")
 
 
 if __name__ == "__main__":
