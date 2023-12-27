@@ -19,7 +19,7 @@ temperature_sensors = []
 def init():
     print("[RPI]: init begin")
     for pin in RELAY_PINS:
-        relays.append(Relay(pin, invert=True, test=test))
+        relays.append(Relay(pin, invert=False, test=test))
         relays[-1].set(False)
     for address in TEMPERATURE_ADDRESSES:
         temperature_sensors.append(TemperatureSensor(address, test=test))
