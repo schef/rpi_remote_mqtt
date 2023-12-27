@@ -31,10 +31,10 @@ class Temperature:
         pass
 
     def get(self):
-        return self.temperature
+        return self.temperature.get()
 
     def read(self):
-        self.temperature = rpi_peripherals.get_temperature(self.index)
+        self.temperature = rpi_peripherals.temperature_sensors[self.index]
 
     def set(self, value):
         self.temperature = value
@@ -59,20 +59,21 @@ class Temperature:
         return None, None
 
 
-class Pump:
-    def __init__(self):
+class Relay:
+    def __init__(self, name, index):
         self.mqtt = None
         self.mqtt_last = None
-        self.name = "pump"
+        self.name = name
+        self.index = index
 
     def init(self):
         pass
 
     def get(self):
-        return rpi_peripherals.get_relay_state()
+        return rpi_peripherals.relays[self.index].get()
 
     def set(self, state):
-        rpi_peripherals.set_relay(state)
+        rpi_peripherals.relays[self.index].set(state)
         self.mqtt = state
 
     def loop(self):
@@ -88,7 +89,6 @@ class Pump:
             return self.name, self.mqtt_last
         return None, None
 
-
 uptime = Uptime()
 ip = Ip()
 temperature_input = Temperature(0, "input")
@@ -97,7 +97,7 @@ temperature_return = Temperature(2, "return")
 temperature_input_limit = TemperatureLimit("input")
 temperature_output_limit = TemperatureLimit("output")
 temperature_return_limit = TemperatureLimit("return")
-pump = Pump()
+pump = Relay("pump", 0)
 automatic = Automatic()
 
 
