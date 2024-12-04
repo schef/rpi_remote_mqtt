@@ -1,3 +1,6 @@
+from mqtt import schneider_pm5100
+
+
 class GPIOTest:
     def __init__(self, pin):
         self.pin = pin
@@ -87,6 +90,4 @@ class PM5100:
             self.pm5100 = schneider_pm5100.configure("/dev/ttyUSB0", 1, 19200)
 
     def get(self):
-        res = self.pm5100.get_readings(instrument, PM5100_REGISTER_MAP)
-        print(res)
-        return {}
+        return schneider_pm5100.get_readings(self.pm5100, schneider_pm5100.PM5100_REGISTER_MAP_SHORT)

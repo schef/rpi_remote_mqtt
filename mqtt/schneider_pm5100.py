@@ -64,6 +64,16 @@ PM5100_REGISTER_MAP = {
     "neutral_harmonic_distortion_current_sensor":                (21306, 2, 'FLOAT32')
 }
 
+PM5100_REGISTER_MAP_SHORT = {
+    "average_neutral_voltage_sensor":                            (3028, 2, 'FLOAT32'),
+    "average_line_voltage_sensor":                               (3026, 2, 'FLOAT32'),
+    "total_power_sensor":                                        (3060, 2, 'FLOAT32'),
+    "total_apparent_power_sensor":                               (3076, 2, 'FLOAT32'),
+    "total_reactive_power_sensor":                               (3068, 2, 'FLOAT32'),
+    "total_power_factor_sensor":                                 (3084, 2, 'PF4Q'),
+    "total_energy_accumulator":                                  (3204, 4, 'INT64U'),
+    "total_reactive_energy_accumulator":                         (3220, 4, 'INT64U'),
+}
 
 def pf_from_pf4q(pf4q):
     """Schneider meters encode directionality of real and reactive power in 4 quadrant form"""
