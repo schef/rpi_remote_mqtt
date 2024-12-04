@@ -75,3 +75,18 @@ class PowerMeasurement:
 
     def get(self):
         return self.meter.read_all(scaling=True)
+
+
+class PM5100:
+    def __init__(self, tty, test=False):
+        self.tty = tty
+        if test:
+            self.meter = PowerMeasurementTest(tty)
+        else:
+            import schneider_pm5100
+            self.pm5100 = schneider_pm5100.configure("/dev/ttyUSB0", 1, 19200)
+
+    def get(self):
+        res = self.pm5100.get_readings(instrument, PM5100_REGISTER_MAP)
+        print(res)
+        return {}

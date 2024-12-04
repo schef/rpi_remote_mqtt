@@ -23,6 +23,8 @@ elif credentials.project == "sauna":
     import logic_sauna as logic
 elif credentials.project == "autofarmika":
     import logic_autofarmika as logic
+elif credentials.project == "ssc_powermeter":
+    import logic_ssc_powermeter as logic
 
 logger = log.get()
 logger.setLevel("INFO")
